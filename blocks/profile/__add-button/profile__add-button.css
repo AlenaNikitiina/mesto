@@ -1,9 +1,10 @@
-.profile__add-buttton {
+.profile__add-button {
   width: 100%;
-  width: 24px;
-  height: 24px;
+  width: 150px;
+  height: 50px;
   margin: 0;
   padding: 0;
-  border: 1px solid white;
+  align-self: center;
+  border: 2px solid white;
   background-color: black;
 }
