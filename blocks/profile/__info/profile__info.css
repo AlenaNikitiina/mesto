@@ -1,0 +1,37 @@
+.profile__info {
+  display: grid;
+  grid-template-columns: 294px 24px;
+  grid-template-rows: 73px 1fr;
+  grid-template-areas:
+  'profile__name profile__edit-button'
+  'profile__job .';
+  column-gap: 18px;
+  row-gap: 16px;
+  max-width: 336px;
+}
+
+
+/*создай грид-области
+.profile-info {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-items: flex-start;
+  align-items: center;
+  grid-template-areas:
+    "name edit-button"
+    "about about";
+}
+
+а потом натягиBай кнопку на Bерхний угол:
+
+.profile-info__edit-button {
+  background: url(./images/Edit-Button.png);
+  border: 2px;
+  border-color: white;
+  width: 24px;
+  height: 24px;
+  margin-left: 18px;
+  grid-area: "edit-button";
+  box-sizing: border-box;
+  cursor: pointer;
+}

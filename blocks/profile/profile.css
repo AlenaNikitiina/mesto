@@ -1,0 +1,9 @@
+.profile {
+  width: calc(100% - 2 * 200px);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 40px auto 50px auto;
+  width: calc(100% - 2 * 200px);
+  max-width: 880px;
+}
