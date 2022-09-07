@@ -1,6 +1,8 @@
 .element {
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas:
-  'foto foto'
-  'foto foto';
+  'element__foto element__foto element__foto'
+  'element__title element__title element__like';
+  border-radius: 5%;
 }
