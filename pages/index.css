@@ -1,11 +1,10 @@
 @import url(../vendor/normalize.css);
-@import url();
+@import url(../vendor/fonts/fonts.css);
 @import url(../blocks/page/page.css);
 
 /*header*/
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
-@import url(../blocks/header/__line/header__line.css);
 
 /*profile*/
 @import url(../blocks/profile/profile.css);
@@ -18,7 +17,7 @@
 @import url(../blocks/profile/__i/profile__i.css);
 
 
-/**/
+/*element*/
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 
