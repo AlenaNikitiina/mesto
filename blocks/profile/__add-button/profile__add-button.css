@@ -8,12 +8,6 @@
   background-color: black;
 }
 
-@media all and (max-width: 768px) {
-  .profile__add-button {
-    width: 100%;
-    margin: 10px;
-  }
-}
 
 @media all and (max-width: 320px) {
   .profile__add-button {

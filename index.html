@@ -19,8 +19,8 @@
             <div class="profile__i">
               <img class="profile__avatar" src="./images/profile__avatar.jpg" alt="Ваш аватар">
               <div class="profile__info">
-                <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <p class="profile__job">Исследователь океана</p>
+                <h1 class="profile__name titleName">Жак-Ив Кусто</h1>
+                <p class="profile__job titleJob">Исследователь океана</p>
                 <button class="profile__edit-button">
                   <img src="./images/edit-button.svg" alt="">
                 </button>
@@ -33,7 +33,7 @@
 
           <section class="elements">
             <article class="element">
-              <img class="element__foto" src="./images/foto.jpg" alt="вид">
+              <img class="element__foto" src="./images/DSCF0685.jfif" alt="вид">
               <h2 class="element__title">Калининград</h2>
               <button class="element__like" type="button">
                 <img src="./images/element__like.svg" alt="">
@@ -68,7 +68,7 @@
               </button>
             </article>
             <article class="element">
-              <img class="element__foto" src="./images/foto.jpg" alt="вид">
+              <img class="element__foto" src="./images/dublin.JPG" alt="вид">
               <h2 class="element__title">Дублин</h2>
               <button class="element__like" type="button">
                 <img src="./images/element__like.svg" alt="">
@@ -80,5 +80,20 @@
           <p class="footer__copyright">© 2020 Mesto Russia</p>
         </footer>
     </div>
+
+  <section class="overlay overlay_opened">
+    <div class="popup">
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form action="" class="popup__form">
+        <input type="text" class="nameInput" placeholder="Ваше имя">
+        <input type="text" class="jobInput" placeholder="О себе">
+        <button class="popup__save-button">Сохранить</button>
+      </form>
+      <button class="popup__close-button">
+        <img src="./images/Close-Icon.svg" alt="">
+      </button>
+    </div>
+  </section>
+    <script src="index.js"></script>
 </body>
 </html>
