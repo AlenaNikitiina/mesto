@@ -10,7 +10,5 @@
 }
 
 @media all and (max-width: 320px) {
-  .element {
-    row-gap: 20px;
-    grid-template-columns: repeat(auto-fit, 1fr);
+  .element {}
 }

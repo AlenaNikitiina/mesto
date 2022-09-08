@@ -8,10 +8,18 @@
   row-gap: 20px;
 }
 
+@media all and (max-width: 768px) {
+  .elements {
+    max-width: 320px;
+    width: calc(100% - 2 * 48px);
+    grid-template-columns: 1fr;
+  }
+}
+
 @media all and (max-width: 320px) {
   .elements {
-    row-gap: 20px;
-    grid-template-columns: repeat(auto-fit, 1fr);
-    margin: 0px 19px 0px 19px;
+    max-width: 320px;
+    width: calc(100% - 2 * 19px);
+    grid-template-columns: 1fr;
   }
 }

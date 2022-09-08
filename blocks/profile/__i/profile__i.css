@@ -2,3 +2,10 @@
   display: flex;
   flex-direction: row;
 }
+
+
+@media all and (max-width: 768px) {
+  .profile__i {
+    flex-direction: column;
+  }
+}

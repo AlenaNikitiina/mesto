@@ -6,3 +6,11 @@
   grid-area: profile__name;
   align-self: end;
 }
+
+@media all and (max-width: 768px) {
+  .profile__name {
+    font-size: 27px;
+    line-height: 1.2;
+    text-align: center;
+  }
+}
