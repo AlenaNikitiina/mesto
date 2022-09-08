@@ -4,4 +4,13 @@
   font-weight: 900;
   margin: 25px auto 31px 21px;
   grid-area: element__title;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media all and (max-width: 320px) {
+  .element__title {
+
+  }
 }

@@ -6,3 +6,25 @@
     border-bottom: 1px solid #545454;
     padding-bottom: 41px;
 }
+
+@media all and (max-width: 1024px) {
+  .header {
+    width: calc(100% - 2 * 100px);
+    max-width: 600px;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .header {
+    width: calc(100% - 2 * 50px);
+    max-width: 4500px;
+  }
+}
+
+@media all and (max-width: 320px) {
+  .header {
+    width: calc(100% - 2 * 27px);
+    max-width: 320px;
+    padding-top: 28px;
+  }
+}

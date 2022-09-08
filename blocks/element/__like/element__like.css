@@ -4,4 +4,5 @@
   margin: 30px 20px 30px auto;
   padding: 0;
   grid-area: element__like;
+  border-style: none;
 }
