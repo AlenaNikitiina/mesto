@@ -1,8 +1,20 @@
 .popup {
   display: flex;
   flex-direction: column;
-  width: 430px;
-  height: 330px;
+  max-width: 430px;
+  min-height: 330px;
   background-color: white;
-  margin: 195px auto auto auto;
+  color: black;
+  margin: 195px auto;
+  border-radius: 10px;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
 }
+
+@media all and (max-width: 320px) {
+  .popup {
+    margin-top: 123px;
+    max-width: 282px;
+    min-height: 322px;
+  }
+}
+
