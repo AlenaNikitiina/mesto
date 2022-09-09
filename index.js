@@ -7,8 +7,7 @@ const jobInput = document.querySelector('.jobInput');
 let titleName = document.querySelector('.titleName');
 let titleJob = document.querySelector('.titleJob')
 
-// Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
-// evt.preventDefault - убирает перезагрузку страницы
+// Обработчик «отправки» формы и evt.preventDefault - убирает перезагрузку страницы
 function formSubmitHandler (evt) {
   evt.preventDefault();
 
@@ -25,17 +24,17 @@ formElement.addEventListener('submit', formSubmitHandler);
 
 
 //2// Про открытие и закрытие попапа
-const overlayEl = document.querySelector('.overlay')
+const popupEl = document.querySelector('.popup')
 //кнопки открытия и закрытия попапа
 const openPopupButton = document.querySelector('.profile__edit-button');
-const closePopupButton = overlayEl.querySelector('.popup__close-button');
+const closePopupButton = popupEl.querySelector('.popup__close-button');
 
 // функция открыть форму по нажатию на кнопку
 openPopupButton.addEventListener('click', () => {
-  overlayEl.classList.add('overlay_opened');
+  popupEl.classList.add('popup_opened');
 })
 // функция закрыть форму по нажатию на кнопку
 closePopupButton.addEventListener('click', () => {
-  overlayEl.classList.remove('overlay_opened');
+  popupEl.classList.remove('popup_opened');
 })
 

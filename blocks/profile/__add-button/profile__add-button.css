@@ -8,6 +8,9 @@
   background-color: black;
 }
 
+.profile__add-button:hover {
+  opacity: .6;
+}
 
 @media all and (max-width: 320px) {
   .profile__add-button {

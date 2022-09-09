@@ -7,8 +7,5 @@
   border-radius: 10px;
   background-color: white;
   color: black;
-}
-
-@media all and (max-width: 320px) {
-  .element {}
+  min-height: 361px;
 }

@@ -11,6 +11,10 @@
   color: white;
 }
 
+.popup__save-button {
+  opacity: .8;
+}
+
 @media all and (max-width: 320px) {
   .popup__save-button {
     max-width: 238px;

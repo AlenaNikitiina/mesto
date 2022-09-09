@@ -8,3 +8,7 @@
   background-color: black;
   align-self: flex-end;
 }
+
+.profile__edit-button:hover {
+  opacity: .6;
+}
