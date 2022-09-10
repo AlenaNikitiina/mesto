@@ -4,6 +4,10 @@
   margin: 0;
   padding: 0;
   align-self: center;
+  background-image: url(../../../images/add-button.svg);
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: center;
   border: 2px solid white;
   background-color: black;
 }
