@@ -16,16 +16,8 @@
   }
 }
 
-@media all and (max-width: 768px) {
-  .elements {
-    width: calc(100% - 2 * 48px);
-    grid-template-columns: 1fr;
-  }
-}
-
 @media all and (max-width: 320px) {
   .elements {
     width: calc(100% - 2 * 19px);
-    grid-template-columns: 1fr;
   }
 }

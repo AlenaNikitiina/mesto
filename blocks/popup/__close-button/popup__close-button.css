@@ -9,8 +9,10 @@
 
 @media all and (max-width: 320px) {
   .popup__close-button {
-    top: 80px;
-    left: 250px;
+    top: -48px;
+    right: -48px;
+    top: 156px;
+    left: 857px;
     width: 100%;
 }
 }
