@@ -9,23 +9,18 @@
   align-self: center;
 }
 
-
 @media all and (max-width: 768px) {
   .profile__info {
     row-gap: 20px;
     grid-template-columns: auto 18px;
     grid-template-rows: auto 1fr;
-    grid-template-areas:
-    'profile__name profile__edit-button'
-    'profile__job .';
-    margin: 22px auto 29px auto;
+    margin: 22px auto 32px auto;
   }
 }
 
 @media all and (max-width: 320px) {
   .profile__info {
-    margin: 22px auto 29px auto;
-    row-gap: 14px;
-    column-gap: 10px;
+    row-gap: 10px;
+    column-gap: 14px;
   }
 }

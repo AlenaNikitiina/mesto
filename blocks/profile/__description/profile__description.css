@@ -1,11 +1,11 @@
-.profile__i {
+.profile__description {
   display: flex;
   flex-direction: row;
 }
 
 
 @media all and (max-width: 768px) {
-  .profile__i {
+  .profile__description {
     flex-direction: column;
   }
 }
