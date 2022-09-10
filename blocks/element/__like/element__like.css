@@ -6,3 +6,7 @@
   grid-area: element__like;
   border-style: none;
 }
+
+.element__like:hover {
+  opacity: .5;
+}
