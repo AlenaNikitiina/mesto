@@ -5,16 +5,22 @@
   width: 32px;
   height: 32px;
   background-image: url(../../../images/Close-Icon.svg);
+  background-size: cover;
   background-repeat: no-repeat;
   background-color: transparent;
   border-style: none;
   border-radius: 2px;
+  transition: opacity .3s ease;
+}
+
+.popup__close-button:hover {
+  opacity: .6;
 }
 
 @media all and (max-width: 320px) {
   .popup__close-button {
-    top: -46px;
-    right: -41px;
+    top: -36px;
+    right: 0px;
     height: 20px;
     width: 20px;
 }
