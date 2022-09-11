@@ -5,16 +5,14 @@
   margin: 0px 0px;
   grid-area: profile__job;
   align-self: flex-end;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media all and (max-width: 768px) {
   .profile__job {
     font-size: 14px;
-  }
-}
-
-@media all and (max-width: 320px) {
-  .profile__job {
     text-align: center;
   }
 }
