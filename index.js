@@ -5,7 +5,7 @@ const nameInput = document.querySelector('.nameInput');
 const jobInput = document.querySelector('.jobInput');
 //куда будут заноситься изменения
 let titleName = document.querySelector('.titleName');
-let titleJob = document.querySelector('.titleJob')
+let titleJob = document.querySelector('.titleJob');
 
 // Обработчик «отправки» формы и evt.preventDefault - убирает перезагрузку страницы
 function formSubmitHandler (evt) {
@@ -17,6 +17,8 @@ function formSubmitHandler (evt) {
   //будут меняться в профиле
   titleName.textContent = nameValue;
   titleJob.textContent = jobValue;
+ //закрывает форму при сохранении
+  closePopup();
 }
 
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
@@ -37,3 +39,7 @@ openPopupButton.addEventListener('click', () => {
 closePopupButton.addEventListener('click', () => {
   popupEl.classList.remove('popup_opened');
 })
+// функция закрыть форму
+function closePopup() {
+  popupEl.classList.remove('popup_opened');
+}
