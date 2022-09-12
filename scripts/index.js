@@ -17,7 +17,7 @@ function formSubmitHandler (evt) {
   //будут меняться в профиле
   titleName.textContent = nameValue;
   titleJob.textContent = jobValue;
- //закрывает форму при сохранении
+ //вызвали функцию которая закрывает форму при сохранении
   closePopup();
 }
 
