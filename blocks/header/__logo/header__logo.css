@@ -9,10 +9,11 @@
   }
 }
 
-@media all and (max-width: 320px) {
+@media all and (max-width: 425px) {
   .header__logo {
     max-width: 103px;
     width: calc(100% - 2 * 27px);
     margin: 28px auto auto 27px;
   }
 }
+
