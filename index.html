@@ -26,48 +26,6 @@
           </section>
           <section class="elements" aria-label="ваши фотографии">
             <ul class="elements__list">
-              <li>
-                <article class="element">
-                  <img class="element__foto" src="./images/kaliningrad.jfif" alt="Кафедральный собор">
-                  <h2 class="element__title">Калининград</h2>
-                  <button class="element__like" type="button"></button>
-                </article>
-              </li>
-              <li>
-                <article class="element">
-                  <img class="element__foto" src="./images/kamchatka.jfif" alt="На вершине вулкана">
-                  <h2 class="element__title">Петропавловск-Камчатский</h2>
-                  <button class="element__like" type="button"></button>
-                </article>
-              </li>
-              <li>
-                <article class="element">
-                  <img class="element__foto" src="./images/istambul.jfif" alt="Узкая улочка">
-                  <h2 class="element__title">Стамбул</h2>
-                  <button class="element__like" type="button"></button>
-                </article>
-              </li>
-              <li>
-                <article class="element">
-                  <img class="element__foto" src="./images/Paris.jfif" alt="Вид на Эйфелеву башню">
-                  <h2 class="element__title">Париж</h2>
-                  <button class="element__like" type="button"></button>
-                </article>
-              </li>
-              <li>
-               <article class="element">
-                  <img class="element__foto" src="./images/dubai.jfif" alt="Пальмы у моря">
-                  <h2 class="element__title">Дубай</h2>
-                  <button class="element__like" type="button"></button>
-                </article>
-              </li>
-              <li>
-                <article class="element">
-                  <img class="element__foto" src="./images/dublin.JPG" alt="На обрыве">
-                  <h2 class="element__title">Дублин</h2>
-                  <button class="element__like" type="button"></button>
-                </article>
-              </li>
             </ul>
           </section>
         </main>
@@ -85,7 +43,28 @@
             </form>
           </div>
         </div>
+        <div class="popup">
+          <div class="popup__container">
+            <button class="popup__close-button"></button>
+            <h3 class="popup__title">Новое место</h3>
+            <form action="#" name="edit form" class="popup__form">
+              <input type="text" class="nameInput popup__input" placeholder="Название">
+              <input type="text" class="jobInput popup__input" placeholder="Ссылка на картинку">
+              <button class="popup__save-button" type="submit">Создать</button>
+            </form>
+          </div>
+        </div>
     </div>
+    <template class="element-template">
+      <li>
+        <article class="element">
+          <img class="element__foto" src="" alt="">
+          <h2 class="element__title"></h2>
+          <button class="element__like" type="button"></button>
+        </article>
+      </li>
+    </template>
     <script src="./scripts/index.js"></script>
 </body>
 </html>
+
