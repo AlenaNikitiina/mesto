@@ -45,35 +45,6 @@ function closePopup() {
 }
 
 
-
-//3////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 //3////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const initialCards = [
   {
@@ -112,19 +83,29 @@ function render() {
   initialCards.forEach(renderCard);
 }
 
-////функция которая добавляет карточки из массива выше с линками и именами
+
+////Основаня функция. которая добавляет карточки из массива выше с линками и именами
 function renderCard(name, link) {
-  //копируем содержимое тега темплате
-  const newHtmlElement = templateItem.cloneNode(true);
+  const newHtmlElement = templateItem.cloneNode(true); //копируем содержимое тега темплате
   //наполняем содержимым
   newHtmlElement.querySelector('.element__title').textContent = name;
   newHtmlElement.querySelector('.element__foto').src = link;
   newHtmlElement.querySelector('.element__foto').alt = name;
+  //добавили элемент в DOM
+  list.append(newHtmlElement);
 
-  setListenersForItem(newHtmlElement); //назначаем слушатели внутри каждого элемента newHtmlElement-готовая карточка
-  list.append(newHtmlElement); //добавили элемент в DOM
+  //setListenersForItem(newHtmlElement); //назначаем слушатели внутри каждого элемента newHtmlElement-готовая карточка
+
   return newHtmlElement;
 }
+
+
+initialCards.forEach((item) => {
+  list.append(renderCard(item.name, item.link));
+  console.log('gjfj');
+});
+
+
 
 //функция вернуть готовую карточку
 function setListenersForItem(event) {
@@ -135,20 +116,4 @@ function setListenersForItem(event) {
   //const likeButton = element.querySelector('.element__like');
   //likeButton.addEventListener('click', handleLike);
 
-  //будет потом мусорка//const likeButton = element.querySelector('.element__like');
-  //trashButton.addEventListener('click', handleLike);
 }
-
-
-
-
-
-
-
-
-
-
-  //было//const titleCard = newHtmlElement.querySelector('.element__title').textContent = name;
-  //было//const linkCard = newHtmlElement.querySelector('.element__foto').src = link;
-
-
