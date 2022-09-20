@@ -83,8 +83,7 @@ function render() {
   initialCards.forEach(renderCard);
 }
 
-
-////Основаня функция. которая добавляет карточки из массива выше с линками и именами
+////Основаная функция. которая создает карточку с линками и именами из массива выше
 function renderCard(name, link) {
   const newHtmlElement = templateItem.cloneNode(true); //копируем содержимое тега темплате
   //наполняем содержимым
@@ -92,28 +91,19 @@ function renderCard(name, link) {
   newHtmlElement.querySelector('.element__foto').src = link;
   newHtmlElement.querySelector('.element__foto').alt = name;
   //добавили элемент в DOM
-  list.append(newHtmlElement);
-
-  //setListenersForItem(newHtmlElement); //назначаем слушатели внутри каждого элемента newHtmlElement-готовая карточка
+  //list.append(newHtmlElement);
 
   return newHtmlElement;
+  //setListenersForItem(newHtmlElement); //назначаем слушатели внутри каждого элемента newHtmlElement-готовая карточка
 }
 
-
+// функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 initialCards.forEach((item) => {
   list.append(renderCard(item.name, item.link));
-  console.log('gjfj');
 });
-
-
 
 //функция вернуть готовую карточку
 function setListenersForItem(event) {
   return ;
-  //const addnewHtmlElement = element.querySelector('.add')
-
-
-  //const likeButton = element.querySelector('.element__like');
-  //likeButton.addEventListener('click', handleLike);
 
 }
