@@ -32,9 +32,9 @@
         <footer class="footer">
           <p class="footer__copyright">© 2020 Mesto Russia</p>
         </footer>
-        <div class="popup">
+        <div class="popup popup_edit">
           <div class="popup__container">
-            <button class="popup__close-button"></button>
+            <button class="popup__close-button" type="button"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
             <form action="#" name="edit form" class="popup__form">
               <input type="text" class="nameInput popup__input" placeholder="Жак-Ив Кусто">
@@ -43,13 +43,14 @@
             </form>
           </div>
         </div>
-        <div class="popup">
+
+        <div class="popup popup_add">
           <div class="popup__container">
-            <button class="popup__close-button"></button>
+            <button class="popup__close-button" type="button"></button>
             <h3 class="popup__title">Новое место</h3>
             <form action="#" name="edit form" class="popup__form">
-              <input type="text" class="nameInput popup__input" placeholder="Название">
-              <input type="text" class="jobInput popup__input" placeholder="Ссылка на картинку">
+              <input type="text" class="titleInput popup__input" placeholder="Название">
+              <input type="text" class="linkInput popup__input" placeholder="Ссылка на картинку">
               <button class="popup__save-button" type="submit">Создать</button>
             </form>
           </div>
@@ -58,6 +59,7 @@
     <template class="element-template">
       <li>
         <article class="element">
+          <button class="element__trash-button" type="button"></button>
           <img class="element__foto" src="" alt="">
           <h2 class="element__title"></h2>
           <button class="element__like" type="button"></button>

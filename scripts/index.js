@@ -1,51 +1,3 @@
-//1// Находим форму в DOM
-const formElement = document.querySelector('.popup__form');
-// Находим поля формы в DOM, в которых можно изменения писать
-const nameInput = document.querySelector('.nameInput');
-const jobInput = document.querySelector('.jobInput');
-//куда будут заноситься изменения имени и работы
-let titleName = document.querySelector('.titleName');
-let titleJob = document.querySelector('.titleJob');
-
-// Обработчик «отправки» формы и evt.preventDefault - убирает перезагрузку страницы
-function formSubmitHandler (evt) {
-  evt.preventDefault();
-
-  let nameValue = nameInput.value;
-  let jobValue = jobInput.value;
-
-  //будут меняться в профиле
-  titleName.textContent = nameValue;
-  titleJob.textContent = jobValue;
- //вызвали функцию которая закрывает форму при сохранении
-  closePopup();
-}
-
-// Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
-
-
-//2// Про открытие и закрытие попапа
-const popupEl = document.querySelector('.popup');
-//кнопки открытия и закрытия попапа
-const openPopupButton = document.querySelector('.profile__edit-button');
-const closePopupButton = popupEl.querySelector('.popup__close-button');
-
-// функция Открыть форму по нажатию на кнопку
-openPopupButton.addEventListener('click', () => {
-  popupEl.classList.add('popup_opened');
-})
-// функция Закрыть форму по нажатию на кнопку
-closePopupButton.addEventListener('click', () => {
-  popupEl.classList.remove('popup_opened');
-})
-// функция закрыть попап
-function closePopup() {
-  popupEl.classList.remove('popup_opened');
-}
-
-
-//3////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const initialCards = [
   {
     name: 'Архыз',
@@ -73,37 +25,127 @@ const initialCards = [
   }
 ];
 
-const list = document.querySelector('.elements__list'); // получаем элемент. ul
-const templateItem = document.querySelector('.element-template').content; //получаем содержимое template
-//const likeButton = document.querySelector('.element__like'); //нашли кнопку лайка
-//const Button = document.querySelector('.'); будет кнопка мусорки
+//1// Находим форму в DOM
+const formElement = document.querySelector('.popup__form');
+//2// Про открытие и закрытие попапа
+const popupEdit = document.querySelector('.popup_edit');// нашли попапы
+const popupAdd = document.querySelector('.popup_add');
+// Находим поля формы в DOM, в которых можно изменения писать
+const nameInput = document.querySelector('.nameInput');
+const jobInput = document.querySelector('.jobInput');
+const titleInput = document.querySelector('.titleInput'); //из инпутов
+const linkInput = document.querySelector('.linkInput');
+//куда будут заноситься изменения имени и работы
+let titleName = document.querySelector('.titleName');
+let titleJob = document.querySelector('.titleJob');
 
-////вызвали функцию для каждого элемента из массива
-function render() {
-  initialCards.forEach(renderCard);
+//кнопки открытия и закрытия попапов (двух)
+const openPopupButton = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля и открытия попапа
+const closePopupButton = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
+const openAddButton = document.querySelector('.profile__add-button'); //кнопка добавления нового места
+const a = document.querySelector('.elements');
+
+// Обработчик «отправки» формы и evt.preventDefault - убирает перезагрузку страницы
+function formSubmitHandler (evt) {
+  evt.preventDefault();
+
+  let nameValue = nameInput.value;
+  let jobValue = jobInput.value;
+  //будут меняться в профиле
+  titleName.textContent = nameValue;
+  titleJob.textContent = jobValue;
+ //вызвали функцию которая закрывает форму при сохранении
+  closePopup(popupEdit);
 }
 
-////Основаная функция. которая создает карточку с линками и именами из массива выше
+// Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
+popupEdit.addEventListener('submit', formSubmitHandler);
+popupAdd.addEventListener('submit', createNewCard);
+
+//функция открытия попапов
+function openPopup (item) {
+  item.classList.add('popup_opened');
+}
+// функция закрытия попапов
+function closePopup (item) {
+  item.classList.remove('popup_opened');
+}
+
+// функции Открыть форму попапов по нажатию на кнопку
+openPopupButton.addEventListener('click', () => {
+  openPopup(popupEdit); // вызываю функцию открытия
+});
+openAddButton.addEventListener('click', () => {
+  openPopup(popupAdd);
+});
+
+//функция закрыть попапы по нажатию на кнопку крестик
+closePopupButton.forEach(button => {
+  button.addEventListener('click', () =>
+  closePopup(button.closest('.popup')));
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//// Шесть карточек «из коробки»
+const list = document.querySelector('.elements__list'); // получаем элемент. ul
+const templateItem = document.querySelector('.element-template').content; //получаем содержимое template
+
+//Основаная функция. которая создает карточку с линками и именами из массива выше
 function renderCard(name, link) {
   const newHtmlElement = templateItem.cloneNode(true); //копируем содержимое тега темплате
   //наполняем содержимым
   newHtmlElement.querySelector('.element__title').textContent = name;
   newHtmlElement.querySelector('.element__foto').src = link;
   newHtmlElement.querySelector('.element__foto').alt = name;
-  //добавили элемент в DOM
-  //list.append(newHtmlElement);
+
+  //лайк третий попап
+  const likeButton = newHtmlElement.querySelector('.element__like'); //нашли кнопку лайка
+  likeButton.addEventListener('click', (item) => {
+    like(likeButton);
+  })
+  //мусорка
+  const trashButton = newHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
+  trashButton.addEventListener('ckick', (item) => {
+    trash(trashButton);
+  })
+
 
   return newHtmlElement;
   //setListenersForItem(newHtmlElement); //назначаем слушатели внутри каждого элемента newHtmlElement-готовая карточка
 }
 
+//функция постановки лайка
+function like (item) {
+  item.classList.toggle('element__like_active');
+}
+
+//функция удаления всей карточки
+function trash (item) {
+  item
+}
+
 // функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
-initialCards.forEach((item) => {
-  list.append(renderCard(item.name, item.link));
-});
+function render () {
+  initialCards.forEach((item) => {
+    list.append(renderCard(item.name, item.link)); //добавили элемент в DOM
+  });
+}
+render();
 
-//функция вернуть готовую карточку
-function setListenersForItem(event) {
-  return ;
+//функция добавления новой карточки в начало сайта
+function addCard(name, link) {
+  const newCard = renderCard(name, link);
+  list.prepend(renderCard(newCard)); //добавили элемент в DOM
+};
 
+// функция отправки формы и создает новую карточку от человека
+function createNewCard (evt) {
+  evt.preventDefault();
+  const titleValue = titleInput.value;
+  const linkValue = linkInput.value;
+  // вызвали функцию которая добавит новую карточку
+  addCard(titleValue, linkValue)
+ //вызвали функцию которая закрывает форму при сохранении
+  closePopup(popupAdd);
 }
