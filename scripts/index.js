@@ -30,6 +30,7 @@ const formElement = document.querySelector('.popup__form');
 //2// Про открытие и закрытие попапа
 const popupEdit = document.querySelector('.popup_edit');// нашли попапы
 const popupAdd = document.querySelector('.popup_add');
+const popupZoom = document.querySelector('.popup_zoom');
 // Находим поля формы в DOM, в которых можно изменения писать
 const nameInput = document.querySelector('.nameInput');
 const jobInput = document.querySelector('.jobInput');
@@ -39,11 +40,12 @@ const linkInput = document.querySelector('.linkInput');
 let titleName = document.querySelector('.titleName');
 let titleJob = document.querySelector('.titleJob');
 
-//кнопки открытия и закрытия попапов (двух)
-const openPopupButton = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля и открытия попапа
-const closePopupButton = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
+//кнопки открытия и закрытия попапов (трех)
+const openEditButton = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля и открытия попапа
 const openAddButton = document.querySelector('.profile__add-button'); //кнопка добавления нового места
-const a = document.querySelector('.elements');
+const closePopupButton = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
+//const a = document.querySelector('.elements');
+//const openFotoZoom = document.querySelector('.element__foto') // нажали на картинку и она увеличилась
 
 // Обработчик «отправки» формы и evt.preventDefault - убирает перезагрузку страницы
 function formSubmitHandler (evt) {
@@ -72,7 +74,7 @@ function closePopup (item) {
 }
 
 // функции Открыть форму попапов по нажатию на кнопку
-openPopupButton.addEventListener('click', () => {
+openEditButton.addEventListener('click', () => {
   openPopup(popupEdit); // вызываю функцию открытия
 });
 openAddButton.addEventListener('click', () => {
@@ -99,27 +101,45 @@ function renderCard(name, link) {
   newHtmlElement.querySelector('.element__foto').src = link;
   newHtmlElement.querySelector('.element__foto').alt = name;
 
-  //лайк третий попап
+  //лайк
   const likeButton = newHtmlElement.querySelector('.element__like'); //нашли кнопку лайка
   likeButton.addEventListener('click', (item) => {
     like(likeButton);
-  })
+  });
   //мусорка
   const trashButton = newHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
   trashButton.addEventListener('ckick', (item) => {
     trash(trashButton);
-  })
+  });
 
+  //zoom попап
+  const openFotoZoom = newHtmlElement.querySelector('.element__foto'); // открыть попап зум картинки
+  const f = document.querySelector('.popup__image');
+  const h = document.querySelector('.popup__titleW');
+  openFotoZoom.addEventListener('click', function (evt) {
+    const picture = evt.target;
+    f.src = picture.src;
+    f.alt = picture.alt;
+    h.textContent = picture.alt;
+    openPopup(popupZoom);
+  });
 
+  ('popup__title')
   return newHtmlElement;
-  //setListenersForItem(newHtmlElement); //назначаем слушатели внутри каждого элемента newHtmlElement-готовая карточка
 }
+
+
+
+
+
+
+
+
 
 //функция постановки лайка
 function like (item) {
   item.classList.toggle('element__like_active');
 }
-
 //функция удаления всей карточки
 function trash (item) {
   item
