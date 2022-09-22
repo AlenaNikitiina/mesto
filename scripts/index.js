@@ -44,8 +44,6 @@ let titleJob = document.querySelector('.titleJob');
 const openEditButton = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля и открытия попапа
 const openAddButton = document.querySelector('.profile__add-button'); //кнопка добавления нового места
 const closePopupButton = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
-//const a = document.querySelector('.elements');
-//const openFotoZoom = document.querySelector('.element__foto') // нажали на картинку и она увеличилась
 
 // Обработчик «отправки» формы и evt.preventDefault - убирает перезагрузку страницы
 function formSubmitHandler (evt) {
@@ -88,7 +86,6 @@ closePopupButton.forEach(button => {
 });
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// Шесть карточек «из коробки»
 const list = document.querySelector('.elements__list'); // получаем элемент. ul
 const templateItem = document.querySelector('.element-template').content; //получаем содержимое template
@@ -108,8 +105,8 @@ function renderCard(name, link) {
   });
   //мусорка
   const trashButton = newHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
-  trashButton.addEventListener('ckick', (item) => {
-    trash(trashButton);
+  trashButton.addEventListener("click", (evt) => {
+    evt.target.parentElement.remove();
   });
   //zoom попап
   const openFotoZoom = newHtmlElement.querySelector('.element__foto'); // открыть попап зум картинки
@@ -124,7 +121,6 @@ function renderCard(name, link) {
   });
 
   return newHtmlElement;
-  closePopupButton();
 }
 
 //функция постановки лайка

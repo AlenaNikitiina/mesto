@@ -3,3 +3,11 @@
   justify-content: center;
   margin-top: 90px;
 }
+
+@media all and (max-width: 440px) {
+  .popup__box {
+    max-width: 240px;
+    min-height: 299px;
+    margin: 136px auto 0px;
+  }
+}
