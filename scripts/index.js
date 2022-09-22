@@ -111,30 +111,21 @@ function renderCard(name, link) {
   trashButton.addEventListener('ckick', (item) => {
     trash(trashButton);
   });
-
   //zoom попап
   const openFotoZoom = newHtmlElement.querySelector('.element__foto'); // открыть попап зум картинки
-  const f = document.querySelector('.popup__image');
-  const h = document.querySelector('.popup__titleW');
+  const popupImage = document.querySelector('.popup__image');
+  const popupFigcaption = document.querySelector('.popup__figcaption');
   openFotoZoom.addEventListener('click', function (evt) {
     const picture = evt.target;
-    f.src = picture.src;
-    f.alt = picture.alt;
-    h.textContent = picture.alt;
+    popupImage.src = picture.src;
+    popupImage.alt = picture.alt;
+    popupFigcaption.textContent = picture.alt;
     openPopup(popupZoom);
   });
 
-  ('popup__title')
   return newHtmlElement;
+  closePopupButton();
 }
-
-
-
-
-
-
-
-
 
 //функция постановки лайка
 function like (item) {
