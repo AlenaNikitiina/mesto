@@ -39,7 +39,6 @@ const linkInput = document.querySelector('.linkInput');
 //куда будут заноситься изменения имени и работы
 let titleName = document.querySelector('.titleName');
 let titleJob = document.querySelector('.titleJob');
-
 //кнопки открытия и закрытия попапов (трех)
 const openEditButton = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля и открытия попапа
 const openAddButton = document.querySelector('.profile__add-button'); //кнопка добавления нового места
@@ -103,6 +102,10 @@ function renderCard(name, link) {
   likeButton.addEventListener('click', (item) => {
     like(likeButton);
   });
+  //функция постановки лайка
+  function like (item) {
+  item.classList.toggle('element__like_active');
+  };
   //мусорка
   const trashButton = newHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
   trashButton.addEventListener("click", (evt) => {
@@ -123,15 +126,6 @@ function renderCard(name, link) {
   return newHtmlElement;
 }
 
-//функция постановки лайка
-function like (item) {
-  item.classList.toggle('element__like_active');
-}
-//функция удаления всей карточки
-function trash (item) {
-  item
-}
-
 // функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 function render () {
   initialCards.forEach((item) => {
@@ -143,7 +137,7 @@ render();
 //функция добавления новой карточки в начало сайта
 function addCard(name, link) {
   const newCard = renderCard(name, link);
-  list.prepend(renderCard(newCard)); //добавили элемент в DOM
+  list.prepend(newCard); //добавили элемент в DOM
 };
 
 // функция отправки формы и создает новую карточку от человека
