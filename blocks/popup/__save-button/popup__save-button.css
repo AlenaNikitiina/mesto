@@ -13,7 +13,7 @@
 }
 
 .popup__save-button:hover {
-  opacity: .8;
+  cursor: pointer;
 }
 
 @media all and (max-width: 320px) {
