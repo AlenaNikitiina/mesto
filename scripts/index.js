@@ -28,32 +28,11 @@ const popupFigcaption = document.querySelector('.popup__figcaption');
 function submitHandlerForm (evt) {
   evt.preventDefault();
 
-  //const nameValue = nameInput.value;
-  //const jobValue = jobInput.value;
-  //будут меняться в профиле
-  //titleName.textContent = nameValue;
-  //titleJob.textContent = jobValue;
-
   titleName.textContent = nameInput.value;
   titleJob.textContent = jobInput.value;
-
  //вызвали функцию которая закрывает форму при сохранении
   closePopup(popupEdit);
 }
-
-//function a () {
-  //nameInput.value = titleName.textContent;
-  //jobInput.value = titleJob.textContent;
-
-  //const nameValue = nameInput.value;
-  //const jobValue = jobInput.value;
-
-  //titleName.textContent = nameInput.value;
-  //titleJob.textContent = jobInput.value;
-
-  //nameInput.value = titleName.textContent;
-  //jobInput.value = titleJob.textContent;}
-
 
 // функция открытия попапов
 function openPopup (item) {
@@ -76,7 +55,6 @@ buttonOpenEdit.addEventListener('click', () => {
   nameInput.value = titleName.textContent;
   jobInput.value = titleJob.textContent;
   });
-
 buttonOpenAdd.addEventListener('click', () => {
   openPopup(popupAdd);
 });
