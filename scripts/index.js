@@ -13,8 +13,8 @@ const linkInput = document.querySelector('.linkInput');
 const titleName = document.querySelector('.titleName');
 const titleJob = document.querySelector('.titleJob');
 // кнопки открытия и закрытия попапов (трех)
-const editButtonOpen = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля и открытия попапа
-const addButtonOpen = document.querySelector('.profile__add-button'); //кнопка добавления нового места
+const buttonOpenEdit = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля и открытия попапа
+const buttonOpenAdd = document.querySelector('.profile__add-button'); //кнопка добавления нового места
 const popupCloseButtons = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
 // Шесть карточек «из коробки»
 const list = document.querySelector('.elements__list'); // получаем элемент. ul
@@ -23,18 +23,37 @@ const templateItem = document.querySelector('.element-template').content; //по
 const popupImage = document.querySelector('.popup__image');
 const popupFigcaption = document.querySelector('.popup__figcaption');
 
+
 // Обработчик «отправки» формы и evt.preventDefault - убирает перезагрузку страницы
 function submitHandlerForm (evt) {
   evt.preventDefault();
 
-  const nameValue = nameInput.value;
-  const jobValue = jobInput.value;
+  //const nameValue = nameInput.value;
+  //const jobValue = jobInput.value;
   //будут меняться в профиле
-  titleName.textContent = nameValue;
-  titleJob.textContent = jobValue;
+  //titleName.textContent = nameValue;
+  //titleJob.textContent = jobValue;
+
+  titleName.textContent = nameInput.value;
+  titleJob.textContent = jobInput.value;
+
  //вызвали функцию которая закрывает форму при сохранении
   closePopup(popupEdit);
 }
+
+//function a () {
+  //nameInput.value = titleName.textContent;
+  //jobInput.value = titleJob.textContent;
+
+  //const nameValue = nameInput.value;
+  //const jobValue = jobInput.value;
+
+  //titleName.textContent = nameInput.value;
+  //titleJob.textContent = jobInput.value;
+
+  //nameInput.value = titleName.textContent;
+  //jobInput.value = titleJob.textContent;}
+
 
 // функция открытия попапов
 function openPopup (item) {
@@ -52,10 +71,13 @@ popupCloseButtons.forEach(button => {
 });
 
 // функции Открыть форму попапов по нажатию на кнопку
-editButtonOpen.addEventListener('click', () => {
+buttonOpenEdit.addEventListener('click', () => {
   openPopup(popupEdit); // вызываю функцию открытия
-});
-addButtonOpen.addEventListener('click', () => {
+  nameInput.value = titleName.textContent;
+  jobInput.value = titleJob.textContent;
+  });
+
+buttonOpenAdd.addEventListener('click', () => {
   openPopup(popupAdd);
 });
 
@@ -84,7 +106,7 @@ function createCard(name, link) {
     const currentPhoto =  evt.target.closest('.elements__card');
     currentPhoto.remove();
   });
-  // увелечение фотографии
+  // увелечение фотографий
   fotoZoomOpen.addEventListener('click', function (evt) {
     const picture = evt.target;
     popupImage.src = picture.src;

@@ -9,6 +9,7 @@
   grid-area: element__like;
   border-style: none;
   transition: opacity .3s ease;
+  cursor: pointer;
 }
 
 .element__like:hover {
