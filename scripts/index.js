@@ -124,3 +124,125 @@ function addCard(name, link) {
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 popupEdit.addEventListener('submit', submitHandlerForm);
 popupAdd.addEventListener('submit', createNewCard);
+
+
+
+
+
+
+
+///////////////////6
+
+ const formEdit = document.forms.form_edit; //нашли формы
+ const formAdd = document.forms.form_add;
+ const formInput =formElement.querySelector('.popup__input');
+
+ /*
+ // Функция, которая добавляет класс с ошибкой ????
+const showInputError = (element) => {
+  element.classList.add('error');
+  element.classList.add('popup__input_type_error');
+};
+// Функция, которая удаляет класс с ошибкой
+const hideInputError = (element) => {
+  element.classList.remove('error');
+};
+
+//функция проверяет formInput на корректность введённых данных и вызывает hideError и showError
+const checkInputValidity = () => {
+  if (formInput.validity.valid) {
+    hideInputError(formInput);
+  } else {
+    showInputError(formInput);
+  }
+}
+
+
+//4//функция которая добавляет или убирает классы кнопке
+function setSubmitButton (button, state) {
+  if (state) {
+    button.removeAttribute('disabled');
+    button.classList.add(`popup__button_valid`);
+    button.classList.remove(`popup__button_invalid`);
+  } else {
+    button.removeAttribute('disabled', true);
+    button.classList.add(`popup__button_invalid`);
+    button.classList.remove(`popup__button_valid`);
+  }
+
+
+  const enableValidation = (setting) => {
+    const formList = document.querySelectorAll(setting.formSelector);
+    setEventListener(formElement, setting);
+  }
+
+*/
+
+//4//функция которая добавляет или убирает классы кнопке
+function setSubmitButton (button, state) {
+  if (state) {
+    button.removeAttribute('disabled');
+    button.classList.add(`popup__button_valid`);
+    button.classList.remove(`popup__button_invalid`);
+  } else {
+    button.removeAttribute('disabled', true);
+    button.classList.add(`popup__button_invalid`);
+    button.classList.remove(`popup__button_valid`);
+  }}
+
+//3/// функция проверяет каждый наш импут на валидность
+function isValid (input) {
+  const errorSpan = input.parentNode.querySelector(`#${input.id}-error`); //конретный спан найдется
+  errorSpan.textContent = input.validationMessage; //из браузера будет текст ошибок
+  isValid(input);
+  //input.setCustomValidity(''); //очищает спан если написали правильный текст
+}
+
+//2///функция которая проверяет, что мы написали в импутах и соответствувет ли оно инлайн валидациии форм
+function handlerValidateInput (evt) {
+  const currentForm = evt.target; //нашли конкретную ф в которой работаем
+  const submitButton =  currentForm.querySelector('.popup__save-button'); // нашли кнопку она сабмит
+  //вызвали другую ф
+  isValid(evt.target);
+  if (currentForm.checkValidity()) {
+    setSubmitButton(submitButton, true)
+  } else {
+    setSubmitButton(submitButton, false)
+  }
+}
+
+//1///функция отправляет форму в которой находимся. Отвечает за submit
+function sendForm (evt) {
+  evt.preventDefault();
+  const currentForm = evt.target; //нашли конкретную форму в которой работаем сейчас
+  //валидна ли форма?
+  if (currentForm.checkValidity()) {
+    console.log('Форма успешно отправлена');
+    //currentForm.reset(); //удалили введенные данные Сейчас мне это не нужно, может в карточке исп
+  } else {
+    //showInputError(formInput);
+    console.log('Что-то пошло не так');
+  }
+}
+
+formEdit.addEventListener('submit', sendForm); //отправлять форму
+formEdit.addEventListener('input', handlerValidateInput); //валидирование внутри импутов
+formAdd.addEventListener('submit', sendForm);
+formAdd.addEventListener('input', handlerValidateInput);
+
+function enableValidation(toValid) {
+// здесь должна быть какая-то вал
+  handlerValidateInput(toValid.submitButtonSelector)
+}
+
+settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
+enableValidation(settings);
+
