@@ -1,0 +1,6 @@
+.form__submit {}
+
+.form__submit_inactive {
+  color: #C4C4C4;
+  background-color: #E5E5E5;
+}

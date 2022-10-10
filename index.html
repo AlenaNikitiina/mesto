@@ -36,12 +36,15 @@
           <div class="popup__container">
             <button class="popup__close-button" type="button"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
-            <form action="#" name="form_edit" novalidate  class="popup__form">
-              <input type="text" name="nickName" id="nickName" minlength="2" maxlength="40" required class="nameInput popup__input" placeholder="Жак-Ив Кусто">
-              <span id="nickName-error" class="error popup__input_type_error"></span>
-              <input type="text" name="about" id="about" minlength="2" maxlength="200" required class="jobInput popup__input" placeholder="Исследователь океана">
-              <span id="about-error" class="error popup__input_type_error"></span>
-              <button class="popup__save-button popup__button popup__button_valid" type="submit">Сохранить</button>
+            <form action="#" name="form_edit" class="form popup__form" novalidate>
+
+              <input class="form__input popup__input nameInput" id="nickName" type="text" required minlength="2" maxlength="40" placeholder="Имя">
+              <span class="form__input-error nickName-error"></span>
+
+              <input class="form__input popup__input jobInput" id="about" type="text" required minlength="2" maxlength="200" placeholder="О себе">
+              <span class="form__input-error about-error"></span>
+
+              <button class="popup__save-button popup__button popup__button_valid form__submit" type="submit">Сохранить</button>
             </form>
           </div>
         </div>
@@ -49,12 +52,15 @@
           <div class="popup__container">
             <button class="popup__close-button" type="button"></button>
             <h3 class="popup__title">Новое место</h3>
-            <form action="#" name="form_add" novalidate class="popup__form">
-              <input type="text" name="title" id="title" minlength="2" maxlength="30" required class="titleInput popup__input" placeholder="Название">
-              <span class="error title-erorr" id="title-error"></span>
-              <input type="url" name="link" id="link" class="linkInput popup__input" required placeholder="Ссылка на картинку">
-              <span class="error link-error" id="link-error"></span>
-              <button class="popup__save-button popup__button popup__button_valid" type="submit">Создать</button>
+            <form action="#" name="form_add" novalidate class="form popup__form">
+
+              <input class="form__input popup__input titleInput" type="text" id="title" minlength="2" maxlength="30" required placeholder="Название">
+              <span class="form__input-error title-error"></span>
+
+              <input class="form__input popup__input linkInput" type="url" id="link" required placeholder="Ссылка на картинку">
+              <span class="form__input-error link-error"></span>
+
+              <button class="popup__save-button popup__button popup__button_valid form__submit" type="submit">Создать</button>
             </form>
           </div>
         </div>

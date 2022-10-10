@@ -1,0 +1,13 @@
+.form__input-error {
+  visibility: hidden;
+}
+
+.form__input-error_active {
+  visibility: visible;
+  min-height: 30px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.2;
+  color: red;
+  margin: 0px auto 0px 36px;
+}
