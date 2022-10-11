@@ -1,5 +1,5 @@
 // Находим форму в DOM
-//const formElement = document.querySelector('.popup__form');
+const formElement = document.querySelector('.popup__form');
 // Про открытие и закрытие попапа
 const popupEdit = document.querySelector('.popup_edit');// нашли попапы
 const popupAdd = document.querySelector('.popup_add');
@@ -22,6 +22,10 @@ const templateItem = document.querySelector('.element-template').content; //по
 //zoom попап
 const popupImage = document.querySelector('.popup__image');
 const popupFigcaption = document.querySelector('.popup__figcaption');
+// валидация
+//const formElement = document.querySelector('.form'); // нашли тег form
+const formInput = document.querySelector('.form__input'); // нашли ипрут
+const formError = formElement.querySelector(`.${formInput.id}-error`); // нашли ошибку из спанаю элемент ошибки на основе уникального класса
 
 
 // Обработчик «отправки» формы и evt.preventDefault - убирает перезагрузку страницы
@@ -37,11 +41,12 @@ function submitHandlerForm (evt) {
 // функция открытия попапов
 function openPopup (item) {
   item.classList.add('popup_opened');
-  item.classList.remove('form__submit_inactive');
+  document.addEventListener('keydown', closeByEscape);
 }
 // функция закрытия попапов
 function closePopup (item) {
   item.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 // функция закрыть попапы по нажатию на кнопку крестик
@@ -130,10 +135,6 @@ popupAdd.addEventListener('submit', createNewCard);
 
 /////////////////// 6
 
-const formElement = document.querySelector('.form'); // нашли тег form
-const formInput = document.querySelector('.form__input'); // нашли ипрут
-const formError = formElement.querySelector(`.${formInput.id}-error`); // нашли ошибку из спанаю элемент ошибки на основе уникального класса
-
 // 1 Функция, которая добавляет класс с ошибкой
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`); // Находим элемент ошибки внутри самой функции
@@ -162,12 +163,24 @@ const isValid = (formElement, inputElement) => {
   }
 }
 
+
+
+// 7 Функция кот вкл откл кнопку. принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
+const toggleButtonState = (inputList, buttonElement) => {
+  // Если есть хотя бы один невалидный инпут
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('form__submit_inactive'); // сделай кнопку неактивной
+  } else {
+    buttonElement.classList.remove('form__submit_inactive'); // сделай кнопку активной
+  }
+};
+
+
 // 4 Пусть слушатель событий добавится всем полям ввода внутри формы.
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.form__input'));  // Находим все поля внутри формы, сделаем из них массив
   const buttonElement = formElement.querySelector('.form__submit');
   toggleButtonState(inputList, buttonElement);  // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
-
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
     // каждому полю добавим обработчик события input
@@ -178,25 +191,42 @@ const setEventListeners = (formElement) => {
   });
 };
 
-// 5 функция которая найдёт и переберёт все формы на странице:
+
+// 5 функция которая найдёт и переберёт все формы на странице
 const enableValidation = () => {
   // Найдём все формы с указанным классом в DOM, сделаем из них массив
-  const formList = Array.from(document.querySelectorAll('.form'));
-  // Переберём полученную коллекцию
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  // Переберём его
   formList.forEach((formElement) => {
     setEventListeners(formElement); // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
   });
 };
 
-// 6 функция которая проверит все инпуты в форме и будет кнопка активна если все верны
-// Функция принимает массив полей
+
+/*
+// 5 функция которая найдёт и переберёт все формы на странице
+const enableValidation = (setting) => {
+  // Найдём все формы с указанным классом в DOM, сделаем из них массив
+  const formList = Array.from(document.querySelectorAll(setting.formInput));
+  // Переберём его
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, setting); // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
+  });
+};
+enableValidation(setting);
+*/
+
+
+enableValidation();
+// 6 функция которая проверит все инпуты в форме валидное/нет, принимает массив полей
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid; // Если поле не валидно, колбэк вернёт true Обход массива прекратится и вся функция вернёт true
   })
 };
 
-// 7 Функция принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
+/*
+// 7 Функция кот вкл откл кнопку. принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
 const toggleButtonState = (inputList, buttonElement) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
@@ -205,15 +235,32 @@ const toggleButtonState = (inputList, buttonElement) => {
     buttonElement.classList.remove('form__submit_inactive'); // сделай кнопку активной
   }
 };
-
-enableValidation();
-
-
-//функция закрытия попапа на Escape
+*/
+// 8 функция закрытия попапов по нажатию на Escape
 function closeByEscape (evt) {
   if (evt.key === 'Escape') {
     const openedNowPopup = document.querySelector('.popup_opened')
-    closePopup();
-    console.log('ggg')
+    closePopup(openedNowPopup);
   }
 }
+
+//work
+// 9 функция закрыть попап тыкнув на оверлей
+function closeByOverlay (evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(evt.target);
+  }
+}
+
+/*
+// 9 функция закрыть попап тыкнув на оверлей
+function closeByOverlay (evt) {
+  if (evt.target.classList.contains(setting.a)) {
+    closePopup(evt.target);
+  }
+}
+*/
+
+document.addEventListener('click', closeByOverlay);
+//document.removeEventListener('click', closeByOverlay);
+
