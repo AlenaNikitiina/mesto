@@ -1,15 +1,13 @@
-// включение валидации вызовом enableValidation все настройки передаются при вызове
-
 const setting = {
-  formElement: '.popup__form',
-  formInput: '.form__input',
-  a: 'popup_opened',
-  buttonElement: '.form__submit',
-  buttonElement: 'form__submit_inactive',
+  formSelector: '.popup__form', //ok
+  inputSelector: '.form__input', //ok
 
-  inputElement: 'form__input_type_error',
-  errorClass: 'popup__error_visible',
+  inputErrorClass: 'form__input_type_error', // ok
+  inputErrorClassActiv: 'form__input-error_active', // ok
 
-  errorElement: '.form__input-error'
+  popupOpenedClass: 'popup_opened',
+
+  submitButtonSelector: '.form__submit', // ok
+  buttonElementInactiv: 'form__submit_inactive', // ok
 }
 
