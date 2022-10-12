@@ -6,34 +6,34 @@ const setting = {
   submitButtonSelector: '.form__submit',
   buttonElementInactiv: 'form__submit_inactive',
 }
-formElement
+
 
 //// Валидация
 // 1 Функция, которая добавляет класс с ошибкой
-const showInputError = (formElement, inputElement, errorMessage, setting) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`); // Находим элемент ошибки внутри самой функции
+const showInputError = (formElementAll, inputElement, errorMessage, setting) => {
+  const errorElement = formElementAll.querySelector(`.${inputElement.id}-error`); // Находим элемент ошибки внутри самой функции
   inputElement.classList.add(setting.inputErrorClass);  // добавьте класс ошибки элементу input
   errorElement.textContent = errorMessage;
   errorElement.classList.add(setting.inputErrorClassActiv); // Показываем сообщение об ошибке
 }
 
 // 2 Функция, которая удаляет класс с ошибкой
-const hideInputError = (formElement, inputElement, setting) => {
+const hideInputError = (formElementAll, inputElement, setting) => {
   // Находим элемент ошибки
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElementAll.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(setting.inputErrorClass);
   errorElement.classList.remove(setting.inputErrorClassActiv); // Скрываем сообщение об ошибке
   errorElement.textContent = ''; // Очистим ошибку
 }
 
 // 3 Функция, которая проверяет валидность поля
-const isValid = (formElement, inputElement, setting) => {
+const isValid = (formElementAll, inputElement, setting) => {
   if (!inputElement.validity.valid) {
     // Если поле не проходит валидацию, покажем ошибку
-    showInputError(formElement, inputElement, inputElement.validationMessage, setting); // получает параметром форму, в которой находится проверяемое поле, и само это поле
+    showInputError(formElementAll, inputElement, inputElement.validationMessage, setting); // получает параметром форму, в которой находится проверяемое поле, и само это поле
   } else {
     // Если проходит, скроем
-    hideInputError(formElement, inputElement, setting);
+    hideInputError(formElementAll, inputElement, setting);
   }
 }
 
@@ -48,16 +48,16 @@ const toggleButtonState = (inputList, buttonElement, setting) => {
 }
 
 // 4 функция кот добавляет слушатель событий добавится всем полям ввода внутри формы.
-const setEventListeners = (formElement, setting) => {
-  const inputList = Array.from(formElement.querySelectorAll(setting.inputSelector));  // Находим все поля внутри формы, сделаем из них массив
-  const buttonElement = formElement.querySelector(setting.submitButtonSelector);
+const setEventListeners = (formElementAll, setting) => {
+  const inputList = Array.from(formElementAll.querySelectorAll(setting.inputSelector));  // Находим все поля внутри формы, сделаем из них массив
+  const buttonElement = formElementAll.querySelector(setting.submitButtonSelector);
   toggleButtonState(inputList, buttonElement, setting);  // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
 
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
     // каждому полю добавим обработчик события input
     inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement, setting); // Внутри колбэка вызовем isValid,передав ей форму и проверяемый элемент
+      isValid(formElementAll, inputElement, setting); // Внутри колбэка вызовем isValid,передав ей форму и проверяемый элемент
       toggleButtonState(inputList, buttonElement, setting); // Вызовем toggleButtonState и передадим ей массив полей и кнопку
     });
   });
@@ -68,8 +68,8 @@ const enableValidation = (setting) => {
   // Найдём все формы с указанным классом в DOM, сделаем из них массив
   const formList = Array.from(document.querySelectorAll(setting.formSelector));
   // Переберём его
-  formList.forEach((formElement) => {
-    setEventListeners(formElement, setting); // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
+  formList.forEach((formElementAll) => {
+    setEventListeners(formElementAll, setting); // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
   });
 };
 

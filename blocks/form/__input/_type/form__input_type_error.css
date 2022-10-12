@@ -2,3 +2,10 @@
   border-bottom: 1px solid red;
   margin: 5px 36px 5px 36px;
 }
+
+
+@media all and (max-width: 440px) {
+  .form__input_type_error {
+    margin: 5px 22px 5px 22px;
+  }
+}

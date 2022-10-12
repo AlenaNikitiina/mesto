@@ -1,6 +1,10 @@
 // Находим форму в DOM
-const formElement = document.querySelector('.popup__form');
-const form = document.querySelector('.form')
+const formElementAll = document.querySelector('.popup__form'); // все попапы с формами
+const form = document.querySelector('.form') // общий для форм всех
+const formEdit = document.querySelector('form_edit');
+const formAdd = document.querySelector('form_add');
+
+const a = document.querySelector('.popup__save-button')
 // Про открытие и закрытие попапа
 const popupEdit = document.querySelector('.popup_edit');// нашли попапы
 const popupAdd = document.querySelector('.popup_add');
@@ -19,14 +23,14 @@ const buttonOpenEdit = document.querySelector('.profile__edit-button'); //кно
 const buttonOpenAdd = document.querySelector('.profile__add-button'); //кнопка добавления нового места
 const popupCloseButtons = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
 // Шесть карточек «из коробки»
-const list = document.querySelector('.elements__list'); // получаем элемент. ul
+const fotoCards = document.querySelector('.elements__list'); // получаем элемент. ul
 const templateItem = document.querySelector('.element-template').content; //получаем содержимое template
 //zoom попап
 const popupImage = document.querySelector('.popup__image');
 const popupFigcaption = document.querySelector('.popup__figcaption');
 // валидация
 const formInput = document.querySelector('.form__input'); // нашли ипрут
-const formError = formElement.querySelector(`.${formInput.id}-error`); // нашли ошибку из спана элемент ошибки на основе уникального класса
+const formError = formElementAll.querySelector(`.${formInput.id}-error`); // нашли ошибку из спана элемент ошибки на основе уникального класса
 
 
 // Обработчик «отправки» формы и evt.preventDefault - убирает перезагрузку страницы
@@ -80,7 +84,13 @@ const closeByOverlay =  (evt) => {
     closePopup(evt.target);
   }
 }
-document.addEventListener('click', closeByOverlay);
+
+popupZoom.addEventListener('click', closeByOverlay);
+
+
+
+
+
 
 // Основная функция. которая создает карточку с линками и именами из массива выше
 function createCard(name, link) {
@@ -121,7 +131,7 @@ function createCard(name, link) {
 // функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 function render () {
   initialCards.forEach((item) => {
-    list.append(createCard(item.name, item.link)); //добавили элемент в DOM
+    fotoCards.append(createCard(item.name, item.link)); //добавили элемент в DOM
   });
 }
 render();
@@ -140,15 +150,16 @@ function createNewCard (evt) {
 // функция добавления новой карточки в начало сайта
 function addCard(name, link) {
   const newCard = createCard(name, link);
-  list.prepend(newCard); //добавили элемент в DOM
+  fotoCards.prepend(newCard); //добавили элемент в DOM
 };
 
+//was
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
-popupEdit.addEventListener('submit', submitHandlerForm);
-popupAdd.addEventListener('submit', createNewCard);
-//form.addEventListener('submit', submitHandlerForm);
-//form.addEventListener('submit', createNewCard);
+//popupEdit.addEventListener('submit', submitHandlerForm);
+//popupAdd.addEventListener('submit', createNewCard);
 
-//popupAll.addEventListener('click', closeByOverlay);
+formEdit.addEventListener('submit', submitHandlerForm);
+formAdd.addEventListener('submit', createNewCard);
+
 
 

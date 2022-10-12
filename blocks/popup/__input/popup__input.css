@@ -9,7 +9,7 @@
   border-bottom: 1px solid red;
 }*/
 
-@media all and (max-width: 320px) {
+@media all and (max-width: 440px) {
   .popup__input {
     margin: 0px 22px 30px 22px;
   }
