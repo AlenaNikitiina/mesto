@@ -7,7 +7,6 @@ const setting = {
   buttonElementInactiv: 'form__submit_inactive',
 }
 
-
 //// Валидация
 // 1 Функция, которая добавляет класс с ошибкой
 const showInputError = (formElementAll, inputElement, errorMessage, setting) => {
@@ -20,45 +19,58 @@ const showInputError = (formElementAll, inputElement, errorMessage, setting) => 
 // 2 Функция, которая удаляет класс с ошибкой
 const hideInputError = (formElementAll, inputElement, setting) => {
   // Находим элемент ошибки
-  const errorElement = formElementAll.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElementAll.querySelector(`.${inputElement.id}-error`); // нашли ошибку из спана на основе уникального класса
   inputElement.classList.remove(setting.inputErrorClass);
   errorElement.classList.remove(setting.inputErrorClassActiv); // Скрываем сообщение об ошибке
   errorElement.textContent = ''; // Очистим ошибку
 }
 
+
+
+
 // 3 Функция, которая проверяет валидность поля
 const isValid = (formElementAll, inputElement, setting) => {
   if (!inputElement.validity.valid) {
-    // Если поле не проходит валидацию, покажем ошибку
+    // Если поле не проходит валидацию, покажи ошибку
     showInputError(formElementAll, inputElement, inputElement.validationMessage, setting); // получает параметром форму, в которой находится проверяемое поле, и само это поле
   } else {
-    // Если проходит, скроем
+    // Если проходит, скрой
     hideInputError(formElementAll, inputElement, setting);
   }
 }
+
+
+
+
 
 // 7 Функция кот вкл/откл кнопку. принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
 const toggleButtonState = (inputList, buttonElement, setting) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList, setting)) {
+    buttonElement.disabled = 'disabled';
     buttonElement.classList.add(setting.buttonElementInactiv); // сделай кнопку неактивной
   } else {
+    buttonElement.disabled = '';
     buttonElement.classList.remove(setting.buttonElementInactiv); // сделай кнопку активной
   }
 }
 
-// 4 функция кот добавляет слушатель событий добавится всем полям ввода внутри формы.
+
+
+
+
+// 4 функция кот добавляет слушатель событий всем полям ввода внутри формы
 const setEventListeners = (formElementAll, setting) => {
-  const inputList = Array.from(formElementAll.querySelectorAll(setting.inputSelector));  // Находим все поля внутри формы, сделаем из них массив
+  const inputList = Array.from(formElementAll.querySelectorAll(setting.inputSelector)); // Находим все поля внутри формы, сделаем из них массив
   const buttonElement = formElementAll.querySelector(setting.submitButtonSelector);
-  toggleButtonState(inputList, buttonElement, setting);  // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
+  toggleButtonState(inputList, buttonElement, setting); // Вызовем ее, чтобы не ждать ввода данных в поля
 
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
     // каждому полю добавим обработчик события input
     inputElement.addEventListener('input', () => {
       isValid(formElementAll, inputElement, setting); // Внутри колбэка вызовем isValid,передав ей форму и проверяемый элемент
-      toggleButtonState(inputList, buttonElement, setting); // Вызовем toggleButtonState и передадим ей массив полей и кнопку
+      toggleButtonState(inputList, buttonElement, setting); // Вызовем ее и передадим ей массив полей и кнопку
     });
   });
 };

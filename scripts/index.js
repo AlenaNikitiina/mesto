@@ -1,10 +1,9 @@
 // Находим форму в DOM
-const formElementAll = document.querySelector('.popup__form'); // все попапы с формами
+const formElementAll = document.querySelectorAll('.popup__form'); // все попапы с формами
 const form = document.querySelector('.form') // общий для форм всех
-const formEdit = document.querySelector('form_edit');
-const formAdd = document.querySelector('form_add');
+const formEdit = document.querySelector('.form__edit'); // форма редактирования профиля
+const formAdd = document.querySelector('.form__add'); // форма добавления карточки
 
-const a = document.querySelector('.popup__save-button')
 // Про открытие и закрытие попапа
 const popupEdit = document.querySelector('.popup_edit');// нашли попапы
 const popupAdd = document.querySelector('.popup_add');
@@ -30,10 +29,9 @@ const popupImage = document.querySelector('.popup__image');
 const popupFigcaption = document.querySelector('.popup__figcaption');
 // валидация
 const formInput = document.querySelector('.form__input'); // нашли ипрут
-const formError = formElementAll.querySelector(`.${formInput.id}-error`); // нашли ошибку из спана элемент ошибки на основе уникального класса
 
 
-// Обработчик «отправки» формы и evt.preventDefault - убирает перезагрузку страницы
+// Обработчик «отправки» формы
 function submitHandlerForm (evt) {
   evt.preventDefault();
 
@@ -41,12 +39,19 @@ function submitHandlerForm (evt) {
   titleJob.textContent = jobInput.value;
  //вызвали функцию которая закрывает форму при сохранении
   closePopup(popupEdit);
+
+  //new
+  evt.submitter.classList.add('popup__button_disabled');
+  evt.submitter.setAttribute('disabled', true);
+  formAdd.reset();
 }
+
 
 // функция открытия попапов
 function openPopup (item) {
   item.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEscape);
+  //disabledButton();
 }
 // функция закрытия попапов
 function closePopup (item) {
@@ -85,11 +90,7 @@ const closeByOverlay =  (evt) => {
   }
 }
 
-popupZoom.addEventListener('click', closeByOverlay);
-
-
-
-
+//bbb.addEventListener('click', closeByOverlay);
 
 
 // Основная функция. которая создает карточку с линками и именами из массива выше
@@ -145,6 +146,7 @@ function createNewCard (evt) {
   addCard(titleValue, linkValue)
  //вызвали функцию которая закрывает форму при сохранении
   closePopup(popupAdd);
+
 }
 
 // функция добавления новой карточки в начало сайта
@@ -153,13 +155,7 @@ function addCard(name, link) {
   fotoCards.prepend(newCard); //добавили элемент в DOM
 };
 
-//was
-// Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
-//popupEdit.addEventListener('submit', submitHandlerForm);
-//popupAdd.addEventListener('submit', createNewCard);
 
+// Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
-
-
-
