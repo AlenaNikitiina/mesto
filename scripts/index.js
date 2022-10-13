@@ -8,7 +8,8 @@ const formAdd = document.querySelector('.form__add'); // форма добавл
 const popupEdit = document.querySelector('.popup_edit');// нашли попапы
 const popupAdd = document.querySelector('.popup_add');
 const popupZoom = document.querySelector('.popup_zoom');
-const popupAll = document.querySelector('.popup')
+
+const popupAll = document.querySelectorAll('.popup')
 // Находим поля формы в DOM, в которых можно изменения писать
 const nameInput = document.querySelector('.nameInput');
 const jobInput = document.querySelector('.jobInput');
@@ -39,31 +40,37 @@ function submitHandlerForm (evt) {
   titleJob.textContent = jobInput.value;
  //вызвали функцию которая закрывает форму при сохранении
   closePopup(popupEdit);
-
   //new
   evt.submitter.classList.add('popup__button_disabled');
   evt.submitter.setAttribute('disabled', true);
   formAdd.reset();
 }
 
-
 // функция открытия попапов
 function openPopup (item) {
   item.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEscape);
-  //disabledButton();
+  popupAll.addEventListener('keydown', closeByEscape);  ////////////////////////////////////////////////////
 }
 // функция закрытия попапов
 function closePopup (item) {
   item.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEscape);
+  popupAll.removeEventListener('keydown', closeByEscape);
+}
+
+// функция закрытия попапов по нажатию на Escape
+const closeByEscape = (evt) => {
+  if (evt.key === 'Escape') {
+    const openedNowPopup = document.querySelector('popup_opened')
+    closePopup(openedNowPopup);
+  }
 }
 
 // функция закрыть попапы по нажатию на кнопку крестик
-popupCloseButtons.forEach(button => {
-  button.addEventListener('click', () =>
-  closePopup(button.closest('.popup')));
-});
+//popupCloseButtons.forEach(button => {
+  //button.addEventListener('click', () =>
+  //closePopup(button.closest('.popup')));
+//});
+
 
 // функции Открыть форму попапов по нажатию на кнопку
 buttonOpenEdit.addEventListener('click', () => {
@@ -71,27 +78,29 @@ buttonOpenEdit.addEventListener('click', () => {
   nameInput.value = titleName.textContent;
   jobInput.value = titleJob.textContent;
   });
-buttonOpenAdd.addEventListener('click', () => {
+  buttonOpenAdd.addEventListener('click', () => {
   openPopup(popupAdd);
 });
 
-// функция закрытия попапов по нажатию на Escape
-const closeByEscape = (evt) => {
-  if (evt.key === 'Escape') {
-    const openedNowPopup = document.querySelector('.popup_opened')
-    closePopup(openedNowPopup);
+// закрыть попапы нажав на оверлей или крестик
+popupAll.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
   }
-}
+    if (evt.target.classList.contains('popup__close-button')) {
+      closePopup(popup)
+  }
+})
+})
 
 // функция закрыть попап нажав на оверлей
-const closeByOverlay =  (evt) => {
-  if (evt.target.classList.contains('popup_opened')) {
-    closePopup(evt.target);
-  }
-}
-
-//bbb.addEventListener('click', closeByOverlay);
-
+//const closeByOverlay =  (evt) => {
+  //if (evt.target.classList.contains('popup_opened')) {
+    //closePopup(evt.target);
+  //}
+//}
+//popupAll.addEventListener('click', closeByOverlay);
 
 // Основная функция. которая создает карточку с линками и именами из массива выше
 function createCard(name, link) {
@@ -135,7 +144,6 @@ function render () {
     fotoCards.append(createCard(item.name, item.link)); //добавили элемент в DOM
   });
 }
-render();
 
 // функция отправки формы и создает новую карточку от человека
 function createNewCard (evt) {
@@ -146,7 +154,6 @@ function createNewCard (evt) {
   addCard(titleValue, linkValue)
  //вызвали функцию которая закрывает форму при сохранении
   closePopup(popupAdd);
-
 }
 
 // функция добавления новой карточки в начало сайта
@@ -159,3 +166,6 @@ function addCard(name, link) {
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
+
+render();
+

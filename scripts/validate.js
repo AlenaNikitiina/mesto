@@ -25,9 +25,6 @@ const hideInputError = (formElementAll, inputElement, setting) => {
   errorElement.textContent = ''; // Очистим ошибку
 }
 
-
-
-
 // 3 Функция, которая проверяет валидность поля
 const isValid = (formElementAll, inputElement, setting) => {
   if (!inputElement.validity.valid) {
@@ -38,10 +35,6 @@ const isValid = (formElementAll, inputElement, setting) => {
     hideInputError(formElementAll, inputElement, setting);
   }
 }
-
-
-
-
 
 // 7 Функция кот вкл/откл кнопку. принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
 const toggleButtonState = (inputList, buttonElement, setting) => {
@@ -54,10 +47,6 @@ const toggleButtonState = (inputList, buttonElement, setting) => {
     buttonElement.classList.remove(setting.buttonElementInactiv); // сделай кнопку активной
   }
 }
-
-
-
-
 
 // 4 функция кот добавляет слушатель событий всем полям ввода внутри формы
 const setEventListeners = (formElementAll, setting) => {
