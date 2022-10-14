@@ -42,7 +42,7 @@ function submitHandlerForm (evt) {
   //new
   evt.submitter.classList.add('popup__button_disabled');
   evt.submitter.setAttribute('disabled', true);
-  formAdd.reset();
+  formEdit.reset();
 }
 
 // функция открытия попапов
@@ -140,6 +140,7 @@ function createNewCard (evt) {
   addCard(titleValue, linkValue)
  //вызвали функцию которая закрывает форму при сохранении
   closePopup(popupAdd);
+  formAdd.reset();
 }
 
 // функция добавления новой карточки в начало сайта

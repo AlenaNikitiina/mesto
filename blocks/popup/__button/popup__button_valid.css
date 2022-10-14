@@ -2,7 +2,6 @@
 
 .popup__button_valid{}
 
-.popup__button_disabled {
-  color: red;
-}
+.popup__button_disabled {}
+
 
