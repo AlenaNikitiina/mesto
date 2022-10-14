@@ -8,8 +8,7 @@ const formAdd = document.querySelector('.form__add'); // форма добавл
 const popupEdit = document.querySelector('.popup_edit');// нашли попапы
 const popupAdd = document.querySelector('.popup_add');
 const popupZoom = document.querySelector('.popup_zoom');
-
-const popupAll = document.querySelectorAll('.popup')
+const popupAll = document.querySelectorAll('.popup');
 // Находим поля формы в DOM, в которых можно изменения писать
 const nameInput = document.querySelector('.nameInput');
 const jobInput = document.querySelector('.jobInput');
@@ -49,28 +48,22 @@ function submitHandlerForm (evt) {
 // функция открытия попапов
 function openPopup (item) {
   item.classList.add('popup_opened');
-  popupAll.addEventListener('keydown', closeByEscape);  ////////////////////////////////////////////////////
+  document.addEventListener('keydown', closeByEscape);
 }
+
 // функция закрытия попапов
 function closePopup (item) {
   item.classList.remove('popup_opened');
-  popupAll.removeEventListener('keydown', closeByEscape);
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 // функция закрытия попапов по нажатию на Escape
 const closeByEscape = (evt) => {
   if (evt.key === 'Escape') {
-    const openedNowPopup = document.querySelector('popup_opened')
+    const openedNowPopup = document.querySelector('.popup_opened')
     closePopup(openedNowPopup);
   }
 }
-
-// функция закрыть попапы по нажатию на кнопку крестик
-//popupCloseButtons.forEach(button => {
-  //button.addEventListener('click', () =>
-  //closePopup(button.closest('.popup')));
-//});
-
 
 // функции Открыть форму попапов по нажатию на кнопку
 buttonOpenEdit.addEventListener('click', () => {
@@ -94,13 +87,6 @@ popupAll.forEach((popup) => {
 })
 })
 
-// функция закрыть попап нажав на оверлей
-//const closeByOverlay =  (evt) => {
-  //if (evt.target.classList.contains('popup_opened')) {
-    //closePopup(evt.target);
-  //}
-//}
-//popupAll.addEventListener('click', closeByOverlay);
 
 // Основная функция. которая создает карточку с линками и именами из массива выше
 function createCard(name, link) {
@@ -168,4 +154,22 @@ formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
 
 render();
+
+
+
+
+
+
+// функция закрыть попапы по нажатию на кнопку крестик
+//popupCloseButtons.forEach(button => {
+  //button.addEventListener('click', () =>
+  //closePopup(button.closest('.popup')));});
+
+// функция закрыть попап нажав на оверлей
+//const closeByOverlay =  (evt) => {
+  //if (evt.target.classList.contains('popup_opened')) {
+    //closePopup(evt.target);
+  //}}
+//popupAll.addEventListener('click', closeByOverlay);
+
 
