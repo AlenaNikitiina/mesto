@@ -43,9 +43,8 @@
 @import url(../blocks/popup/__box/popup__box.css);
 @import url(../blocks/popup/__button/popup__button_valid.css);
 @import url(../blocks/popup/_zoom/popup_zoom.css);
-
-
 @import url(../blocks/popup/__button/_disabled/popup__button_disabled.css);
+
 /*footer*/
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

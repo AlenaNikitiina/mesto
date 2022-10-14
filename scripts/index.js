@@ -3,7 +3,6 @@ const formElementAll = document.querySelectorAll('.popup__form'); // все по
 const form = document.querySelector('.form') // общий для форм всех
 const formEdit = document.querySelector('.form__edit'); // форма редактирования профиля
 const formAdd = document.querySelector('.form__add'); // форма добавления карточки
-
 // Про открытие и закрытие попапа
 const popupEdit = document.querySelector('.popup_edit');// нашли попапы
 const popupAdd = document.querySelector('.popup_add');
@@ -155,22 +154,4 @@ formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
 
 render();
-
-
-
-
-
-
-// функция закрыть попапы по нажатию на кнопку крестик
-//popupCloseButtons.forEach(button => {
-  //button.addEventListener('click', () =>
-  //closePopup(button.closest('.popup')));});
-
-// функция закрыть попап нажав на оверлей
-//const closeByOverlay =  (evt) => {
-  //if (evt.target.classList.contains('popup_opened')) {
-    //closePopup(evt.target);
-  //}}
-//popupAll.addEventListener('click', closeByOverlay);
-
 
