@@ -36,7 +36,7 @@
           <div class="popup__container">
             <button class="popup__close-button" type="button"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
-            <form action="#" name="form_edit" class="form form__edit popup__form" novalidate>
+            <form action="#" name="form_edit" class="form__edit popup__form" novalidate>
               <input class="form__input popup__input nameInput" id="nickName" type="text" required minlength="2" maxlength="40" placeholder="Имя">
               <span class="form__input-error nickName-error"></span>
               <input class="form__input popup__input jobInput" id="about" type="text" required minlength="2" maxlength="200" placeholder="О себе">
@@ -46,10 +46,10 @@
           </div>
         </div>
         <div class="popup popup_add">
-          <div class="popup__container">
+          <div class="popup__container form">
             <button class="popup__close-button" type="button"></button>
             <h3 class="popup__title">Новое место</h3>
-            <form action="#" name="form_add" novalidate class="form form__add popup__form">
+            <form action="#" name="form_add" novalidate class="form__add popup__form">
               <input class="form__input popup__input titleInput" type="text" id="title" minlength="2" maxlength="30" required placeholder="Название">
               <span class="form__input-error title-error"></span>
               <input class="form__input popup__input linkInput" type="url" id="link" required placeholder="Ссылка на картинку">
