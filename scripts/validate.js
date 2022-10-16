@@ -40,10 +40,10 @@ const isValid = (formElementAll, inputElement, setting) => {
 const toggleButtonState = (inputList, buttonElement, setting) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList, setting)) {
-    buttonElement.disabled = 'disabled';
+    buttonElement.disabled = true;
     buttonElement.classList.add(setting.buttonElementInactiv); // сделай кнопку неактивной
   } else {
-    buttonElement.disabled = '';
+    buttonElement.disabled = false;
     buttonElement.classList.remove(setting.buttonElementInactiv); // сделай кнопку активной
   }
 }

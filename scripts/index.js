@@ -1,6 +1,5 @@
 // Находим форму в DOM
-const formElementAll = document.querySelectorAll('.popup__form'); // все попапы с формами
-const form = document.querySelector('.form') // общий для форм всех
+//const formElementAll = document.querySelectorAll('.popup__form'); // все попапы с формами
 const formEdit = document.querySelector('.form__edit'); // форма редактирования профиля
 const formAdd = document.querySelector('.form__add'); // форма добавления карточки
 // Про открытие и закрытие попапа
@@ -27,7 +26,8 @@ const templateItem = document.querySelector('.element-template').content; //по
 const popupImage = document.querySelector('.popup__image');
 const popupFigcaption = document.querySelector('.popup__figcaption');
 // валидация
-const formInput = document.querySelector('.form__input'); // нашли ипрут
+const formInput = document.querySelector('.form__input'); // нашли инпут
+const popupSaveButton = document.querySelector('.form__submit-add') // находим кнопку сабмита в форме нового места
 
 
 // Обработчик «отправки» формы
@@ -77,13 +77,10 @@ buttonOpenEdit.addEventListener('click', () => {
 // закрыть попапы нажав на оверлей или крестик
 popupAll.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_opened')) {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
       closePopup(popup);
-  }
-    if (evt.target.classList.contains('popup__close-button')) {
-      closePopup(popup)
-  }
-})
+    }
+  })
 })
 
 
@@ -140,6 +137,8 @@ function createNewCard (evt) {
  //вызвали функцию которая закрывает форму при сохранении
   closePopup(popupAdd);
   formAdd.reset();
+  popupSaveButton.classList.add('form__submit_inactive');
+  popupSaveButton.setAttribute('disabled', true);
 }
 
 // функция добавления новой карточки в начало сайта
