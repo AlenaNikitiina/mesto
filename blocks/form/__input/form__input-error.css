@@ -12,16 +12,27 @@
   margin: 5px auto 0px 36px;
   position: absolute;
   top: 140px;
-  right: -19px;
+  right: 36px;
+  width: 358px;
 }
 
 .form__input-error:last-of-type {
   top: 199px;
-  right: 13px;
+  right: 36px;
 }
 
 @media all and (max-width: 440px) {
   .form__input-error_active {
-    margin:  5px 22px 5px 22px;
+    margin-top: 3px;
+    top: 150px;
+    right: 22px;
+    width: 238px;
+  }
+}
+
+@media all and (max-width: 440px) {
+  .form__input-error_active:last-of-type {
+    top: 210px;
+    right: 22px;
   }
 }
