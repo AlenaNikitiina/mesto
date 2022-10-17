@@ -9,7 +9,15 @@
   font-size: 12px;
   line-height: 1.2;
   color: red;
-  margin: 0px auto 0px 36px;
+  margin: 5px auto 0px 36px;
+  position: absolute;
+  top: 140px;
+  right: -19px;
+}
+
+.form__input-error:last-of-type {
+  top: 199px;
+  right: 13px;
 }
 
 @media all and (max-width: 440px) {
