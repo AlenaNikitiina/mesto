@@ -90,7 +90,7 @@ popupAll.forEach((item) => {
 // функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 function render () {
   initialCards.forEach((item) => {
-    fotoCards.append(createCard(item.name, item.link)); //добавили элемент в DOM
+    fotoCards.append(createCard(item.name, item.link, templateItem)); //добавили элемент в DOM
   });
 }
 
@@ -112,7 +112,7 @@ function createNewCard (evt) {
 
 // функция добавления новой карточки в начало сайта
 function addCard(name, link) {
-  const newCard = createCard(name, link);
+  const newCard = createCard(name, link, templateItem);
   fotoCards.prepend(newCard); //добавили элемент в DOM
 };
 

@@ -26,7 +26,8 @@ const initialCards = [
 ];
 
 // Основная функция. которая создает карточку с линками и именами из массива выше
-function createCard(name, link) {
+function createCard(name, link, templateItem) {
+//  const newHtmlElement = templateItem.cloneNode(true); //копируем содержимое тега темплате
   const newHtmlElement = templateItem.cloneNode(true); //копируем содержимое тега темплате
   //наполняем содержимым
   newHtmlElement.querySelector('.element__title').textContent = name;
