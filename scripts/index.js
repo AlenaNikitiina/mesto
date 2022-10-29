@@ -28,6 +28,8 @@ const popupFigcaption = document.querySelector('.popup__figcaption');
 // валидация
 const formInput = document.querySelector('.form__input'); // нашли инпут
 const popupSaveButton = document.querySelector('.form__submit-add') // находим кнопку сабмита в форме нового места
+// массив объектов Cards
+var cards = []
 
 
 // Обработчик «отправки» формы
@@ -90,7 +92,11 @@ popupAll.forEach((item) => {
 // функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 function render () {
   initialCards.forEach((item) => {
-    fotoCards.append(createCard(item.name, item.link, templateItem)); //добавили элемент в DOM
+    newCard = new Card(item.name, item.link, templateItem);
+    cards.push(newCard); // добавляем вновь созданную карту в массив карточек
+    console.log(cards.lenght);
+    fotoCards.append(newCard.getElement()); //добавили элемент в DOM
+    //fotoCards.append(createCard(item.name, item.link, templateItem)); //добавили элемент в DOM
   });
 }
 
@@ -112,8 +118,9 @@ function createNewCard (evt) {
 
 // функция добавления новой карточки в начало сайта
 function addCard(name, link) {
-  const newCard = createCard(name, link, templateItem);
-  fotoCards.prepend(newCard); //добавили элемент в DOM
+  newCard = new Card(name, link, templateItem);
+  cards.push(newCard); // добавляем вновь созданную карту в массив карточек
+  fotoCards.prepend(newCard.getElement()); //добавили элемент в DOM
 };
 
 
