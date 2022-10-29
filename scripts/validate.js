@@ -7,6 +7,7 @@ const setting = {
   buttonElementInactiv: 'form__submit_inactive',
 }
 
+
 //// Валидация
 // 1 Функция, которая добавляет класс с ошибкой
 const showInputError = (formElementAll, inputElement, errorMessage, setting) => {

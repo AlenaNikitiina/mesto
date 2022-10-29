@@ -75,14 +75,16 @@ buttonOpenEdit.addEventListener('click', () => {
 });
 
 // закрыть попапы нажав на оверлей или крестик
-popupAll.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
+popupAll.forEach((item) => {
+  item.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
-      closePopup(popup);
+      closePopup(item);
     }
   })
 })
 
+
+////
 
 // Основная функция. которая создает карточку с линками и именами из массива выше
 function createCard(name, link) {
@@ -98,16 +100,19 @@ function createCard(name, link) {
   buttonLike.addEventListener('click', (item) => {
     likeIt(buttonLike);
   });
+
   //функция постановки лайка
   function likeIt (item) {
   item.classList.toggle('element__like_active');
   };
+
   //мусорка
   const trashButton = newHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
   trashButton.addEventListener("click", (evt) => {
     const currentPhoto =  evt.target.closest('.elements__card');
     currentPhoto.remove();
   });
+
   // увелечение фотографий
   fotoZoomOpen.addEventListener('click', function (evt) {
     const picture = evt.target;
@@ -132,11 +137,13 @@ function createNewCard (evt) {
   evt.preventDefault();
   const titleValue = titleInput.value;
   const linkValue = linkInput.value;
+
   // вызвали функцию которая добавит новую карточку
   addCard(titleValue, linkValue)
  //вызвали функцию которая закрывает форму при сохранении
   closePopup(popupAdd);
-  formAdd.reset();
+
+  formAdd.reset(); // очистить поля
   popupSaveButton.classList.add('form__submit_inactive');
   popupSaveButton.setAttribute('disabled', true);
 }
