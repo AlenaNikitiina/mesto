@@ -46,19 +46,19 @@ function submitHandlerForm (evt) {
   formEdit.reset();
 }
 
-// функция открытия попапов
+// Функция открытия попапов
 function openPopup (item) {
   item.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEscape);
 }
 
-// функция закрытия попапов
+// Функция закрытия попапов
 function closePopup (item) {
   item.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeByEscape);
 }
 
-// функция закрытия попапов по нажатию на Escape
+// Функция закрытия попапов по нажатию на Escape
 const closeByEscape = (evt) => {
   if (evt.key === 'Escape') {
     const openedNowPopup = document.querySelector('.popup_opened')
@@ -66,7 +66,7 @@ const closeByEscape = (evt) => {
   }
 }
 
-// функции Открыть форму попапов по нажатию на кнопку
+// Функции Открыть форму попапов по нажатию на кнопку
 buttonOpenEdit.addEventListener('click', () => {
   openPopup(popupEdit); // вызываю функцию открытия
   nameInput.value = titleName.textContent;
@@ -76,7 +76,7 @@ buttonOpenEdit.addEventListener('click', () => {
   openPopup(popupAdd);
 });
 
-// закрыть попапы нажав на оверлей или крестик
+// Закрыть попапы нажав на оверлей или крестик
 popupAll.forEach((item) => {
   item.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
@@ -88,23 +88,16 @@ popupAll.forEach((item) => {
 
 
 ////
-// функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
+// Функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 function render () {
   initialCards.forEach((item) => {
     newCard = new Card(item.name, item.link, templateItem);
     cards.push(newCard); // добавляем вновь созданную карточку в массив карточек
-    //console.log(cards.length);
-    //console.log(typeof cards);
     fotoCards.append(newCard.getElement()); //добавили элемент в DOM
-
-    //fotoCards.append(createCard(item.name, item.link, templateItem)); //добавили элемент в DOM
-    /*
-    cards.push(new Card(item.name, item.link, templateItem));
-    fotoCards.append(cards[cards.length - 1].getElement()); //добавили элемент в DOM */
   });
 }
 
-// функция отправки формы и создает новую карточку от человека
+// Функция отправки формы и создает новую карточку от человека
 function createNewCard (evt) {
   evt.preventDefault();
   const titleValue = titleInput.value;
@@ -120,7 +113,7 @@ function createNewCard (evt) {
   popupSaveButton.setAttribute('disabled', true);
 }
 
-// функция добавления новой карточки в начало сайта
+// Функция добавления новой карточки в начало сайта
 function addCard (name, link) {
   newCard = new Card(name, link, templateItem);
   cards.push(newCard); // добавляем вновь созданную карточку в массив карточек

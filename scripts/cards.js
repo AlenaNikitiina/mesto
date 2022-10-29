@@ -27,21 +27,21 @@ const initialCards = [
 
 class Card {
   constructor(name, link, templateItem) {
-    this.myHtmlElement = templateItem.cloneNode(true); //копируем содержимое тега темплате
+    this._myHtmlElement = templateItem.cloneNode(true); //копируем содержимое тега темплате
     //наполняем содержимым
-    this.myHtmlElement.querySelector('.element__title').textContent = name;
-    const fotoZoomOpen = this.myHtmlElement.querySelector('.element__foto'); // открыть попап зум картинки
+    this._myHtmlElement.querySelector('.element__title').textContent = name;
+    const fotoZoomOpen = this._myHtmlElement.querySelector('.element__foto'); // открыть попап зум картинки
     fotoZoomOpen.src = link;
     fotoZoomOpen.alt = name;
 
     //лайк
-    const buttonLike = this.myHtmlElement.querySelector('.element__like'); // нашли кнопку лайка
+    const buttonLike = this._myHtmlElement.querySelector('.element__like'); // нашли кнопку лайка
     buttonLike.addEventListener('click', (item) => {
       this._likeIt(buttonLike);
     });
 
     //мусорка
-    const trashButton = this.myHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
+    const trashButton = this._myHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
     trashButton.addEventListener("click", this._deletePhoto);
 
     // увелечение фотографий
@@ -49,7 +49,7 @@ class Card {
   }
 
   getElement() {
-    return this.myHtmlElement;
+    return this._myHtmlElement;
   }
 
   _likeIt (item) {

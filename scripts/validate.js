@@ -8,6 +8,8 @@ const setting = {
 }
 
 
+class FormValidator {}
+
 //// Валидация
 // 1 Функция, которая добавляет класс с ошибкой
 const showInputError = (formElementAll, inputElement, errorMessage, setting) => {
@@ -49,7 +51,7 @@ const toggleButtonState = (inputList, buttonElement, setting) => {
   }
 }
 
-// 4 функция кот добавляет слушатель событий всем полям ввода внутри формы
+// 4 Функция кот добавляет слушатель событий всем полям ввода внутри формы
 const setEventListeners = (formElementAll, setting) => {
   const inputList = Array.from(formElementAll.querySelectorAll(setting.inputSelector)); // Находим все поля внутри формы, сделаем из них массив
   const buttonElement = formElementAll.querySelector(setting.submitButtonSelector);
@@ -65,7 +67,7 @@ const setEventListeners = (formElementAll, setting) => {
   });
 };
 
-// 5 функция которая найдёт и переберёт все формы на странице
+// 5 Функция которая найдёт и переберёт все формы на странице
 const enableValidation = (setting) => {
   // Найдём все формы с указанным классом в DOM, сделаем из них массив
   const formList = Array.from(document.querySelectorAll(setting.formSelector));
@@ -75,7 +77,7 @@ const enableValidation = (setting) => {
   });
 };
 
-// 6 функция которая проверит все инпуты в форме валидное/нет, принимает массив полей
+// 6 Функция которая проверит все инпуты в форме валидное/нет, принимает массив полей
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid; // Если поле не валидно, колбэк вернёт true Обход массива прекратится и вся функция вернёт true
