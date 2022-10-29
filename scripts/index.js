@@ -86,17 +86,21 @@ popupAll.forEach((item) => {
 })
 
 
+
 ////
-
-
 // функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 function render () {
   initialCards.forEach((item) => {
     newCard = new Card(item.name, item.link, templateItem);
     cards.push(newCard); // добавляем вновь созданную карточку в массив карточек
-    console.log(cards.lenght);
+    //console.log(cards.length);
+    //console.log(typeof cards);
     fotoCards.append(newCard.getElement()); //добавили элемент в DOM
+
     //fotoCards.append(createCard(item.name, item.link, templateItem)); //добавили элемент в DOM
+    /*
+    cards.push(new Card(item.name, item.link, templateItem));
+    fotoCards.append(cards[cards.length - 1].getElement()); //добавили элемент в DOM */
   });
 }
 
@@ -117,9 +121,9 @@ function createNewCard (evt) {
 }
 
 // функция добавления новой карточки в начало сайта
-function addCard(name, link) {
+function addCard (name, link) {
   newCard = new Card(name, link, templateItem);
-  cards.push(newCard); // добавляем вновь созданную карту в массив карточек
+  cards.push(newCard); // добавляем вновь созданную карточку в массив карточек
   fotoCards.prepend(newCard.getElement()); //добавили элемент в DOM
 };
 

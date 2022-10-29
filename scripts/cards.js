@@ -37,31 +37,31 @@ class Card {
     //лайк
     const buttonLike = this.myHtmlElement.querySelector('.element__like'); // нашли кнопку лайка
     buttonLike.addEventListener('click', (item) => {
-      this.likeIt(buttonLike);
+      this._likeIt(buttonLike);
     });
 
     //мусорка
     const trashButton = this.myHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
-    trashButton.addEventListener("click", this.deletePhoto);
+    trashButton.addEventListener("click", this._deletePhoto);
 
     // увелечение фотографий
-    fotoZoomOpen.addEventListener('click', this.zoomPhoto);
+    fotoZoomOpen.addEventListener('click', this._zoomPhoto);
   }
 
   getElement() {
     return this.myHtmlElement;
   }
 
-  likeIt (item) {
+  _likeIt (item) {
     item.classList.toggle('element__like_active');
   }
 
-  deletePhoto(evt) {
+  _deletePhoto(evt) {
     const currentPhoto =  evt.target.closest('.elements__card');
     currentPhoto.remove();
   }
 
-  zoomPhoto(evt) {
+  _zoomPhoto(evt) {
     const picture = evt.target;
     popupImage.src = picture.src;
     popupImage.alt = picture.alt;
