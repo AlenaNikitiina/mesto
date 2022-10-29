@@ -29,7 +29,7 @@ const popupFigcaption = document.querySelector('.popup__figcaption');
 const formInput = document.querySelector('.form__input'); // нашли инпут
 const popupSaveButton = document.querySelector('.form__submit-add') // находим кнопку сабмита в форме нового места
 // массив объектов Cards
-var cards = []
+let cards = [];
 
 
 // Обработчик «отправки» формы
@@ -93,7 +93,7 @@ popupAll.forEach((item) => {
 function render () {
   initialCards.forEach((item) => {
     newCard = new Card(item.name, item.link, templateItem);
-    cards.push(newCard); // добавляем вновь созданную карту в массив карточек
+    cards.push(newCard); // добавляем вновь созданную карточку в массив карточек
     console.log(cards.lenght);
     fotoCards.append(newCard.getElement()); //добавили элемент в DOM
     //fotoCards.append(createCard(item.name, item.link, templateItem)); //добавили элемент в DOM
