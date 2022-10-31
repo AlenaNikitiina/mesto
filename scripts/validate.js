@@ -1,4 +1,4 @@
-const setting = {
+export const setting = {
   formSelector: '.popup__form',
   inputSelector: '.form__input',
   inputErrorClass: 'form__input_type_error',
@@ -7,8 +7,8 @@ const setting = {
   buttonElementInactiv: 'form__submit_inactive',
 }
 
-let validators = []
-class FormValidator {
+
+export class FormValidator {
   constructor(selectors_setting, element_to_valid) {
     this._selectors_setting = selectors_setting;
     this._element_to_valid = element_to_valid;
@@ -60,7 +60,7 @@ class FormValidator {
     }
   }
 
-  // 6 Функция которая проверит все инпуты в форме валидное/нет, принимает массив полей
+  // 6 метод, которая проверит все инпуты в форме валидное/нет, принимает массив полей
   _hasInvalidInput(inputList) {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid; // Если поле не валидно, колбэк вернёт true Обход массива прекратится и вся функция вернёт true
@@ -73,29 +73,15 @@ class FormValidator {
     const buttonElement = this._element_to_valid.querySelector(this._selectors_setting.submitButtonSelector);
     this._toggleButtonState(inputList, buttonElement); // Вызовем ее, чтобы не ждать ввода данных в поля
     // Обойдём все элементы полученной коллекции
-    inputList.forEach((inputElement) => {
+    inputList.forEach((inputElements) => {
       // каждому полю добавим обработчик события input
-      inputElement.addEventListener('input', () => {
-        this._isValid(inputElement); // Внутри колбэка вызовем isValid,передав ей форму и проверяемый элемент
+      inputElements.addEventListener('input', () => {
+        this._isValid(inputElements); // Внутри колбэка вызовем isValid,передав ей форму и проверяемый элемент
         this._toggleButtonState(inputList, buttonElement); // Вызовем ее и передадим ей массив полей и кнопку
       });
     });
   }
+
 };
 
 
-// 5 Функция которая найдёт и переберёт все формы на странице
-const findEnableValidation = (setting) => {
-  // Найдём все формы с указанным классом в DOM, сделаем из них массив
-  const formList = Array.from(document.querySelectorAll(setting.formSelector));
-  // Переберём его
-  formList.forEach((formElementAll) => {
-    newValidator = new FormValidator(setting, formElementAll);
-    newValidator.enableValidation();
-    validators.push(newValidator);
-    //setEventListeners(formElementAll, setting); // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
-  });
-};
-
-
-findEnableValidation (setting);
