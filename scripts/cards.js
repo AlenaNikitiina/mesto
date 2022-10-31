@@ -6,7 +6,6 @@ export class Card {
     this._link = link;
     this._templateItem = templateItem;
     this._openPopupFunc = openPopupFunc;
-    console.log(typeof this._openPopupFunc)
 
     this._myHtmlElement = templateItem.cloneNode(true); //копируем содержимое тега темплате
     //наполняем содержимым
@@ -26,11 +25,7 @@ export class Card {
     trashButton.addEventListener("click", this._deletePhoto);
 
     // увелечение фотографий
-    //fotoZoomOpen.addEventListener('click', this._zoomPhoto); //они все приватные ?
-    //fotoZoomOpen.addEventListener('click', function(evt) {this._zoomPhoto(evt)}); //они все приватные ?
     fotoZoomOpen.addEventListener('click', this._zoomPhoto.bind(this));
-
-  //console.log(this)
   }
 
   getElement() {
@@ -51,8 +46,6 @@ export class Card {
     popupImage.src = picture.src;
     popupImage.alt = picture.alt;
     popupFigcaption.textContent = picture.alt;
-    //console.log(this)
-    //console.log(typeof this._openPopupFunc)
     this._openPopupFunc(popupZoom);
   }
 

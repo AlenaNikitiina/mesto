@@ -2,42 +2,6 @@ import { Card } from "./cards.js";
 import { setting, FormValidator } from "./validate.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateItem, popupSaveButton, cards, validators, initialCards } from "./constants.js";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Обработчик «отправки» формы
 function submitHandlerForm (evt) {
   evt.preventDefault();
