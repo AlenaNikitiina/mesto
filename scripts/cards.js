@@ -44,8 +44,8 @@ class Card {
     const trashButton = this._myHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
     trashButton.addEventListener("click", this._deletePhoto);
 
-    // увелечение фотографий
-    fotoZoomOpen.addEventListener('click', this._zoomPhoto);
+    // увелечение фотографий // если взаимодейст в пользователем то не приватное
+    fotoZoomOpen.addEventListener('click', this._zoomPhoto); //они все приватные ?
   }
 
   getElement() {
