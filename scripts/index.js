@@ -1,6 +1,6 @@
 import { Card } from "./cards.js";
 import { setting, FormValidator } from "./validate.js";
-import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateItem, popupSaveButton, cards, validators, initialCards } from "./constants.js";
+import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, popupSaveButton, cards, validators, initialCards } from "./constants.js";
 
 // Обработчик «отправки» формы
 function submitHandlerForm (evt) {
@@ -41,8 +41,9 @@ buttonOpenEdit.addEventListener('click', () => {
   openPopup(popupEdit); // вызываю функцию открытия
   nameInput.value = titleName.textContent;
   jobInput.value = titleJob.textContent;
-  });
-  buttonOpenAdd.addEventListener('click', () => {
+});
+
+buttonOpenAdd.addEventListener('click', () => {
   openPopup(popupAdd);
 });
 
@@ -60,7 +61,7 @@ popupAll.forEach((item) => {
 // Функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 function render () {
   initialCards.forEach((item) => {
-    let newCard = new Card(item.name, item.link, templateItem, openPopup);
+    const newCard = new Card(item.name, item.link, templateSelector, openPopup);
     cards.push(newCard); // добавляем вновь созданную карточку в массив карточек
     fotoCards.append(newCard.getElement()); //добавили элемент в DOM
   });
@@ -84,7 +85,7 @@ function createNewCard (evt) {
 
 // Функция добавления новой карточки в начало сайта
 function addCard (name, link) {
-  let newCard = new Card(name, link, templateItem, openPopup);
+  const newCard = new Card(name, link, templateSelector, openPopup);
   cards.push(newCard); // добавляем вновь созданную карточку в массив карточек
   fotoCards.prepend(newCard.getElement()); //добавили элемент в DOM
 };
@@ -102,7 +103,7 @@ const findEnableValidation = (setting) => {
   const formList = Array.from(document.querySelectorAll(setting.formSelector));
   // Переберём его
   formList.forEach((formElementAll) => {
-    let newValidator = new FormValidator(setting, formElementAll);
+    const newValidator = new FormValidator(setting, formElementAll);
     newValidator.enableValidation();
     validators.push(newValidator);
     //setEventListeners(formElementAll, setting); // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы

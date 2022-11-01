@@ -21,6 +21,7 @@ export const buttonOpenAdd = document.querySelector('.profile__add-button'); //�
 export const popupCloseButtons = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
 // Шесть карточек «из коробки»
 export const fotoCards = document.querySelector('.elements__list'); // получаем элемент. ul
+export const templateSelector = '.element-template'
 export const templateItem = document.querySelector('.element-template').content; //получаем содержимое template
 // zoom попап
 export const popupImage = document.querySelector('.popup__image');

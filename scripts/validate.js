@@ -9,7 +9,7 @@ export const setting = {
 
 
 export class FormValidator {
-  constructor(selectors_setting, element_to_valid) {
+  constructor(selectors_setting, element_to_valid,) {
     this._selectors_setting = selectors_setting;
     this._element_to_valid = element_to_valid;
   }
@@ -49,35 +49,35 @@ export class FormValidator {
   }
 
   // метод, кот вкл/откл кнопку. принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
-  _toggleButtonState (inputList, buttonElement) {
+  _toggleButtonState () {
     // Если есть хотя бы один невалидный инпут
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.disabled = true;
-      buttonElement.classList.add(this._selectors_setting.buttonElementInactiv); // сделай кнопку неактивной
+    if (this._hasInvalidInput()) {
+      this._buttonElement.disabled = true;
+      this._buttonElement.classList.add(this._selectors_setting.buttonElementInactiv); // сделай кнопку неактивной
     } else {
-      buttonElement.disabled = false;
-      buttonElement.classList.remove(this._selectors_setting.buttonElementInactiv); // сделай кнопку активной
+      this._buttonElement.disabled = false;
+      this._buttonElement.classList.remove(this._selectors_setting.buttonElementInactiv); // сделай кнопку активной
     }
   }
 
   // 6 метод, которая проверит все инпуты в форме валидное/нет, принимает массив полей
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid; // Если поле не валидно, колбэк вернёт true Обход массива прекратится и вся функция вернёт true
     })
   }
 
   // 4 метод, который добавляет слушатель событий всем полям ввода внутри формы
   _setEventListeners() {
-    const inputList = Array.from(this._element_to_valid.querySelectorAll(this._selectors_setting.inputSelector)); // Находим все поля внутри формы, сделаем из них массив
-    const buttonElement = this._element_to_valid.querySelector(this._selectors_setting.submitButtonSelector);
-    this._toggleButtonState(inputList, buttonElement); // Вызовем ее, чтобы не ждать ввода данных в поля
+    this._inputList = Array.from(this._element_to_valid.querySelectorAll(this._selectors_setting.inputSelector)); // Находим все поля внутри формы, сделаем из них массив
+    this._buttonElement = this._element_to_valid.querySelector(this._selectors_setting.submitButtonSelector);
+    this._toggleButtonState(); // Вызовем ее, чтобы не ждать ввода данных в поля
     // Обойдём все элементы полученной коллекции
-    inputList.forEach((inputElements) => {
+    this._inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
-      inputElements.addEventListener('input', () => {
-        this._isValid(inputElements); // Внутри колбэка вызовем isValid,передав ей форму и проверяемый элемент
-        this._toggleButtonState(inputList, buttonElement); // Вызовем ее и передадим ей массив полей и кнопку
+      inputElement.addEventListener('input', () => {
+        this._isValid(inputElement); // Внутри колбэка вызовем isValid,передав ей форму и проверяемый элемент
+        this._toggleButtonState(); // Вызовем ее и передадим ей массив полей и кнопку
       });
     });
   }
