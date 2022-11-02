@@ -10,7 +10,7 @@ export class Card {
     this._myHtmlElement = this._templateItem.cloneNode(true); //копируем содержимое тега темплате
     //наполняем содержимым
     this._myHtmlElement.querySelector('.element__title').textContent = name;
-    const fotoZoomOpen = this._myHtmlElement.querySelector('.element__foto'); // открыть попап зум картинки
+    const fotoZoomOpen = this._myHtmlElement.querySelector('.element__foto'); // попап зум картинки
     fotoZoomOpen.src = link;
     fotoZoomOpen.alt = name;
 
@@ -20,9 +20,9 @@ export class Card {
       this._likeIt();
     });
 
-    //мусорка
+    //мусорка не приватный ???
     const trashButton = this._myHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
-    trashButton.addEventListener("click", (evt) => {
+    trashButton.addEventListener('click', (evt) => {
       this._deletePhoto(evt);
     });
 
@@ -30,7 +30,7 @@ export class Card {
     fotoZoomOpen.addEventListener('click', this._zoomPhoto.bind(this));
   }
 
-  getElement() {
+  generateCard () {
     return this._myHtmlElement;
   }
 
@@ -42,6 +42,7 @@ export class Card {
     const currentPhoto =  evt.target.closest('.elements__card');
     currentPhoto.remove();
 
+    //не получилось
     //this._myHtmlElement.remove();
     //this._myHtmlElement = null;
   }

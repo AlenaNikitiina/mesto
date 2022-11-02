@@ -29,10 +29,22 @@ export const popupFigcaption = document.querySelector('.popup__figcaption');
 // Валидация
 export const formInput = document.querySelector('.form__input'); // нашли инпут
 export const popupSaveButton = document.querySelector('.form__submit-add') // находим кнопку сабмита в форме нового места
+
 // Массив объектов Cards
 export let cards = [];
 // Массив объектов FormValidator
 export let validators = [];
+
+//
+export const setting = {
+  formSelector: '.popup__form',
+  inputSelector: '.form__input',
+  inputErrorClass: 'form__input_type_error',
+  inputErrorClassActiv: 'form__input-error_active',
+  submitButtonSelector: '.form__submit',
+  buttonElementInactiv: 'form__submit_inactive',
+}
+
 // Массив с именами карточек и линками
 export const initialCards = [
   {
