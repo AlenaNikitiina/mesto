@@ -21,6 +21,7 @@ export const buttonOpenAdd = document.querySelector('.profile__add-button'); //�
 export const popupCloseButtons = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
 // Шесть карточек «из коробки»
 export const fotoCards = document.querySelector('.elements__list'); // получаем элемент. ul
+export const templateSelector = '.element-template'
 export const templateItem = document.querySelector('.element-template').content; //получаем содержимое template
 // zoom попап
 export const popupImage = document.querySelector('.popup__image');
@@ -28,10 +29,22 @@ export const popupFigcaption = document.querySelector('.popup__figcaption');
 // Валидация
 export const formInput = document.querySelector('.form__input'); // нашли инпут
 export const popupSaveButton = document.querySelector('.form__submit-add') // находим кнопку сабмита в форме нового места
+
 // Массив объектов Cards
 export let cards = [];
 // Массив объектов FormValidator
 export let validators = [];
+
+//
+export const setting = {
+  formSelector: '.popup__form',
+  inputSelector: '.form__input',
+  inputErrorClass: 'form__input_type_error',
+  inputErrorClassActiv: 'form__input-error_active',
+  submitButtonSelector: '.form__submit',
+  buttonElementInactiv: 'form__submit_inactive',
+}
+
 // Массив с именами карточек и линками
 export const initialCards = [
   {

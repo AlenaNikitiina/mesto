@@ -1,44 +1,50 @@
 import { popupZoom, popupImage, popupFigcaption } from "./constants.js";
 
 export class Card {
-  constructor(name, link, templateItem, openPopupFunc) {
+  constructor(name, link, templateSelector, openPopupFunc) {
     this._name = name;
     this._link = link;
-    this._templateItem = templateItem;
+    this._templateItem = document.querySelector(templateSelector).content;
     this._openPopupFunc = openPopupFunc;
 
-    this._myHtmlElement = templateItem.cloneNode(true); //копируем содержимое тега темплате
+    this._myHtmlElement = this._templateItem.cloneNode(true); //копируем содержимое тега темплате
     //наполняем содержимым
     this._myHtmlElement.querySelector('.element__title').textContent = name;
-    const fotoZoomOpen = this._myHtmlElement.querySelector('.element__foto'); // открыть попап зум картинки
+    const fotoZoomOpen = this._myHtmlElement.querySelector('.element__foto'); // попап зум картинки
     fotoZoomOpen.src = link;
     fotoZoomOpen.alt = name;
 
     //лайк
-    const buttonLike = this._myHtmlElement.querySelector('.element__like'); // нашли кнопку лайка
-    buttonLike.addEventListener('click', (item) => {
-      this._likeIt(buttonLike);
+    this._buttonLike = this._myHtmlElement.querySelector('.element__like'); // нашли кнопку лайка
+    this._buttonLike.addEventListener('click', () => {
+      this._likeIt();
     });
 
-    //мусорка
+    //мусорка не приватный ???
     const trashButton = this._myHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
-    trashButton.addEventListener("click", this._deletePhoto);
+    trashButton.addEventListener('click', (evt) => {
+      this._deletePhoto(evt);
+    });
 
     // увелечение фотографий
     fotoZoomOpen.addEventListener('click', this._zoomPhoto.bind(this));
   }
 
-  getElement() {
+  generateCard () {
     return this._myHtmlElement;
   }
 
-  _likeIt (item) {
-    item.classList.toggle('element__like_active');
+  _likeIt () {
+    this._buttonLike.classList.toggle('element__like_active');
   }
 
   _deletePhoto (evt) {
     const currentPhoto =  evt.target.closest('.elements__card');
     currentPhoto.remove();
+
+    //не получилось
+    //this._myHtmlElement.remove();
+    //this._myHtmlElement = null;
   }
 
   _zoomPhoto (evt) {
