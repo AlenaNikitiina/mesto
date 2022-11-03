@@ -1,19 +1,19 @@
 import { Card } from "./cards.js";
 import { FormValidator } from "./validate.js";
-import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, popupSaveButton, cards, validators, initialCards, setting } from "./constants.js";
+import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, popupSaveButton, initialCards, setting } from "./constants.js";
 
 // Обработчик «отправки» формы
 function submitHandlerForm (evt) {
   evt.preventDefault();
-
   titleName.textContent = nameInput.value;
   titleJob.textContent = jobInput.value;
- //вызвали функцию которая закрывает форму при сохранении
-  closePopup(popupEdit);
-  //new
-  evt.submitter.classList.add('popup__button_disabled');
-  evt.submitter.setAttribute('disabled', true);
-  formEdit.reset();
+
+  closePopup(popupEdit); //вызвали функцию которая закрывает форму при сохранении
+
+  // сделай кпонку отключенной //кажется это вообще не надо
+  //evt.submitter.classList.add('popup__button_disabled');
+  //evt.submitter.setAttribute('disabled', true);
+  //formEdit.reset();
 };
 
 // Функция открытия попапов
@@ -36,16 +36,17 @@ const closeByEscape = (evt) => {
   }
 };
 
-// Функция Открыть форму попапа по нажатию на кнопку
+// Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
 buttonOpenEdit.addEventListener('click', () => {
   openPopup(popupEdit); // вызываю функцию открытия
   nameInput.value = titleName.textContent;
   jobInput.value = titleJob.textContent;
 });
 
-// Функция Открыть форму попапа по нажатию на кнопку
+// Функция Открыть форму попапа по нажатию на кнопку добавления карточки
 buttonOpenAdd.addEventListener('click', () => {
   openPopup(popupAdd);
+  newCardValidation.disableSubmitButton(); // сделай кнопку сохранения актив/не актив
 });
 
 // Закрыть попапы нажав на оверлей или крестик
@@ -67,6 +68,7 @@ function render () {
     fotoCards.append(newCard.generateCard()); //добавили элемент в DOM
   });
 };
+
 render();
 
 
@@ -80,8 +82,9 @@ function createNewCard (evt) {
   closePopup(popupAdd);  //вызвали функцию которая закрывает форму при сохранении
 
   formAdd.reset(); // очистить поля
-  popupSaveButton.classList.add('form__submit_inactive');
-  popupSaveButton.setAttribute('disabled', true);
+  // это удалить, когда др заработает
+  //popupSaveButton.classList.add('form__submit_inactive');
+  //popupSaveButton.setAttribute('disabled', true);
 };
 
 // Функция добавления новой карточки в начало сайта
@@ -91,12 +94,9 @@ function addCard (name, link) {
 };
 
 
-
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
-
-
 
 
 // 5 Функция которая найдёт и переберёт все формы на странице
@@ -114,7 +114,7 @@ const findEnableValidation = (setting) => {
 
 findEnableValidation (setting);
 
-
+//
 const profileValidation = new FormValidator(setting, formEdit);
 const newCardValidation = new FormValidator(setting, formAdd);
 
