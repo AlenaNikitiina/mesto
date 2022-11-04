@@ -7,20 +7,22 @@ export class Card {
     this._templateItem = document.querySelector(templateSelector).content;
     this._openPopupFunc = openPopupFunc;
 
-    this._myHtmlElement = this._templateItem.cloneNode(true); //копируем содержимое тега темплате
-    //наполняем содержимым
+    //this._myHtmlElement = this._templateItem.cloneNode(true); //копируем содержимое тега темплате (было)
+    this._myHtmlElement = this._templateItem.querySelector('.elements__card').cloneNode(true); // клонируем уже элемент разметки
+
+    // наполняем содержимым
     this._myHtmlElement.querySelector('.element__title').textContent = name;
     const fotoZoomOpen = this._myHtmlElement.querySelector('.element__foto'); // попап зум картинки
     fotoZoomOpen.src = link;
     fotoZoomOpen.alt = name;
 
-    //лайк
+    // лайк
     this._buttonLike = this._myHtmlElement.querySelector('.element__like'); // нашли кнопку лайка
     this._buttonLike.addEventListener('click', () => {
       this._likeIt();
     });
 
-    //мусорка не приватный ???
+    // мусорка (не приватная, исп ток в одном методе)
     const trashButton = this._myHtmlElement.querySelector('.element__trash-button'); // нашли кнопку мусорки
     trashButton.addEventListener('click', (evt) => {
       this._deletePhoto(evt);
@@ -30,7 +32,7 @@ export class Card {
     fotoZoomOpen.addEventListener('click', this._zoomPhoto.bind(this));
   }
 
-  generateCard () {
+  createCard () {
     return this._myHtmlElement;
   }
 
@@ -38,13 +40,9 @@ export class Card {
     this._buttonLike.classList.toggle('element__like_active');
   }
 
-  _deletePhoto (evt) {
-    const currentPhoto =  evt.target.closest('.elements__card');
-    currentPhoto.remove();
-
-    //не получилось
-    //this._myHtmlElement.remove();
-    //this._myHtmlElement = null;
+  _deletePhoto () {
+    this._myHtmlElement.remove();
+    this._myHtmlElement = null;
   }
 
   _zoomPhoto (evt) {
@@ -53,6 +51,6 @@ export class Card {
     popupImage.alt = picture.alt;
     popupFigcaption.textContent = picture.alt;
     this._openPopupFunc(popupZoom);
-  }
+  };
 
 };

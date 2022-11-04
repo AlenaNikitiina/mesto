@@ -30,11 +30,6 @@ export const popupFigcaption = document.querySelector('.popup__figcaption');
 export const formInput = document.querySelector('.form__input'); // нашли инпут
 export const popupSaveButton = document.querySelector('.form__submit-add') // находим кнопку сабмита в форме нового места
 
-// Массив объектов Cards
-export let cards = [];
-// Массив объектов FormValidator
-export let validators = [];
-
 //
 export const setting = {
   formSelector: '.popup__form',
