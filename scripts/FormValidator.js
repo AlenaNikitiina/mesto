@@ -78,5 +78,13 @@ export class FormValidator {
     }
   }
 
-};
+  // Метод для очистки ошибок и управления кнопкой
+  removeValidationErrors () {
+    this._toggleButtonState();
 
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement) // очищаем ошибки
+    });
+}
+
+};

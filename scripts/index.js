@@ -42,7 +42,10 @@ buttonOpenEdit.addEventListener('click', () => {
 // Функция Открыть форму попапа по нажатию на кнопку добавления карточки
 buttonOpenAdd.addEventListener('click', () => {
   openPopup(popupAdd);
+
   newCardValidation.disableSubmitButton(); // сделай кнопку сохранения актив/не актив
+  newCardValidation.removeValidationErrors() // очисти ошибки из спана
+  formAdd.reset(); // очисти импуты формы
 });
 
 // Закрыть попапы нажав на оверлей или крестик
@@ -56,7 +59,7 @@ popupAll.forEach((item) => {
 
 
 
-////
+//// Создания карточек
 // Функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 function render () {
   initialCards.forEach((item) => {
@@ -67,8 +70,7 @@ function render () {
 
 render();
 
-
-// Функция отправки формы и создает новую карточку от человека
+// Функция создает новую карточку от человека,и отправки формы
 function createNewCard (evt) {
   evt.preventDefault();
   const titleValue = titleInput.value;
@@ -76,14 +78,9 @@ function createNewCard (evt) {
 
   addCard(titleValue, linkValue);  // вызвали функцию которая добавит новую карточку
   closePopup(popupAdd);  //вызвали функцию которая закрывает форму при сохранении
-
-  formAdd.reset(); // очистить поля
-  // это удалить, когда др заработает
-  //popupSaveButton.classList.add('form__submit_inactive');
-  //popupSaveButton.setAttribute('disabled', true);
 };
 
-// Функция добавления новой карточки в начало сайта
+// Функция добавляет новую карточку в начало сайта
 function addCard (name, link) {
   const newCard = new Card(name, link, templateSelector, openPopup);
   fotoCards.prepend(newCard.createCard()); //добавили элемент в DOM
@@ -95,25 +92,7 @@ formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
 
 
-/*
-
-// 5 Функция которая найдёт и переберёт все формы на странице
-const findEnableValidation = (setting) => {
-  // Найдём все формы с указанным классом в DOM, сделаем из них массив
-  const formList = Array.from(document.querySelectorAll(setting.formSelector));
-
-  // Переберём его
-  formList.forEach((formElementAll) => {
-    const newValidator = new FormValidator(setting, formElementAll);
-    newValidator.enableValidation();
-    //setEventListeners(formElementAll, setting); // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
-  });
-};
-
-findEnableValidation (setting);
-*/
-
-//
+////Kлассы
 const profileValidation = new FormValidator(setting, formEdit);
 const newCardValidation = new FormValidator(setting, formAdd);
 
