@@ -2,15 +2,12 @@ export class FormValidator {
   constructor(selectors_setting, form_to_valid,) {
     this._selectors_setting = selectors_setting;
     this._form_to_valid = form_to_valid;
-    // formElementAll - это теперь this._element_to_valid
+    // formElementAll = это теперь this._element_to_valid
     // setting = это теперь this._selectors_setting
   }
 
   // Метод, который вкл валидацию формы
   enableValidation() {
-    this._form_to_valid.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
     this._setEventListeners();
   }
 

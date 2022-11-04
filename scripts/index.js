@@ -1,5 +1,5 @@
-import { Card } from "./cards.js";
-import { FormValidator } from "./validate.js";
+import { Card } from "./Cards.js";
+import { FormValidator } from "./FormValidator.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, popupSaveButton, initialCards, setting } from "./constants.js";
 
 // Обработчик «отправки» формы
@@ -9,11 +9,7 @@ function submitHandlerForm (evt) {
   titleJob.textContent = jobInput.value;
 
   closePopup(popupEdit); //вызвали функцию которая закрывает форму при сохранении
-
-  // сделай кпонку отключенной //кажется это вообще не надо
-  //evt.submitter.classList.add('popup__button_disabled');
-  //evt.submitter.setAttribute('disabled', true);
-  //formEdit.reset();
+  formEdit.reset();
 };
 
 // Функция открытия попапов
@@ -65,7 +61,7 @@ popupAll.forEach((item) => {
 function render () {
   initialCards.forEach((item) => {
     const newCard = new Card(item.name, item.link, templateSelector, openPopup);
-    fotoCards.append(newCard.generateCard()); //добавили элемент в DOM
+    fotoCards.append(newCard.createCard()); //добавили элемент в DOM
   });
 };
 
@@ -90,7 +86,7 @@ function createNewCard (evt) {
 // Функция добавления новой карточки в начало сайта
 function addCard (name, link) {
   const newCard = new Card(name, link, templateSelector, openPopup);
-  fotoCards.prepend(newCard.generateCard()); //добавили элемент в DOM
+  fotoCards.prepend(newCard.createCard()); //добавили элемент в DOM
 };
 
 
@@ -98,6 +94,8 @@ function addCard (name, link) {
 formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
 
+
+/*
 
 // 5 Функция которая найдёт и переберёт все формы на странице
 const findEnableValidation = (setting) => {
@@ -113,6 +111,7 @@ const findEnableValidation = (setting) => {
 };
 
 findEnableValidation (setting);
+*/
 
 //
 const profileValidation = new FormValidator(setting, formEdit);
