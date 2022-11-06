@@ -1,6 +1,6 @@
 import { Card } from "./Cards.js";
 import { FormValidator } from "./FormValidator.js";
-import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, popupSaveButton, initialCards, setting } from "./constants.js";
+import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "./constants.js";
 
 // Обработчик «отправки» формы
 function submitHandlerForm (evt) {
@@ -9,7 +9,6 @@ function submitHandlerForm (evt) {
   titleJob.textContent = jobInput.value;
 
   closePopup(popupEdit); //вызвали функцию которая закрывает форму при сохранении
-  formEdit.reset();
 };
 
 // Функция открытия попапов
@@ -35,17 +34,19 @@ const closeByEscape = (evt) => {
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
 buttonOpenEdit.addEventListener('click', () => {
   openPopup(popupEdit); // вызываю функцию открытия
+
   nameInput.value = titleName.textContent;
   jobInput.value = titleJob.textContent;
+
+  profileValidation.removeValidationErrors(); // вызвали метод чтобы форма всегда при открытии была чистой от ошибок поля
 });
 
 // Функция Открыть форму попапа по нажатию на кнопку добавления карточки
 buttonOpenAdd.addEventListener('click', () => {
   openPopup(popupAdd);
 
-  newCardValidation.disableSubmitButton(); // сделай кнопку сохранения актив/не актив
-  newCardValidation.removeValidationErrors() // очисти ошибки из спана
   formAdd.reset(); // очисти импуты формы
+  newCardValidation.removeValidationErrors() // чтобы форма всегда при открытии была чистой от ошибок поля
 });
 
 // Закрыть попапы нажав на оверлей или крестик
@@ -56,7 +57,6 @@ popupAll.forEach((item) => {
     }
   })
 });
-
 
 
 //// Создания карточек
@@ -92,7 +92,7 @@ formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
 
 
-////Kлассы
+//// Kлассы
 const profileValidation = new FormValidator(setting, formEdit);
 const newCardValidation = new FormValidator(setting, formAdd);
 

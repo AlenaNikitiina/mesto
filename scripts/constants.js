@@ -28,7 +28,6 @@ export const popupImage = document.querySelector('.popup__image');
 export const popupFigcaption = document.querySelector('.popup__figcaption');
 // Валидация
 export const formInput = document.querySelector('.form__input'); // нашли инпут
-export const popupSaveButton = document.querySelector('.form__submit-add') // находим кнопку сабмита в форме нового места
 
 //
 export const setting = {

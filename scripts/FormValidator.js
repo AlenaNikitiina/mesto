@@ -39,9 +39,15 @@ export class FormValidator {
     }
   }
 
-  // Метод, кот вкл/откл кнопку.
+  // Метод который делает кнопку не активной. принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
   _toggleButtonState () {
-    this.disableSubmitButton();
+    if (this._hasInvalidInput()) {
+      this._buttonElement.disabled = true;
+      this._buttonElement.classList.add(this._selectors_setting.buttonElementInactiv); // сделай кнопку неактивной
+    } else {
+      this._buttonElement.disabled = false;
+      this._buttonElement.classList.remove(this._selectors_setting.buttonElementInactiv); // сделай кнопку активной
+    }
   }
 
   // 6 Метод, которая проверит все инпуты в форме валидное/нет, принимает массив полей
@@ -67,17 +73,6 @@ export class FormValidator {
     });
   }
 
-  // Метод который делает кнопку не активной. принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
-  disableSubmitButton () {
-    if (this._hasInvalidInput()) {
-      this._buttonElement.disabled = true;
-      this._buttonElement.classList.add(this._selectors_setting.buttonElementInactiv); // сделай кнопку неактивной
-    } else {
-      this._buttonElement.disabled = false;
-      this._buttonElement.classList.remove(this._selectors_setting.buttonElementInactiv); // сделай кнопку активной
-    }
-  }
-
   // Метод для очистки ошибок и управления кнопкой
   removeValidationErrors () {
     this._toggleButtonState();
@@ -85,6 +80,6 @@ export class FormValidator {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement) // очищаем ошибки
     });
-}
+  }
 
 };
