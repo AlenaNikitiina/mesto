@@ -1,3 +1,13 @@
 class PopupWithImage extends Popup {
-  constructor ()
+  constructor () {
+
+
+  }
+
+  // Функция открытия попапов
+  openPopup () {
+    item.classList.add('popup_opened');
+    document.addEventListener('keydown', closeByEscape);
+    }
+
 }

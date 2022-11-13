@@ -1,43 +1,48 @@
-import { popupAll } from "./constants";
+import { popupCloseButtons } from "./constants.js";
 
 export class Popup {
-  constructor (popupAll) {
-    this.popupAll = popupAll;
+  constructor (popupSelector) {
+    this._popupSelector = popupSelector;
   }
 
-  // Функция открытия попапов
+  // Метод открытия попапов
   openPopup () {
-  item.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEscape);
+    this._popupSelector.classList.add('popup_opened');
+    document.addEventListener('keydown', this._handleEscClose.bind(this));
   }
 
-  // Функция закрытия попапов
+  // Метод закрытия попапов
   closePopup () {
-  item.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEscape);
+    this._popupSelector.classList.remove('popup_opened');
+    document.removeEventListener('keydown', this._handleEscClose.bind(this));
   }
 
-  // метод, который содержит логику закрытия попапа клавишей Esc.
-  _handleEscClose = (evt) => {
+  // Метод, закрывает попап клавишей Esc
+  _handleEscClose (evt) {
     if (evt.key === 'Escape') {
       const openedNowPopup = document.querySelector('.popup_opened')
-      closePopup(openedNowPopup);
+      this.closePopup(openedNowPopup);
     }
   };
 
-  //который добавляет слушатель клика иконке закрытия попапа.
+  // Метод,который добавляет слушатель клика крестику (иконке) закрытия попапа.
   setEventListeners (evt) {
     popupCloseButtons.addEventListener ('click', (evt) => {
-      this.closePopup;
+      this.closePopup();
     });
   }
 
+
+ /*
   // Закрыть попапы нажав на оверлей или крестик
-  //popupAll.forEach((item) => {
-    //item.addEventListener('mousedown', (evt) => {
-      //if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
-        //closePopup(item); }
-    //})
-  //});
+popupAll.forEach((item) => {
+  item.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
+      addFotoPopup.closePopup();
+    }
+  })
+});
+  */
+
 
 }

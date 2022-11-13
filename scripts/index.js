@@ -1,6 +1,8 @@
 import { Card } from "./Cards.js";
 import { FormValidator } from "./FormValidator.js";
+import { Popup } from "./Popup.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "./constants.js";
+
 
 // Обработчик «отправки» формы
 function submitHandlerForm (evt) {
@@ -8,32 +10,19 @@ function submitHandlerForm (evt) {
   titleName.textContent = nameInput.value;
   titleJob.textContent = jobInput.value;
 
-  closePopup(popupEdit); //вызвали функцию которая закрывает форму при сохранении
+  editPopup.closePopup(); //вызвали функцию которая закрывает форму при сохранении
 };
 
-// Функция открытия попапов
-function openPopup (item) {
-  item.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEscape);
-};
+// Функция должна открывать попап с картинкой при клике на карточку
+const handleCardClick = (selector) => {
+  const newPopup = new Popup(selector); // создаём экз
+  newPopup.openPopup();
+}
 
-// Функция закрытия попапов
-function closePopup (item) {
-  item.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEscape);
-};
-
-// Функция закрытия попапов по нажатию на Escape
-const closeByEscape = (evt) => {
-  if (evt.key === 'Escape') {
-    const openedNowPopup = document.querySelector('.popup_opened')
-    closePopup(openedNowPopup);
-  }
-};
 
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
 buttonOpenEdit.addEventListener('click', () => {
-  openPopup(popupEdit); // вызываю функцию открытия
+  editPopup.openPopup(); // вызываю функцию открытия
 
   nameInput.value = titleName.textContent;
   jobInput.value = titleJob.textContent;
@@ -43,7 +32,7 @@ buttonOpenEdit.addEventListener('click', () => {
 
 // Функция Открыть форму попапа по нажатию на кнопку добавления карточки
 buttonOpenAdd.addEventListener('click', () => {
-  openPopup(popupAdd);
+  addFotoPopup.openPopup(); //
 
   formAdd.reset(); // очисти импуты формы
   newCardValidation.removeValidationErrors() // чтобы форма всегда при открытии была чистой от ошибок поля
@@ -53,7 +42,8 @@ buttonOpenAdd.addEventListener('click', () => {
 popupAll.forEach((item) => {
   item.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
-      closePopup(item);
+      const popupToClose = new Popup(item);
+      popupToClose.closePopup();
     }
   })
 });
@@ -63,7 +53,7 @@ popupAll.forEach((item) => {
 // Функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 function render () {
   initialCards.forEach((item) => {
-    const newCard = new Card(item.name, item.link, templateSelector, openPopup);
+    const newCard = new Card(item.name, item.link, templateSelector, handleCardClick);
     fotoCards.append(newCard.createCard()); //добавили элемент в DOM
   });
 };
@@ -77,12 +67,12 @@ function createNewCard (evt) {
   const linkValue = linkInput.value;
 
   addCard(titleValue, linkValue);  // вызвали функцию которая добавит новую карточку
-  closePopup(popupAdd);  //вызвали функцию которая закрывает форму при сохранении
+  addFotoPopup.closePopup();  //вызвали функцию которая закрывает форму при сохранении
 };
 
 // Функция добавляет новую карточку в начало сайта
 function addCard (name, link) {
-  const newCard = new Card(name, link, templateSelector, openPopup);
+  const newCard = new Card(name, link, templateSelector, handleCardClick);
   fotoCards.prepend(newCard.createCard()); //добавили элемент в DOM
 };
 
@@ -92,10 +82,14 @@ formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
 
 
-//// Kлассы
-const profileValidation = new FormValidator(setting, formEdit);
-const newCardValidation = new FormValidator(setting, formAdd);
+
+// Kлассы валидации
+const profileValidation = new FormValidator(setting, formEdit); // экземпляр Класса
+const newCardValidation = new FormValidator(setting, formAdd); // экземпляр Класса
 
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
+// Классы попапов
+const editPopup = new Popup(popupEdit); // экземпляр Класса, редактирования
+const addFotoPopup = new Popup(popupAdd); // экземпляр Класса, добавления
