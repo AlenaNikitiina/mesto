@@ -98,3 +98,4 @@ const newCardValidation = new FormValidator(setting, formAdd);
 
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
+

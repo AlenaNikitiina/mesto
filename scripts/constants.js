@@ -1,5 +1,6 @@
 //// Все константы проекта
 // Формы
+//const formElementAll = document.querySelectorAll('.popup__form'); // все попапы с формами
 export const formEdit = document.querySelector('.form__edit'); // форма редактирования профиля
 export const formAdd = document.querySelector('.form__add'); // форма добавления карточки
 // Про открытие и закрытие попапа
