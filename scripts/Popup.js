@@ -33,16 +33,7 @@ export class Popup {
   }
 
 
- /*
   // Закрыть попапы нажав на оверлей или крестик
-popupAll.forEach((item) => {
-  item.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
-      addFotoPopup.closePopup();
-    }
-  })
-});
-  */
 
 
 }

@@ -1,5 +1,7 @@
 class Section {
-  constructor ( { data: items, renderer } ) {}
+  constructor ( { data: items, renderer } ) {
+
+  }
 
 
   //Отрисовка каждого отдельного элемента должна осуществляться функцией
