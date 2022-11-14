@@ -1,7 +1,7 @@
-import { Card } from "./Cards.js";
-import { FormValidator } from "./FormValidator.js";
-import { Popup } from "./Popup.js";
-import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "./constants.js";
+import { Card } from "../components/Cards.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { Popup } from "../components/Popup.js";
+import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "../utils/constants.js";
 
 
 // Обработчик «отправки» формы
@@ -48,6 +48,19 @@ popupAll.forEach((item) => {
   })
 });
 
+/*
+// Закрыть попапы нажав на оверлей или крестик
+popupAll.forEach((item) => {
+  item.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
+      closePopup(item);}
+  })
+});
+*/
+
+
+
+
 
 
 
@@ -82,7 +95,6 @@ function addCard (name, link) {
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
-
 
 
 // Kлассы валидации

@@ -1,4 +1,4 @@
-import { popupZoom, popupImage, popupFigcaption } from "./constants.js";
+import { popupZoom, popupImage, popupFigcaption } from "../utils/constants.js";
 
 export class Card {
   constructor(name, link, templateSelector, handleCardClick) {

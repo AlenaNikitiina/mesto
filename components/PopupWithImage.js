@@ -1,7 +1,6 @@
 class PopupWithImage extends Popup {
   constructor () {
 
-
   }
 
   // Функция открытия попапов
