@@ -1,6 +1,7 @@
 import { Card } from "../components/Cards.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Popup } from "../components/Popup.js";
+import { Section } from "../components/Section.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "../utils/constants.js";
 
 
@@ -49,7 +50,7 @@ popupAll.forEach((item) => {
 });
 
 /*
-// Закрыть попапы нажав на оверлей или крестик
+// OLD Закрыть попапы нажав на оверлей или крестик
 popupAll.forEach((item) => {
   item.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
@@ -59,12 +60,9 @@ popupAll.forEach((item) => {
 */
 
 
-
-
-
-
-
 //// Создания карточек
+
+/*
 // Функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
 function render () {
   initialCards.forEach((item) => {
@@ -72,8 +70,14 @@ function render () {
     fotoCards.append(newCard.createCard()); //добавили элемент в DOM
   });
 };
-
 render();
+*/
+
+// Функция добавляет новую карточку в начало сайта от человека
+function addCard (name, link) {
+  const newCard = new Card(name, link, templateSelector, handleCardClick);
+  fotoCards.prepend(newCard.createCard()); //добавили элемент в DOM
+};
 
 // Функция создает новую карточку от человека,и отправки формы
 function createNewCard (evt) {
@@ -84,13 +88,6 @@ function createNewCard (evt) {
   addCard(titleValue, linkValue);  // вызвали функцию которая добавит новую карточку
   addFotoPopup.closePopup();  //вызвали функцию которая закрывает форму при сохранении
 };
-
-// Функция добавляет новую карточку в начало сайта
-function addCard (name, link) {
-  const newCard = new Card(name, link, templateSelector, handleCardClick);
-  fotoCards.prepend(newCard.createCard()); //добавили элемент в DOM
-};
-
 
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 formEdit.addEventListener('submit', submitHandlerForm);
@@ -107,3 +104,18 @@ newCardValidation.enableValidation();
 // Классы попапов
 const editPopup = new Popup(popupEdit); // экземпляр Класса, редактирования
 const addFotoPopup = new Popup(popupAdd); // экземпляр Класса, добавления
+
+
+// Класс создания карточки
+// экзм класса Section
+const createNewCards = new Section ({
+  items: initialCards,
+  renderer: (item) => {
+    const newCard = new Card(item.name, item.link, templateSelector, handleCardClick);
+    createNewCards.addItem(newCard.createCard());
+  }
+}, '.elements__list'
+);
+
+createNewCards.rendererAllItems();
+

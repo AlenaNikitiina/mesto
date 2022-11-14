@@ -1,12 +1,18 @@
-class PopupWithImage extends Popup {
-  constructor () {
+import { Popup } from "./Popup";
 
+export class PopupWithImage extends Popup {
+  constructor (popupSelector) {
+    super(popupSelector);
+    this._link = this._popup.querySelector('.popup__image')
+    this._name = this._popup.querySelector('.popup__figcaption')
   }
 
-  // Функция открытия попапов
-  openPopup () {
-    item.classList.add('popup_opened');
-    document.addEventListener('keydown', closeByEscape);
+  // открытия попапов
+  openPopup (name, link) {
+    super.openPopup();
+    this._name.alt = name;
+    this._link.src = link;
+    this._name.textContent = name;
     }
 
 }

@@ -20,8 +20,8 @@ export class Popup {
   // Метод, закрывает попап клавишей Esc
   _handleEscClose (evt) {
     if (evt.key === 'Escape') {
-      const openedNowPopup = document.querySelector('.popup_opened')
-      this.closePopup(openedNowPopup);
+      //const openedNowPopup = document.querySelector('.popup_opened')
+      this.closePopup();
     }
   };
 
@@ -31,7 +31,6 @@ export class Popup {
       this.closePopup();
     });
   }
-
 
   // Закрыть попапы нажав на оверлей или крестик
 
