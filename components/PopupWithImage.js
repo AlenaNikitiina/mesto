@@ -7,7 +7,7 @@ export class PopupWithImage extends Popup {
     this._name = this._popup.querySelector('.popup__figcaption')
   }
 
-  // открытия попапов
+  // перезапишем открытия попапов
   openPopup (name, link) {
     super.openPopup();
     this._name.alt = name;
