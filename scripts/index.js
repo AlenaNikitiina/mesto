@@ -3,22 +3,24 @@ import { FormValidator } from "../components/FormValidator.js";
 import { Popup } from "../components/Popup.js";
 import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
+//import { PopupWithImage } from "../components/PopupWithImage.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "../utils/constants.js";
+//import { PopupWithForm } from "../components/PopupWithForm.js";
 
 // Обработчик «отправки» формы
 function submitHandlerForm (evt) {
   evt.preventDefault();
   //old
-  titleName.textContent = nameInput.value;
-  titleJob.textContent = jobInput.value;
+  //titleName.textContent = nameInput.value;
+  //titleJob.textContent = jobInput.value;
 
-  //new///////////////////////////////////////////////////////////
-
-
+  //new
+  infoAboutUser.setUserInfo(nameInput.value, jobInput.value); // вызвали метод из класса UserInfo
+console.log(nameInput.value)
   editPopup.closePopup(); //вызвали функцию которая закрывает форму при сохранении
 };
 
-// Функция должна открывать попап с картинкой при клике на карточку
+// Функция должна открывать попап с картинкой (zoompopup) при клике на карточку
 const handleCardClick = (selector) => {
   const newPopup = new Popup(selector); // создаём экз
   newPopup.openPopup();
@@ -27,15 +29,15 @@ const handleCardClick = (selector) => {
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
 buttonOpenEdit.addEventListener('click', () => {
   editPopup.openPopup(); // вызываю метод открытия из класса Popup
-
-  //new///////////////////////////////////////////////////////////
-  const abc = infoAboutUser.getUserInfo(); // вызвали метод из класса UserInfo
-  titleName.value = abc.userName;
-  titleJob.value = abc.userAboutInfo;
-
   //old
   //nameInput.value = titleName.textContent;
   //jobInput.value = titleJob.textContent;
+
+  //new
+  const abc = infoAboutUser.getUserInfo(); // вызвали метод из класса UserInfo
+  nameInput.value = abc.profileName;
+  jobInput.value = abc.profileAboutInfo;
+  console.log(nameInput.value)
   profileValidation.removeValidationErrors(); // вызвали метод чтобы форма всегда при открытии была чистой от ошибок поля
 });
 
@@ -47,6 +49,7 @@ buttonOpenAdd.addEventListener('click', () => {
   newCardValidation.removeValidationErrors() // чтобы форма всегда при открытии была чистой от ошибок поля
 });
 
+
 // Закрыть попапы нажав на оверлей или крестик
 popupAll.forEach((item) => {
   item.addEventListener('mousedown', (evt) => {
@@ -56,6 +59,7 @@ popupAll.forEach((item) => {
     }
   })
 });
+
 
 /*// OLD Закрыть попапы нажав на оверлей или крестик
 popupAll.forEach((item) => {
@@ -97,18 +101,18 @@ formEdit.addEventListener('submit', submitHandlerForm);
 formAdd.addEventListener('submit', createNewCard);
 
 
-//// экзм Kлассы валидации
+//// экзм Kлассов валидации
 const profileValidation = new FormValidator(setting, formEdit); // экземпляр Класса
 const newCardValidation = new FormValidator(setting, formAdd); // экземпляр Класса
 
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
-// экзм Классы попапов
+//// экзм Классов попапов
 const editPopup = new Popup(popupEdit); // экземпляр Класса, редактирования
 const addFotoPopup = new Popup(popupAdd); // экземпляр Класса, добавления
 
-// экзм класса Section (создания карточки)
+//// экзм класса Section (создания карточки)
 const createNewCards = new Section ({
   items: initialCards,
   renderer: (item) => {
@@ -118,7 +122,15 @@ const createNewCards = new Section ({
 }, '.elements__list'
 );
 
-createNewCards.rendererAllItems(); //  метод, кот отвечает за отрисовку всех элементов из класса Section
+createNewCards.rendererAllItems(); // метод, кот отвечает за отрисовку всех элементов из класса Section
 
-// экзм класса UserInfo
-const infoAboutUser = new UserInfo( {userName: '.profile__name', userAboutInfo: '.profile__job'} )
+//// экзм класса UserInfo
+const infoAboutUser = new UserInfo( {nameSelector: '.profile__name', aboutInfoSelector: '.profile__job'} )
+
+//// экзм класса PopupWithImage
+//const PopupWithZoomPhoto = new PopupWithImage(popupZoom)
+
+
+//// экзм класса PopupWithForm
+//const v = new PopupWithForm();
+//const c = new PopupWithForm();
