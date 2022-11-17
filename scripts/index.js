@@ -16,7 +16,6 @@ function submitHandlerForm (evt) {
 
   //new
   infoAboutUser.setUserInfo(nameInput.value, jobInput.value); // вызвали метод из класса UserInfo
-console.log(nameInput.value)
   editPopup.closePopup(); //вызвали функцию которая закрывает форму при сохранении
 };
 
@@ -37,7 +36,7 @@ buttonOpenEdit.addEventListener('click', () => {
   const abc = infoAboutUser.getUserInfo(); // вызвали метод из класса UserInfo
   nameInput.value = abc.profileName;
   jobInput.value = abc.profileAboutInfo;
-  console.log(nameInput.value)
+
   profileValidation.removeValidationErrors(); // вызвали метод чтобы форма всегда при открытии была чистой от ошибок поля
 });
 
@@ -59,7 +58,6 @@ popupAll.forEach((item) => {
     }
   })
 });
-
 
 /*// OLD Закрыть попапы нажав на оверлей или крестик
 popupAll.forEach((item) => {
