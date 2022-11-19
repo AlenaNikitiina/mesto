@@ -17,14 +17,13 @@ function submitHandlerForm (evt) {
   //new
   infoAboutUser.setUserInfo(nameInput.value, jobInput.value); // вызвали метод из класса UserInfo
   editPopup.closePopup(); //вызвали функцию которая закрывает форму при сохранении
-  editPopup2.closePopup
+
 };
 
 // Функция должна открывать попап с картинкой (zoompopup) при клике на карточку
 const handleCardClick = (selector) => {
   const newPopup = new Popup(selector); // создаём экз
   newPopup.openPopup();
-  editPopup2.openPopup();
 }
 
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
@@ -35,9 +34,9 @@ buttonOpenEdit.addEventListener('click', () => {
   //jobInput.value = titleJob.textContent;
 
   //new
-  const abc = infoAboutUser.getUserInfo(); // вызвали метод из класса UserInfo
-  nameInput.value = abc.profileName;
-  jobInput.value = abc.profileAboutInfo;
+  const profileInfo = infoAboutUser.getUserInfo(); // вызвали метод из класса UserInfo
+  nameInput.value = profileInfo.profileName;
+  jobInput.value = profileInfo.profileAboutInfo;
 
   profileValidation.removeValidationErrors(); // вызвали метод чтобы форма всегда при открытии была чистой от ошибок поля
 });
@@ -112,8 +111,10 @@ profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
 //// экзм Классов попапов
-const editPopup = new Popup(popupEdit); // экземпляр Класса, редактирования
-const addFotoPopup = new Popup(popupAdd); // экземпляр Класса, добавления
+//const editPopup = new Popup(popupEdit); // экземпляр Класса, редактирования
+//const addFotoPopup = new Popup(popupAdd); // экземпляр Класса, добавления
+const editPopup = new PopupWithForm(popupEdit, handlerSubmitProfile);
+const addFotoPopup = new PopupWithForm(popupAdd, handlerSubmitForm);
 
 //// экзм класса Section (создания карточки)
 const createNewCards = new Section ({
@@ -130,7 +131,7 @@ createNewCards.rendererAllItems(); // метод, кот отвечает за �
 
 //// экзм класса UserInfo
 const infoAboutUser = new UserInfo( {nameSelector: '.profile__name', aboutInfoSelector: '.profile__job'} )
-
+console.log(infoAboutUser)
 //// экзм класса PopupWithImage
 //const PopupWithZoomPhoto = new PopupWithImage('.popup_zoom')
 /*
@@ -141,10 +142,6 @@ function handlePreview(name, link) {
 */
 
 
-
-//// экзм класса PopupWithForm
-const editPopup2 = new PopupWithForm(popupEdit, handlerSubmitProfile);
-const addFotoPopup2 = new PopupWithForm(popupAdd, handlerSubmitForm);
 
 //
 function handlerSubmitProfile(data) {
