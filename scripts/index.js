@@ -3,10 +3,11 @@ import { FormValidator } from "../components/FormValidator.js";
 import { Popup } from "../components/Popup.js";
 import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
-//import { PopupWithImage } from "../components/PopupWithImage.js";
-import { formEdit, formAdd, popupEdit, popupAdd, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "../utils/constants.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "../utils/constants.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 
+/*
 // Обработчик «отправки» формы
 function submitHandlerForm (evt) {
   evt.preventDefault();
@@ -19,6 +20,7 @@ function submitHandlerForm (evt) {
   editPopup.closePopup(); //вызвали функцию которая закрывает форму при сохранении
 
 };
+*/
 
 // Функция должна открывать попап с картинкой (zoompopup) при клике на карточку
 const handleCardClick = (selector) => {
@@ -82,9 +84,8 @@ function render () {
 
 // Функция добавляет новую карточку в начало сайта от человека
 function addCard (name, link) {
-  const newCard = new Card(name, link, templateSelector, handleCardClick); //handlePreview вызвать?
-
-  fotoCards.prepend(newCard.createCard()); //добавили элемент в DOM
+  //const newCard = new Card(name, link, templateSelector, handleCardClick); //handlePreview вызвать?
+  cardsSection.addItem((new Card(name, link, templateSelector, handleCardClick)).createCard(), false);
 };
 
 // Функция создает новую карточку от человека,и отправки формы
@@ -99,8 +100,8 @@ function createNewCard (evt) {
 };
 
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
-formEdit.addEventListener('submit', submitHandlerForm);
-formAdd.addEventListener('submit', createNewCard);
+//formEdit.addEventListener('submit', submitHandlerForm);
+//formAdd.addEventListener('submit', createNewCard);
 
 
 //// экзм Kлассов валидации
@@ -111,21 +112,22 @@ profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
 //// экзм Классов попапов
-//const editPopup = new Popup(popupEdit); // экземпляр Класса, редактирования
-//const addFotoPopup = new Popup(popupAdd); // экземпляр Класса, добавления
 const editPopup = new PopupWithForm(popupEdit, handlerSubmitProfile);
 const addFotoPopup = new PopupWithForm(popupAdd, handlerSubmitForm);
 
+editPopup.setEventListeners();
+addFotoPopup.setEventListeners();
+
 //// экзм класса Section (создания карточки)
-const createNewCards = new Section ({
-  items: initialCards,
-  renderer: (item) => {
-    const newCard = new Card(item.name, item.link, templateSelector, handleCardClick);
-    createNewCards.addItem(newCard.createCard());
-  }
-}, '.elements__list'
+const cardsSection = new Section ({
+    items: initialCards,
+    renderer: (item) => {
+      const newCard = new Card(item.name, item.link, templateSelector, handleCardClick);
+      cardsSection.addItem(newCard.createCard(), true);
+    }
+  }, '.elements__list'
 );
-createNewCards.rendererAllItems(); // метод, кот отвечает за отрисовку всех элементов из класса Section
+cardsSection.rendererAllItems(); // метод, кот отвечает за отрисовку всех элементов из класса Section
 
 
 
@@ -133,7 +135,7 @@ createNewCards.rendererAllItems(); // метод, кот отвечает за �
 const infoAboutUser = new UserInfo( {nameSelector: '.profile__name', aboutInfoSelector: '.profile__job'} )
 console.log(infoAboutUser)
 //// экзм класса PopupWithImage
-//const PopupWithZoomPhoto = new PopupWithImage('.popup_zoom')
+const popupWithZoomPhoto = new PopupWithImage(popupZoom)
 /*
 function handlePreview(name, link) {
   PopupWithZoomPhoto.open(name, link);
@@ -145,16 +147,11 @@ function handlePreview(name, link) {
 
 //
 function handlerSubmitProfile(data) {
-  //текстконтект инпутов на странице -  data(value инпута формы).Name( name="Name" из html)
-  infoAboutUser.setUserInfo(data.Name, data.Job);
+  //infoAboutUser.setUserInfo(data.Name, data.Job);
+  infoAboutUser.setUserInfo(data.nickName, data.about);
 }
 
 //
 function handlerSubmitForm(data) {
-  const formValue = {
-    //имя карточки = data(value инпута формы).Name( name="placeName" из html)
-    name: data.name,
-    link: data.link,
-  };
-  cardList.addItem(addCard(formValue)); // ??
+  addCard(data.title, data.link);
 }

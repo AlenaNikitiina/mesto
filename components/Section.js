@@ -13,8 +13,11 @@ export class Section {
   }
 
   // который принимает DOM-элемент и добавляет его в контейнер.
-  addItem (element) {
-    this._container.append(element); // принимает параметр element и вставляет его в контейнер методом append
+  addItem (element, inEnd) {
+    if (inEnd)
+      this._container.append(element); // принимает параметр element и вставляет его в контейнер методом append
+    else
+      this._container.prepend(element); // вставим в начало
   }
 
   // Метод, удаляет содержимое поля

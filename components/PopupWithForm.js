@@ -4,16 +4,15 @@ export class PopupWithForm extends Popup {
   constructor (popupSelector, callBackSubmitForm) {
     super(popupSelector); //  селектора попапа
     this._callbackSubmitForm = callBackSubmitForm; // колбэк сабмита формы
-
-    this._formInputs = Array.from(this._popupSelector.querySelectorAll('.form__input')); ///// ???
+    this._formInputs = Array.from(this._popupSelector.querySelectorAll('.form__input')); /////
     this._popupForm = this._popupSelector.querySelector('.form');
   }
 
   // метод, который собирает данные всех полей формы
   _getInputValues () {
-    inputValues = {};
+    const inputValues = {};
     this._formInputs.forEach((input) => {
-      inputValues[input.name] = input.value;
+      inputValues[input.id] = input.value;
     });
     return inputValues;
   }
@@ -22,12 +21,14 @@ export class PopupWithForm extends Popup {
   setEventListeners () {
     super.setEventListeners(); // метод родителя
     // добавляем обработчик сабмита формы
-    this._popupForm.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      this._callBackSubmitForm(this._getInputValues());
-      //
-      this.closePopup();
-    })
+    this._popupForm.addEventListener('submit', this._submit.bind(this));
+  }
+
+  _submit (evt) {
+    evt.preventDefault();
+    this._callbackSubmitForm(this._getInputValues());
+    //
+    this.closePopup();
   }
 
   //
@@ -37,6 +38,10 @@ export class PopupWithForm extends Popup {
   }
 
 }
+
+
+
+
 
 
 
