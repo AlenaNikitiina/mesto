@@ -10,7 +10,6 @@
   background-color: transparent;
   border-style: none;
   transition: opacity .3s ease;
-  z-index: 1;
 }
 
 .element__trash-button:hover {
