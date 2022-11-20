@@ -5,11 +5,11 @@ import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "../utils/constants.js";
-
+import './index.css';
 
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
 buttonOpenEdit.addEventListener('click', () => {
-  editPopup.openPopup(); // вызываю метод открытия из класса Popup
+  editPopup.open(); // вызываю метод открытия из класса Popup
   //old
   //nameInput.value = titleName.textContent;
   //jobInput.value = titleJob.textContent;
@@ -24,7 +24,7 @@ buttonOpenEdit.addEventListener('click', () => {
 
 // Функция Открыть форму попапа по нажатию на кнопку добавления карточки
 buttonOpenAdd.addEventListener('click', () => {
-  addFotoPopup.openPopup(); //
+  addFotoPopup.open(); //
 
   formAdd.reset(); // очисти импуты формы
   newCardValidation.removeValidationErrors() // чтобы форма всегда при открытии была чистой от ошибок поля
@@ -48,12 +48,12 @@ function createNewCard (evt) {
   const linkValue = linkInput.value;
 
   addCard(titleValue, linkValue);  // вызвали функцию которая добавит новую карточку
-  addFotoPopup.closePopup();  //вызвали функцию которая закрывает форму при сохранении
+  addFotoPopup.close();  //вызвали функцию которая закрывает форму при сохранении
 };
 
 //
 function handlerPreview(name, link) {
-  popupWithZoomPhoto.openPopup(name, link);
+  popupWithZoomPhoto.open(name, link);
   popupWithZoomPhoto.setEventListeners();
 };
 

@@ -6,13 +6,13 @@ export class Popup {
   }
 
   // Метод открытия попапов
-  openPopup () {
+  open () {
     this._popupSelector.classList.add('popup_opened');
     document.addEventListener('keydown', this._handleEscClose.bind(this));
   }
 
   // Метод закрытия попапов
-  closePopup () {
+  close () {
     this._popupSelector.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose.bind(this));
   }
@@ -20,7 +20,7 @@ export class Popup {
   // Метод, закрывает попап по нажатию на Esc
   _handleEscClose (evt) {
     if (evt.key === 'Escape') {
-      this.closePopup();
+      this.close();
     }
   };
 
@@ -28,13 +28,13 @@ export class Popup {
   setEventListeners () {
     const popupCloseButtons = this._popupSelector.querySelector('.popup__close-button');
     popupCloseButtons.addEventListener('click', () => {
-      this.closePopup();
+      this.close();
     });
     // клик вне формы
     popupAll.forEach((item) => {
       item.addEventListener('mousedown', (evt) => {
         if (evt.target === evt.currentTarget) {
-          this.closePopup();
+          this.close();
         }
       })
     });

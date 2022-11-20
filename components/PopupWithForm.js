@@ -28,12 +28,12 @@ export class PopupWithForm extends Popup {
     evt.preventDefault();
     this._callbackSubmitForm(this._getInputValues());
 
-    this.closePopup();
+    this.close();
   }
 
   //
   close () {
-    super.closePopup(); // вызвали родительский + допишем свой
+    super.close(); // вызвали родительский + допишем свой
     this._popupForm.reset(); // сбрасываем текст в инпутах формы
   }
 
