@@ -10,7 +10,7 @@ export class PopupWithImage extends Popup {
 
   // перезапишем открытия попапов
   openPopup (name, link) {
-    super.openPopup();
+    super.openPopup(); // родительский
 
     this._imgLink.src = link;
     this._imgLink.alt = name;

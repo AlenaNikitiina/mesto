@@ -1,11 +1,10 @@
 import { Card } from "../components/Cards.js";
 import { FormValidator } from "../components/FormValidator.js";
-import { Popup } from "../components/Popup.js";
 import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "../utils/constants.js";
-import { PopupWithForm } from "../components/PopupWithForm.js";
 
 
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
@@ -52,10 +51,21 @@ function createNewCard (evt) {
   addFotoPopup.closePopup();  //вызвали функцию которая закрывает форму при сохранении
 };
 
+//
+function handlerPreview(name, link) {
+  popupWithZoomPhoto.openPopup(name, link);
+  popupWithZoomPhoto.setEventListeners();
+};
 
-// Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
-//formEdit.addEventListener('submit', submitHandlerForm);
-//formAdd.addEventListener('submit', createNewCard);
+//
+function handlerSubmitProfile(data) {
+  infoAboutUser.setUserInfo(data.nickName, data.about);
+}
+
+//
+function handlerSubmitForm(data) {
+  addCard(data.title, data.link);
+}
 
 
 //// экзм Kлассов валидации
@@ -89,19 +99,3 @@ const infoAboutUser = new UserInfo( {nameSelector: '.profile__name', aboutInfoSe
 
 //// экзм класса PopupWithImage
 const popupWithZoomPhoto = new PopupWithImage(popupZoom)
-
-function handlerPreview(name, link) {
-  popupWithZoomPhoto.openPopup(name, link);
-  popupWithZoomPhoto.setEventListeners();
-};
-
-
-//
-function handlerSubmitProfile(data) {
-  infoAboutUser.setUserInfo(data.nickName, data.about);
-}
-
-//
-function handlerSubmitForm(data) {
-  addCard(data.title, data.link);
-}

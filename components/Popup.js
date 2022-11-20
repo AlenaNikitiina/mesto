@@ -1,4 +1,4 @@
-import { popupAll, popupCloseButtons } from "../utils/constants.js";
+import { popupAll } from "../utils/constants.js";
 
 export class Popup {
   constructor (popupSelector) {
@@ -24,15 +24,6 @@ export class Popup {
     }
   };
 
-  /*
-  // Метод,который добавляет слушатель клика крестику (иконке) закрытия попапа.
-  setEventListeners (evt) {
-    popupCloseButtons.addEventListener('click', (evt) => {
-      this.closePopup();
-    });
-  }
-  */
-
   // Метод,который добавляет слушатель клика крестику (иконке) закрытия попапа.
   setEventListeners () {
     const popupCloseButtons = this._popupSelector.querySelector('.popup__close-button');
@@ -48,16 +39,5 @@ export class Popup {
       })
     });
   }
-
-  /*
-  // Закрыть попапы нажав на оверлей или крестик
-  popupAll.forEach((item) => {
-    item.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
-        const popupToClose = new Popup(item);
-        popupToClose.closePopup();
-    })
-  });
-  */
 
 }
