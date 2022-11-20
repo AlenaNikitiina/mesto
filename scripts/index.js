@@ -7,26 +7,6 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "../utils/constants.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 
-/*
-// Обработчик «отправки» формы
-function submitHandlerForm (evt) {
-  evt.preventDefault();
-  //old
-  //titleName.textContent = nameInput.value;
-  //titleJob.textContent = jobInput.value;
-
-  //new
-  infoAboutUser.setUserInfo(nameInput.value, jobInput.value); // вызвали метод из класса UserInfo
-  editPopup.closePopup(); //вызвали функцию которая закрывает форму при сохранении
-
-};
-*/
-
-// Функция должна открывать попап с картинкой (zoompopup) при клике на карточку
-const handleCardClick = (selector) => {
-  const newPopup = new Popup(selector); // создаём экз
-  newPopup.openPopup();
-}
 
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
 buttonOpenEdit.addEventListener('click', () => {
@@ -51,41 +31,14 @@ buttonOpenAdd.addEventListener('click', () => {
   newCardValidation.removeValidationErrors() // чтобы форма всегда при открытии была чистой от ошибок поля
 });
 
-/*
-// Закрыть попапы нажав на оверлей или крестик
-popupAll.forEach((item) => {
-  item.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
-      const popupToClose = new Popup(item);
-      popupToClose.closePopup();
-    }
-  })
-});
-*/
 
-/*// OLD Закрыть попапы нажав на оверлей или крестик
-popupAll.forEach((item) => {
-  item.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
-      closePopup(item);}
-  })});
-*/
 
 //// Создания карточек
-/* function render ее теперь исп в сектион
-// Функция создания карточек для каждого эл-та из массива. (переберет 6 раз и каждому назначит имя, линк, альт)
-function render () {
-  initialCards.forEach((item) => {
-    const newCard = new Card(item.name, item.link, templateSelector, handleCardClick);
-    fotoCards.append(newCard.createCard()); //добавили элемент в DOM
-  });
-}; render();
-*/
 
 // Функция добавляет новую карточку в начало сайта от человека
 function addCard (name, link) {
   //const newCard = new Card(name, link, templateSelector, handleCardClick); //handlePreview вызвать?
-  cardsSection.addItem((new Card(name, link, templateSelector, handleCardClick)).createCard(), false);
+  cardsSection.addItem((new Card(name, link, templateSelector, handlerPreview)).createCard(), false);
 };
 
 // Функция создает новую карточку от человека,и отправки формы
@@ -98,6 +51,7 @@ function createNewCard (evt) {
   addCard(titleValue, linkValue);  // вызвали функцию которая добавит новую карточку
   addFotoPopup.closePopup();  //вызвали функцию которая закрывает форму при сохранении
 };
+
 
 // Прикрепляем обработчик к форме: он будет следить за событием “submit” - «отправка»
 //formEdit.addEventListener('submit', submitHandlerForm);
@@ -122,7 +76,7 @@ addFotoPopup.setEventListeners();
 const cardsSection = new Section ({
     items: initialCards,
     renderer: (item) => {
-      const newCard = new Card(item.name, item.link, templateSelector, handleCardClick);
+      const newCard = new Card(item.name, item.link, templateSelector, handlerPreview);
       cardsSection.addItem(newCard.createCard(), true);
     }
   }, '.elements__list'
@@ -130,24 +84,20 @@ const cardsSection = new Section ({
 cardsSection.rendererAllItems(); // метод, кот отвечает за отрисовку всех элементов из класса Section
 
 
-
 //// экзм класса UserInfo
 const infoAboutUser = new UserInfo( {nameSelector: '.profile__name', aboutInfoSelector: '.profile__job'} )
-console.log(infoAboutUser)
+
 //// экзм класса PopupWithImage
 const popupWithZoomPhoto = new PopupWithImage(popupZoom)
-/*
-function handlePreview(name, link) {
-  PopupWithZoomPhoto.open(name, link);
-  PopupWithZoomPhoto.setEventListeners();
-};
-*/
 
+function handlerPreview(name, link) {
+  popupWithZoomPhoto.openPopup(name, link);
+  popupWithZoomPhoto.setEventListeners();
+};
 
 
 //
 function handlerSubmitProfile(data) {
-  //infoAboutUser.setUserInfo(data.Name, data.Job);
   infoAboutUser.setUserInfo(data.nickName, data.about);
 }
 

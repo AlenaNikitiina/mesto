@@ -8,7 +8,7 @@ export class Section {
   // метод, кот отвечает за отрисовку всех элементов
   rendererAllItems () {
     this._renderedItems.forEach((item) => {
-      this._renderer(item); // вызвали метод ниже кот добавит в дом
+      this._renderer(item);
     });
   }
 

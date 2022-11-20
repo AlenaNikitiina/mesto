@@ -50,7 +50,7 @@ export class Card {
     popupImage.src = picture.src;
     popupImage.alt = picture.alt;
     popupFigcaption.textContent = picture.alt;
-    this._handleCardClick(popupZoom);
+    this._handleCardClick(this._name, this._link);
   };
 
 };

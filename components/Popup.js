@@ -35,8 +35,8 @@ export class Popup {
 
   // Метод,который добавляет слушатель клика крестику (иконке) закрытия попапа.
   setEventListeners () {
-    const buttonClose = this._popupSelector.querySelector('.popup__close-button');
-    buttonClose.addEventListener('click', () => {
+    const popupCloseButtons = this._popupSelector.querySelector('.popup__close-button');
+    popupCloseButtons.addEventListener('click', () => {
       this.closePopup();
     });
     // клик вне формы
