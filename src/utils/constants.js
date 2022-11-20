@@ -8,6 +8,7 @@ export const popupEdit = document.querySelector('.popup_edit');// нашли п�
 export const popupAdd = document.querySelector('.popup_add');
 export const popupZoom = document.querySelector('.popup_zoom');
 export const popupAll = document.querySelectorAll('.popup');
+export const popupSelector = '.popup'
 // Находим поля формы в DOM, в которых можно изменения писать
 export const nameInput = document.querySelector('.nameInput');
 export const jobInput = document.querySelector('.jobInput');

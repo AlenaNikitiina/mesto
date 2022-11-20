@@ -1,11 +1,11 @@
-import { popupZoom, popupImage, popupFigcaption } from "./constants.js";
+import { popupImage, popupFigcaption } from "../utils/constants.js";
 
 export class Card {
-  constructor(name, link, templateSelector, openPopupFunc) {
+  constructor(name, link, templateSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._templateItem = document.querySelector(templateSelector).content;
-    this._openPopupFunc = openPopupFunc;
+    this._handleCardClick = handleCardClick;
 
     //this._myHtmlElement = this._templateItem.cloneNode(true); //копируем содержимое тега темплате (было)
     this._myHtmlElement = this._templateItem.querySelector('.elements__card').cloneNode(true); // клонируем уже элемент разметки
@@ -50,7 +50,7 @@ export class Card {
     popupImage.src = picture.src;
     popupImage.alt = picture.alt;
     popupFigcaption.textContent = picture.alt;
-    this._openPopupFunc(popupZoom);
+    this._handleCardClick(this._name, this._link);
   };
 
 };

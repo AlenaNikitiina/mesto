@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pages/index.css">
     <title>Mesto</title>
 </head>
 <body>
     <div class="page">
         <header class="header">
-            <img class="header__logo" src="./images/logo-Vector.png" alt="логотип приложения Место">
+            <img class="header__logo" src="<%=require('./images/logo-Vector.png')%>" alt="логотип приложения Место">
         </header>
         <main>
           <section class="profile">
             <div class="profile__description">
-              <img class="profile__avatar" src="./images/profile__avatar.jpg" alt="Ваш аватар">
+              <img class="profile__avatar" src="<%=require('./images/profile__avatar.jpg')%>"alt="Ваш аватар">
               <div class="profile__info">
                 <h1 class="profile__name titleName">Жак-Ив Кусто</h1>
                 <p class="profile__job titleJob">Исследователь океана</p>
@@ -32,6 +31,7 @@
         <footer class="footer">
           <p class="footer__copyright">© 2022 Mesto Russia & Alena Nikitina</p>
         </footer>
+
         <div class="popup popup_edit">
           <div class="popup__container form">
             <button class="popup__close-button" type="button"></button>
@@ -45,6 +45,7 @@
             </form>
           </div>
         </div>
+
         <div class="popup popup_add">
           <div class="popup__container form">
             <button class="popup__close-button" type="button"></button>
@@ -58,6 +59,7 @@
             </form>
           </div>
         </div>
+
         <div class="popup popup_zoom">
           <div class="popup__box">
             <figure class="popup__figure">
@@ -68,6 +70,7 @@
           </div>
         </div>
     </div>
+
     <template class="element-template">
       <li class="elements__card">
         <article class="element">

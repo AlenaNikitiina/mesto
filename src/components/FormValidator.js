@@ -3,7 +3,7 @@ export class FormValidator {
     this._selectors_setting = selectors_setting;
     this._form_to_valid = form_to_valid;
     // setting = это теперь this._selectors_setting
-    // formElementAll = это теперь this._form_to_valid
+    // formElementAll = это теперь this._form_to_valid (и это любая форма которую передаем при созд нов класса экземпляра)
   }
 
   // Метод, который вкл валидацию формы
