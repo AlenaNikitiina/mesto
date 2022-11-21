@@ -4,9 +4,10 @@ export class PopupWithForm extends Popup {
   constructor (popupSelector, callBackSubmitForm) {
     super(popupSelector); //  селектора попапа
     this._callbackSubmitForm = callBackSubmitForm; // колбэк сабмита формы
-    this._formInputs = Array.from(this._popupSelector.querySelectorAll('.form__input')); /////
-    this._popupForm = this._popupSelector.querySelector('.form');
-  }
+
+    this._formInputs = Array.from(this._popupSelector.querySelectorAll('.form__input'));
+    this._popupForm = this._popupSelector.querySelector('.popup__form');
+  };
 
   // метод, который собирает данные всех полей формы
   _getInputValues () {
@@ -15,26 +16,25 @@ export class PopupWithForm extends Popup {
       inputValues[input.id] = input.value;
     });
     return inputValues;
-  }
+  };
 
   // + добавлять обработчик сабмита формы родителю
   setEventListeners () {
     super.setEventListeners(); // метод родителя
-    // добавляем обработчик сабмита формы
-    this._popupForm.addEventListener('submit', this._submit.bind(this));
-  }
+    this._popupForm.addEventListener('submit', this._submit.bind(this)); // добавляем обработчик сабмита формы
+  };
 
   _submit (evt) {
     evt.preventDefault();
     this._callbackSubmitForm(this._getInputValues());
 
     this.close();
-  }
+  };
 
   //
   close () {
     super.close(); // вызвали родительский + допишем свой
     this._popupForm.reset(); // сбрасываем текст в инпутах формы
-  }
+  };
 
 }

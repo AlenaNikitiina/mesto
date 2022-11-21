@@ -1,11 +1,11 @@
 import '../pages/index.css';
-import { Card } from "../components/Cards.js";
+import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
-import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupAll, nameInput , jobInput, titleInput, linkInput, titleName, titleJob, buttonOpenEdit, buttonOpenAdd, fotoCards, templateSelector, initialCards, setting } from "../utils/constants.js";
+import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, initialCards, setting } from "../utils/constants.js";
 
 
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
@@ -25,37 +25,32 @@ buttonOpenEdit.addEventListener('click', () => {
 
 // Функция Открыть форму попапа по нажатию на кнопку добавления карточки
 buttonOpenAdd.addEventListener('click', () => {
-  addFotoPopup.open(); //
-
-  formAdd.reset(); // очисти импуты формы
+  addFotoPopup.open();
   newCardValidation.removeValidationErrors() // чтобы форма всегда при открытии была чистой от ошибок поля
 });
 
 
-
-//// Создания карточек
+//// Создание карточки
+function createCard(name, link) {
+  const cardElement = new Card(name, link, templateSelector, handlerPreview).createCard()
+  return cardElement
+}
 
 // Функция добавляет новую карточку в начало сайта от человека
 function addCard (name, link) {
-  //const newCard = new Card(name, link, templateSelector, handleCardClick); //handlePreview вызвать?
-  cardsSection.addItem((new Card(name, link, templateSelector, handlerPreview)).createCard(), false);
+  //const newCard = new Card(name, link, templateSelector, handleCardClick); also work
+  //cardsSection.addItem((new Card(name, link, templateSelector, handlerPreview)).createCard(), false);
+  cardsSection.addItem(createCard(name, link), false);
 };
 
-// Функция создает новую карточку от человека,и отправки формы
-function createNewCard (evt) {
-  evt.preventDefault();
 
-  const titleValue = titleInput.value;
-  const linkValue = linkInput.value;
-
-  addCard(titleValue, linkValue);  // вызвали функцию которая добавит новую карточку
-  addFotoPopup.close();  //вызвали функцию которая закрывает форму при сохранении
-};
+//// экзм класса PopupWithImage
+const popupWithZoomPhoto = new PopupWithImage(popupZoom)
+popupWithZoomPhoto.setEventListeners();
 
 //
 function handlerPreview(name, link) {
   popupWithZoomPhoto.open(name, link);
-  popupWithZoomPhoto.setEventListeners();
 };
 
 //
@@ -83,20 +78,17 @@ const addFotoPopup = new PopupWithForm(popupAdd, handlerSubmitForm);
 editPopup.setEventListeners();
 addFotoPopup.setEventListeners();
 
+//// экзм класса UserInfo
+const infoAboutUser = new UserInfo( {nameSelector: '.profile__name', aboutInfoSelector: '.profile__job'} )
+
 //// экзм класса Section (создания карточки)
 const cardsSection = new Section ({
     items: initialCards,
     renderer: (item) => {
-      const newCard = new Card(item.name, item.link, templateSelector, handlerPreview);
-      cardsSection.addItem(newCard.createCard(), true);
+      //const newCard = new Card(item.name, item.link, templateSelector, handlerPreview); also work
+      //cardsSection.addItem(newCard.createCard(), true); // createCard метод из Card
+      cardsSection.addItem(createCard(item.name, item.link), true); //
     }
   }, '.elements__list'
 );
-cardsSection.rendererAllItems(); // метод, кот отвечает за отрисовку всех элементов из класса Section
-
-
-//// экзм класса UserInfo
-const infoAboutUser = new UserInfo( {nameSelector: '.profile__name', aboutInfoSelector: '.profile__job'} )
-
-//// экзм класса PopupWithImage
-const popupWithZoomPhoto = new PopupWithImage(popupZoom)
+cardsSection.rendererAllItems(); // вызвали метод, кот отвечает за отрисовку всех элементов из класса Section
