@@ -6,7 +6,6 @@ export class UserInfo {
 
   // Метод возвращает объект с данными пользователя.пригодится когда данные пользователя нужно будет подставить в форму при открытии
   getUserInfo () {
-    //console.log(this._userName, "==========", this._userName.textContent);
     return {
       profileName: this._userName.textContent,
       profileAboutInfo: this._userAboutInfo.textContent,
