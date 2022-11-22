@@ -48,7 +48,7 @@ function addCard (name, link) {
 const popupWithZoomPhoto = new PopupWithImage(popupZoom)
 popupWithZoomPhoto.setEventListeners();
 
-//
+// ф открывает попап с фото
 function handlerPreview(name, link) {
   popupWithZoomPhoto.open(name, link);
 };
