@@ -4,8 +4,9 @@ export class PopupWithImage extends Popup {
   constructor (popupSelector) {
     super(popupSelector);
 
-    this._imgLink = this._popupSelector.querySelector('.popup__image')
-    this._imgFigcaption = this._popupSelector.querySelector('.popup__figcaption')
+    this._imgLink = this._popup.querySelector('.popup__image')
+    this._imgFigcaption = this._popup.querySelector('.popup__figcaption')
+
   };
 
   // перезапишем открытия попапов

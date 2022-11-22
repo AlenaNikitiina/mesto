@@ -33,7 +33,7 @@ buttonOpenAdd.addEventListener('click', () => {
 //// Создание карточки
 function createCard(name, link) {
   const cardElement = new Card(name, link, templateSelector, handlerPreview).createCard()
-  return cardElement
+  return cardElement;
 }
 
 // Функция добавляет новую карточку в начало сайта от человека
@@ -45,7 +45,7 @@ function addCard (name, link) {
 
 
 //// экзм класса PopupWithImage
-const popupWithZoomPhoto = new PopupWithImage(popupZoom)
+const popupWithZoomPhoto = new PopupWithImage('.popup_zoom');
 popupWithZoomPhoto.setEventListeners();
 
 // ф открывает попап с фото
@@ -63,7 +63,6 @@ function handlerSubmitForm(data) {
   addCard(data.title, data.link);
 }
 
-
 //// экзм Kлассов валидации
 const profileValidation = new FormValidator(setting, formEdit); // экземпляр Класса
 const newCardValidation = new FormValidator(setting, formAdd); // экземпляр Класса
@@ -72,8 +71,8 @@ profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
 //// экзм Классов попапов
-const editPopup = new PopupWithForm(popupEdit, handlerSubmitProfile);
-const addFotoPopup = new PopupWithForm(popupAdd, handlerSubmitForm);
+const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile);
+const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm);
 
 editPopup.setEventListeners();
 addFotoPopup.setEventListeners();
