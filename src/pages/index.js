@@ -8,6 +8,46 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, initialCards, setting } from "../utils/constants.js";
 
 
+// экзмп апи
+const api = new Api({
+  url:"https://mesto.nomoreparties.co/v1/cohort-54",
+  headers: {
+    authorization: '6fda6390-e74a-4775-b246-a9640a3f8173', // токен
+    "Content-type": 'aplication/json'
+  }
+});
+
+//console.log(apiNew);
+
+/*
+// рендеринг с апи
+apiNew.getAllCards()
+  .then((result) => { // result это готовые данные
+    cardsSection.rendererAllItems(result);
+  })
+  .catch((error) => {
+    console.log('error')
+  });
+
+//
+apiNew.addNewCard({name: value})
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
 buttonOpenEdit.addEventListener('click', () => {
   editPopup.open(); // вызываю метод открытия из класса Popup
