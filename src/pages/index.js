@@ -5,7 +5,7 @@ import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
-import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, initialCards, setting } from "../utils/constants.js";
+import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupDeleteConfirm, trashButton, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, initialCards, setting } from "../utils/constants.js";
 
 
 // экзмп апи
@@ -41,8 +41,10 @@ apiNew.addNewCard({name: value})
 
 
 
-
-
+// открыть попап подтверждения удаления карточки
+trashButton.addEventListener('click', () => {
+  open();
+} )
 
 
 
@@ -113,6 +115,8 @@ newCardValidation.enableValidation();
 //// экзм Классов попапов
 const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile);
 const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm);
+
+const popupConfirmDelete = new PopupWithSuиmmitDelete(popupDeleteConfirm); // попап а вы уверены удалить карточку
 
 editPopup.setEventListeners();
 addFotoPopup.setEventListeners();
