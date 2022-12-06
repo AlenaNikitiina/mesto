@@ -1,4 +1,5 @@
 import '../pages/index.css';
+import { Api } from "../components/Api.js";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
@@ -7,8 +8,7 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupDeleteConfirm, trashButton, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, initialCards, setting } from "../utils/constants.js";
 
-
-// экзмп апи
+// экзмпляр апи
 const api = new Api({
   url:"https://mesto.nomoreparties.co/v1/cohort-54",
   headers: {
@@ -17,35 +17,42 @@ const api = new Api({
   }
 });
 
-//console.log(apiNew);
 
-/*
-// рендеринг с апи
-apiNew.getAllCards()
-  .then((result) => { // result это готовые данные
-    cardsSection.rendererAllItems(result);
+
+//// экзм класса Section (создания карточки)
+let cardsSection;
+// загруженные с сервера карточки
+let loadedInitCadrs;
+api.getAllCards()
+  .then((result) => {
+    loadedInitCadrs = result;
+    cardsSection = new Section ({
+      items: loadedInitCadrs,
+      renderer: (item) => {
+        cardsSection.addItem(createCard(item.name, item.link), true); //
+      }
+      }, '.elements__list'
+    );
+    // вызвали метод, кот отвечает за отрисовку всех элементов из класса Section
+    cardsSection.rendererAllItems();
   })
-  .catch((error) => {
-    console.log('error')
+  .catch(err => {
+    console.log("getAllCards", err);
   });
 
-//
-apiNew.addNewCard({name: value})
+/*
+//// экзм класса Section (создания карточки)
+const cardsSection = new Section ({
+  items: loadedInitCadrs,
+  renderer: (item) => {
+    cardsSection.addItem(createCard(item.name, item.link), true); //
+  }
+  }, '.elements__list'
+);
+cardsSection.rendererAllItems(); // вызвали метод, кот отвечает за отрисовку всех элементов из класса Section
 */
 
-
-
-
-
-
-
-
-
-// открыть попап подтверждения удаления карточки
-trashButton.addEventListener('click', () => {
-  open();
-} )
-
+//  console.log(api, api.getAllCards())
 
 
 
@@ -116,7 +123,7 @@ newCardValidation.enableValidation();
 const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile);
 const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm);
 
-const popupConfirmDelete = new PopupWithSuиmmitDelete(popupDeleteConfirm); // попап а вы уверены удалить карточку
+//const popupConfirmDelete = new PopupWithSuиmmitDelete(popupDeleteConfirm); // попап а вы уверены удалить карточку
 
 editPopup.setEventListeners();
 addFotoPopup.setEventListeners();
@@ -124,14 +131,3 @@ addFotoPopup.setEventListeners();
 //// экзм класса UserInfo
 const infoAboutUser = new UserInfo( {nameSelector: '.profile__name', aboutInfoSelector: '.profile__job'} )
 
-//// экзм класса Section (создания карточки)
-const cardsSection = new Section ({
-    items: initialCards,
-    renderer: (item) => {
-      //const newCard = new Card(item.name, item.link, templateSelector, handlerPreview); also work
-      //cardsSection.addItem(newCard.createCard(), true); // createCard метод из Card
-      cardsSection.addItem(createCard(item.name, item.link), true); //
-    }
-  }, '.elements__list'
-);
-cardsSection.rendererAllItems(); // вызвали метод, кот отвечает за отрисовку всех элементов из класса Section
