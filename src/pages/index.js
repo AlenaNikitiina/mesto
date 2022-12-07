@@ -8,6 +8,7 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupDeleteConfirm, trashButton, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, initialCards, setting } from "../utils/constants.js";
 
+//// Апи
 // экзмпляр апи
 const api = new Api({
   url:"https://mesto.nomoreparties.co/v1/cohort-54",
@@ -17,42 +18,34 @@ const api = new Api({
   }
 });
 
+// загруженные с сервера карточки
+api.getAllCards()
+  .then((result) => {
+    cardsSection.rendererAllItems(result); // вызвали метод, кот отвечает за отрисовку всех элементов из класса Section
+  })
+  .catch(err => {
+    console.log("mistake", err);
+  });
 
 
 //// экзм класса Section (создания карточки)
-let cardsSection;
-// загруженные с сервера карточки
-let loadedInitCadrs;
-api.getAllCards()
-  .then((result) => {
-    loadedInitCadrs = result;
-    cardsSection = new Section ({
-      items: loadedInitCadrs,
-      renderer: (item) => {
-        cardsSection.addItem(createCard(item.name, item.link), true); //
-      }
-      }, '.elements__list'
-    );
-    // вызвали метод, кот отвечает за отрисовку всех элементов из класса Section
-    cardsSection.rendererAllItems();
-  })
-  .catch(err => {
-    console.log("getAllCards", err);
-  });
+  const cardsSection = new Section ({
+    renderer: (item) => {
+      cardsSection.addItem(createCard(item.name, item.link), true); //
+    }
+    }, '.elements__list'
+  );
 
-/*
+
+/*old
 //// экзм класса Section (создания карточки)
 const cardsSection = new Section ({
   items: loadedInitCadrs,
   renderer: (item) => {
-    cardsSection.addItem(createCard(item.name, item.link), true); //
-  }
-  }, '.elements__list'
-);
+    cardsSection.addItem(createCard(item.name, item.link), true); }
+  }, '.elements__list' );
 cardsSection.rendererAllItems(); // вызвали метод, кот отвечает за отрисовку всех элементов из класса Section
 */
-
-//  console.log(api, api.getAllCards())
 
 
 
@@ -118,12 +111,13 @@ const newCardValidation = new FormValidator(setting, formAdd); // экземпл
 
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
+// enableValidation();
+
+//const popupConfirmDelete = new PopupWithSuиmmitDelete(popupDeleteConfirm); // попап а вы уверены удалить карточку
 
 //// экзм Классов попапов
 const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile);
 const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm);
-
-//const popupConfirmDelete = new PopupWithSuиmmitDelete(popupDeleteConfirm); // попап а вы уверены удалить карточку
 
 editPopup.setEventListeners();
 addFotoPopup.setEventListeners();
