@@ -8,6 +8,12 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupDeleteConfirm, trashButton, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, initialCards, setting } from "../utils/constants.js";
 
+//// экзм класса UserInfo
+const infoAboutUser = new UserInfo( {
+  nameSelector: '.profile__name',
+  aboutInfoSelector: '.profile__job',
+  userAvatar : '.profile__avatar'} );
+
 //// Апи
 // экзмпляр апи
 const api = new Api({
@@ -18,23 +24,34 @@ const api = new Api({
   }
 });
 
-// загруженные с сервера карточки
+//// экзм класса Section (создания карточки)
+const cardsSection = new Section ({
+  renderer: (item) => {
+    cardsSection.addItem(createCard(item.name, item.link), true); //
+  }
+  }, '.elements__list'
+);
+
+// чужие загруженные с сервера карточки
 api.getAllCards()
   .then((result) => {
-    cardsSection.rendererAllItems(result); // вызвали метод, кот отвечает за отрисовку всех элементов из класса Section
+    cardsSection.rendererAllItems(result);
   })
   .catch(err => {
-    console.log("mistake", err);
+    console.log("getAllCards(): mistake", err);
   });
 
+// грузим информацию о пользователе
+api.getUserInfo()
+  .then((result) => {
+    infoAboutUser.setUserInfo(result.name, result.about);
+    infoAboutUser.setUserAvatar(result.avatar);
+    console.log(result);
+  })
+  .catch(err => {
+    console.log("getUserInfo(): mistake", err);
+  });
 
-//// экзм класса Section (создания карточки)
-  const cardsSection = new Section ({
-    renderer: (item) => {
-      cardsSection.addItem(createCard(item.name, item.link), true); //
-    }
-    }, '.elements__list'
-  );
 
 
 /*old
@@ -97,7 +114,7 @@ function handlerPreview(name, link) {
 
 //
 function handlerSubmitProfile(data) {
-  infoAboutUser.setUserInfo(data.nickName, data.about);
+  infoAboutUser.setUserInfo(data.nickName, data.about); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
 }
 
 //
@@ -112,7 +129,6 @@ const newCardValidation = new FormValidator(setting, formAdd); // экземпл
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
 // enableValidation();
-
 //const popupConfirmDelete = new PopupWithSuиmmitDelete(popupDeleteConfirm); // попап а вы уверены удалить карточку
 
 //// экзм Классов попапов
@@ -122,6 +138,4 @@ const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm);
 editPopup.setEventListeners();
 addFotoPopup.setEventListeners();
 
-//// экзм класса UserInfo
-const infoAboutUser = new UserInfo( {nameSelector: '.profile__name', aboutInfoSelector: '.profile__job'} )
 
