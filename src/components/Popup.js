@@ -7,7 +7,7 @@ export class Popup {
   // Метод открытия попапов
   open () {
     this._popup.classList.add('popup_opened');
-    document.addEventListener('keydown', this._handleEscClose); // передаем ссылку
+    document.addEventListener('keydown', this._handleEscClose); // передаем ссылку (на кнопки можно вещать слушать документ)
   };
 
   // Метод закрытия попапов

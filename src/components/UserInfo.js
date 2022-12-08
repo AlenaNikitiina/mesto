@@ -19,6 +19,7 @@ export class UserInfo {
     this._userAboutInfo.textContent = newProfileAboutInfo;
   }
 
+  //
   setUserAvatar (avatar) {
     this._userAvatar = avatar;
   }

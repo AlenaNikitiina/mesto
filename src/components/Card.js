@@ -8,10 +8,10 @@ export class Card {
     // клонируем уже элемент разметки
     this._myHtmlElement = this._templateItem.querySelector('.elements__card').cloneNode(true);
     // наполняем содержимым
-    this._myHtmlElement.querySelector('.element__title').textContent = name;
+    this._myHtmlElement.querySelector('.element__title').textContent = name; //добавляем подпись под фоткой
 
     this._fotoZoomOpen = this._myHtmlElement.querySelector('.element__foto'); // попап зум картинки
-    this._fotoZoomOpen.src = link;
+    this._fotoZoomOpen.src = link; // добавили атрибут
     this._fotoZoomOpen.alt = name;
 
     // лайк

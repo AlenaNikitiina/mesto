@@ -1,12 +1,3 @@
-/*получить список всех карточек в виде массива (GET)
-добавить карточку (POST)
-удалить карточку (DELETE)
-получить данные пользователя (GET)
-заменить данные пользователя (PATCH)
-заменить аватар (PATCH)
-“залайкать” карточку (PUT)
-удалить лайк карточки (DELETE)*/
-
 export class Api {
   constructor({url, headers}) {
     this._url = url;
@@ -42,16 +33,16 @@ export class Api {
   }
 
   // 3 Редактирование профиля save new info
-  profileEditing (name, about) {
+  profileEditing (newName, newAbout) {
+    console.log("profileEditing", newName, newAbout);
     return fetch(this._url + `/users/me`, {
-    method: 'PATCH',
-    headers: this._headers,
-    body: JSON.stringify({
-      name: name,
-      about: about
-    })
-    .then(this._checkServerAnswer),
-    });
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: newName,
+        about: newAbout
+    })})
+    .then(this._checkServerAnswer);
   }
 
 
@@ -79,3 +70,15 @@ deleteLike(id) {
   }).then(this._checkResponse);
 }
 */
+
+
+
+
+/*получить список всех карточек в виде массива (GET)
+добавить карточку (POST)
+удалить карточку (DELETE)
+получить данные пользователя (GET)
+заменить данные пользователя (PATCH)
+заменить аватар (PATCH)
+“залайкать” карточку (PUT)
+удалить лайк карточки (DELETE)*/

@@ -8,6 +8,7 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupDeleteConfirm, trashButton, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, initialCards, setting } from "../utils/constants.js";
 
+
 //// экзм класса UserInfo
 const infoAboutUser = new UserInfo( {
   nameSelector: '.profile__name',
@@ -41,6 +42,7 @@ api.getAllCards()
     console.log("getAllCards(): mistake", err);
   });
 
+
 // грузим информацию о пользователе
 api.getUserInfo()
   .then((result) => {
@@ -52,17 +54,6 @@ api.getUserInfo()
     console.log("getUserInfo(): mistake", err);
   });
 
-
-
-/*old
-//// экзм класса Section (создания карточки)
-const cardsSection = new Section ({
-  items: loadedInitCadrs,
-  renderer: (item) => {
-    cardsSection.addItem(createCard(item.name, item.link), true); }
-  }, '.elements__list' );
-cardsSection.rendererAllItems(); // вызвали метод, кот отвечает за отрисовку всех элементов из класса Section
-*/
 
 
 
@@ -114,7 +105,17 @@ function handlerPreview(name, link) {
 
 //
 function handlerSubmitProfile(data) {
-  infoAboutUser.setUserInfo(data.nickName, data.about); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
+  //infoAboutUser.setUserInfo(data.nickName, data.about); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
+  //infoAboutUser.setUserInfo(data.nickName, "глажу котят"); // вызвали М из UserInfo кот принимает новые данные чела и
+  api.profileEditing (data.nickName, data.about)
+    .then((result) => {
+      // у нас всё прошло гладко - обновив инфу на странице
+      infoAboutUser.setUserInfo(data.nickName, data.about);
+    })
+    .catch(err => {
+      console.log("profileEditing(): mistake", err);
+    });
+
 }
 
 //
