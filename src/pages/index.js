@@ -18,7 +18,6 @@ const api = new Api({
   }
 });
 
-
 //// экзм класса UserInfo
 const infoAboutUser = new UserInfo({
   nameSelector: '.profile__name',
@@ -34,7 +33,7 @@ const cardsSection = new Section ({
   }, '.elements__list'
 );
 
-// чужие загруженные с сервера карточки
+// Получили чужие карточки загруженные с сервера
 api.getAllCards()
   .then((result) => {
     cardsSection.rendererAllItems(result);
@@ -44,12 +43,11 @@ api.getAllCards()
 });
 
 
-// грузим информацию о пользователе
+// Это получение исходной информации о пользователе
 api.getUserInfo()
   .then((result) => {
     infoAboutUser.setUserInfo(result.name, result.about);
-    infoAboutUser.setUserAvatar(result.avatar);
-    //console.log(result);
+    infoAboutUser.setUserAvatar(result.avatar); // изменить аватар ???
   })
   .catch(err => {
     console.log("getUserInfo(): mistake", err);
@@ -84,34 +82,15 @@ function createCard(name, link) {
 
 // Функция добавляет новую карточку в начало сайта от человека
 function addCard (name, link) {
-  api.uploadNewCard(name, link)
+  api.uploadNewCard(name, link) // метод из апи - добавить нов карточку с именем и ссылкой
     .then((result) => {
-      console.log(result);
+      //console.log(result);
       cardsSection.addItem(createCard(name, link), false); // всё прошло- добавим карточку на страницу
     })
     .catch(err => {
       console.log("mistake", err);
     });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //// экзм класса PopupWithImage
@@ -125,9 +104,8 @@ function handlerPreview(name, link) {
 
 //
 function handlerSubmitProfile(data) {
-  api.profileEditing (data.nickName, data.about)
+  api.profileEditing (data.nickName, data.about) // редактирование профиля - изм имя, работу и сохранить
     .then((result) => {
-      // у нас всё прошло гладко - обновив инфу на странице
       infoAboutUser.setUserInfo(data.nickName, data.about); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
     })
     .catch(err => {

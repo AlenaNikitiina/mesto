@@ -23,7 +23,7 @@ export class Api {
   }
 
 
-  // 2 грузим информацию о пользователе
+  // 2 Получить информацию о пользователе
   getUserInfo() {
     return fetch(this._url + `/users/me`, {
       method: "GET",
@@ -32,11 +32,11 @@ export class Api {
     .then(this._checkServerAnswer);
   }
 
-  // 3 Редактирование профиля save new info
+  // 3 Редактирование профиля
   profileEditing (newName, newAbout) {
-    console.log("profileEditing", newName, newAbout);
+    //console.log("profileEditing", newName, newAbout);
     return fetch(this._url + `/users/me`, {
-      method: 'PATCH',
+      method: 'PATCH', // заменить имя и работу
       headers: this._headers,
       body: JSON.stringify({
         name: newName,
@@ -45,21 +45,8 @@ export class Api {
     .then(this._checkServerAnswer);
   }
 
-  /*
-  // 4 загрузить Добавить новую карточку
-  uploadNewCard(name, link) {
-    return fetch(this._url + '/cards', {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: name,
-        link: link,
-      })})
-      .then(this._checkServerAnswer);
-  }
-*/
 
-    // 4 загрузить Добавить новую карточку
+    // 4 Добавить новую карточку
       uploadNewCard(name, link) {
       const req = {
           method: 'POST',
@@ -68,11 +55,10 @@ export class Api {
             name: name,
             link: link,
           })};
-
         console.log(req);
 
         return fetch(this._url + '/cards', {
-          method: 'POST',
+          method: 'POST', // добавить карточку (POST)
           headers: this._headers,
           body: JSON.stringify({
             name: name,
@@ -80,13 +66,6 @@ export class Api {
           })})
           .then(this._checkServerAnswer);
       }
-
-
-
-
-
-
-
 
 
   /*
@@ -132,10 +111,11 @@ deleteLike(id) {
 
 
 /*получить список всех карточек в виде массива (GET)
-добавить карточку (POST)
+// добавить карточку (POST)
 удалить карточку (DELETE)
 получить данные пользователя (GET)
 заменить данные пользователя (PATCH)
-заменить аватар (PATCH)
+// заменить аватар (PATCH)
+
 “залайкать” карточку (PUT)
 удалить лайк карточки (DELETE)*/
