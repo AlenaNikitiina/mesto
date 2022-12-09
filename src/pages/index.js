@@ -6,23 +6,24 @@ import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
-import { formEdit, formAdd, popupEdit, popupAdd, popupZoom, popupDeleteConfirm, trashButton, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, initialCards, setting } from "../utils/constants.js";
+import { formEdit, formAdd, popupDeleteConfirm, trashButton, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, setting } from "../utils/constants.js";
 
 
-//// экзм класса UserInfo
-const infoAboutUser = new UserInfo( {
-  nameSelector: '.profile__name',
-  aboutInfoSelector: '.profile__job',
-  userAvatar : '.profile__avatar'} );
-
-//// Апи
-// экзмпляр апи
+//// экзмпляр апи
 const api = new Api({
   url:"https://mesto.nomoreparties.co/v1/cohort-54",
   headers: {
     authorization: '6fda6390-e74a-4775-b246-a9640a3f8173', // токен
-    "Content-type": 'aplication/json'
+    "Content-type": 'application/json'
   }
+});
+
+
+//// экзм класса UserInfo
+const infoAboutUser = new UserInfo({
+  nameSelector: '.profile__name',
+  aboutInfoSelector: '.profile__job',
+  userAvatar : '.profile__avatar'
 });
 
 //// экзм класса Section (создания карточки)
@@ -40,7 +41,7 @@ api.getAllCards()
   })
   .catch(err => {
     console.log("getAllCards(): mistake", err);
-  });
+});
 
 
 // грузим информацию о пользователе
@@ -48,12 +49,11 @@ api.getUserInfo()
   .then((result) => {
     infoAboutUser.setUserInfo(result.name, result.about);
     infoAboutUser.setUserAvatar(result.avatar);
-    console.log(result);
+    //console.log(result);
   })
   .catch(err => {
     console.log("getUserInfo(): mistake", err);
-  });
-
+});
 
 
 
@@ -61,11 +61,7 @@ api.getUserInfo()
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
 buttonOpenEdit.addEventListener('click', () => {
   editPopup.open(); // вызываю метод открытия из класса Popup
-  //old
-  //nameInput.value = titleName.textContent;
-  //jobInput.value = titleJob.textContent;
 
-  //new
   const profileInfo = infoAboutUser.getUserInfo(); // вызвали метод из класса UserInfo
   nameInput.value = profileInfo.profileName;
   jobInput.value = profileInfo.profileAboutInfo;
@@ -88,29 +84,51 @@ function createCard(name, link) {
 
 // Функция добавляет новую карточку в начало сайта от человека
 function addCard (name, link) {
-  //const newCard = new Card(name, link, templateSelector, handleCardClick); also work
-  //cardsSection.addItem((new Card(name, link, templateSelector, handlerPreview)).createCard(), false);
-  cardsSection.addItem(createCard(name, link), false);
+  api.uploadNewCard(name, link)
+    .then((result) => {
+      console.log(result);
+      cardsSection.addItem(createCard(name, link), false); // всё прошло- добавим карточку на страницу
+    })
+    .catch(err => {
+      console.log("mistake", err);
+    });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //// экзм класса PopupWithImage
 const popupWithZoomPhoto = new PopupWithImage('.popup_zoom');
 popupWithZoomPhoto.setEventListeners();
 
-// ф открывает попап с фото
+// функция открывает попап с фото
 function handlerPreview(name, link) {
   popupWithZoomPhoto.open(name, link);
 };
 
 //
 function handlerSubmitProfile(data) {
-  //infoAboutUser.setUserInfo(data.nickName, data.about); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
-  //infoAboutUser.setUserInfo(data.nickName, "глажу котят"); // вызвали М из UserInfo кот принимает новые данные чела и
   api.profileEditing (data.nickName, data.about)
     .then((result) => {
       // у нас всё прошло гладко - обновив инфу на странице
-      infoAboutUser.setUserInfo(data.nickName, data.about);
+      infoAboutUser.setUserInfo(data.nickName, data.about); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
     })
     .catch(err => {
       console.log("profileEditing(): mistake", err);
@@ -138,5 +156,3 @@ const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm);
 
 editPopup.setEventListeners();
 addFotoPopup.setEventListeners();
-
-

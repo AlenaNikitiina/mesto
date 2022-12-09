@@ -45,13 +45,70 @@ export class Api {
     .then(this._checkServerAnswer);
   }
 
+  /*
+  // 4 загрузить Добавить новую карточку
+  uploadNewCard(name, link) {
+    return fetch(this._url + '/cards', {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      })})
+      .then(this._checkServerAnswer);
+  }
+*/
+
+    // 4 загрузить Добавить новую карточку
+      uploadNewCard(name, link) {
+      const req = {
+          method: 'POST',
+          headers: this._headers,
+          body: JSON.stringify({
+            name: name,
+            link: link,
+          })};
+
+        console.log(req);
+
+        return fetch(this._url + '/cards', {
+          method: 'POST',
+          headers: this._headers,
+          body: JSON.stringify({
+            name: name,
+            link: link,
+          })})
+          .then(this._checkServerAnswer);
+      }
 
 
+
+
+
+
+
+
+
+  /*
   removeCard (id) {
     return fetch(this._url + '/cards' + id)
   }
+  */
 
 }
+
+
+/*
+    const req = {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      })};
+
+    console.log(req);
+    */
 
 
 
