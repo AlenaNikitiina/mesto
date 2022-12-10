@@ -69,7 +69,7 @@ function createCard(name, link, likes) {
 }
 */
 
-////
+//// Создание карточки
 function createCard(name, link, likes) {
   const cardElement = new Card(name, link, likes, templateSelector, handlerPreview, (id) => {
     popupDeleteConfirm.open()
@@ -158,8 +158,7 @@ function handleDeleteOnClick() {
   popupDeleteConfirm.open();
 }
 
-handleDeleteOnClick()
-
+handleDeleteOnClick();
 //// экзм класса PopupWithImage
 const popupWithZoomPhoto = new PopupWithImage('.popup_zoom');
 popupWithZoomPhoto.setEventListeners();
