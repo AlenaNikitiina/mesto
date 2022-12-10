@@ -23,7 +23,7 @@ export const buttonOpenAdd = document.querySelector('.profile__add-button'); //�
 export const popupCloseButtons = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
 
 export const trashButton = document.querySelector('.element__trash-button') // кнопка мусорки
-export const popupDeleteConfirm = document.querySelector('.popup_delete-card') // попап подтверждения - удалить укарточку?
+//export const popupConfirmDelete = document.querySelector('.popup_delete-card') // попап подтверждения - удалить укарточку?
 
 // Шесть карточек «из коробки»
 export const fotoCards = document.querySelector('.elements__list'); // получаем элемент. ul

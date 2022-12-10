@@ -13,8 +13,18 @@ export class Api {
     }
   }
 
-  //1 достать все чужие карточки с сервера (Загрузка информации о пользователе с сервера)
-  getAllCards() {
+  // 1 Получить информацию о пользователе обо мне
+  getUserInfo () {
+    return fetch(this._url + `/users/me`, {
+      method: "GET",
+      headers: this._headers,
+    })
+    .then(this._checkServerAnswer);
+  }
+
+
+  //2 Загрузка списка карточек с сервера
+  getInitialCards () {
     return fetch(this._url + `/cards`, {
       method: "GET",
       headers: this._headers,
@@ -23,18 +33,8 @@ export class Api {
   }
 
 
-  // 2 Получить информацию о пользователе
-  getUserInfo() {
-    return fetch(this._url + `/users/me`, {
-      method: "GET",
-      headers: this._headers,
-    })
-    .then(this._checkServerAnswer);
-  }
-
   // 3 Редактирование профиля
-  profileEditing (newName, newAbout) {
-    //console.log("profileEditing", newName, newAbout);
+  editingProfile (newName, newAbout) {
     return fetch(this._url + `/users/me`, {
       method: 'PATCH', // заменить имя и работу
       headers: this._headers,
@@ -45,77 +45,43 @@ export class Api {
     .then(this._checkServerAnswer);
   }
 
-
-    // 4 Добавить новую карточку
-      uploadNewCard(name, link) {
-      const req = {
-          method: 'POST',
-          headers: this._headers,
-          body: JSON.stringify({
-            name: name,
-            link: link,
-          })};
-        console.log(req);
-
-        return fetch(this._url + '/cards', {
-          method: 'POST', // добавить карточку (POST)
-          headers: this._headers,
-          body: JSON.stringify({
-            name: name,
-            link: link,
-          })})
-          .then(this._checkServerAnswer);
-      }
-
-
-  /*
-  removeCard (id) {
-    return fetch(this._url + '/cards' + id)
-  }
-  */
-
-}
-
-
-/*
-    const req = {
-      method: 'POST',
+  // 4 Добавить новую карточку
+  uploadNewCard (name, link) {
+    return fetch(this._url + '/cards', {
+      method: 'POST', // добавить карточку (POST)
       headers: this._headers,
       body: JSON.stringify({
         name: name,
         link: link,
-      })};
+      })})
+      .then(this._checkServerAnswer);
+  }
 
-    console.log(req);
-    */
+  // 5 Удалить карточку, ток свою
+  removeCard (id) {
+    return fetch(this._url + '/cards', + id, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(this._checkServerAnswer);
+  };
+
+  // Поставить лайк
+
+}
+
+
+
 
 
 
 /*
-addLike(id) {
-  return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-    method: "PUT",
-    headers: this._headers,
-  }).then(this._checkResponse);
-}
-
-deleteLike(id) {
-  return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-    method: "DELETE",
-    headers: this._headers,
-  }).then(this._checkResponse);
-}
-*/
-
-
-
-
-/*получить список всех карточек в виде массива (GET)
-// добавить карточку (POST)
+2получить список всех карточек в виде массива (GET)
+//4 добавить карточку (POST)
 удалить карточку (DELETE)
-получить данные пользователя (GET)
-заменить данные пользователя (PATCH)
-// заменить аватар (PATCH)
+//1получить данные пользователя (GET)
+//3заменить данные пользователя (PATCH)
+ заменить аватар (PATCH)
 
 “залайкать” карточку (PUT)
 удалить лайк карточки (DELETE)*/

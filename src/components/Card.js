@@ -1,9 +1,12 @@
 export class Card {
-  constructor(name, link, templateSelector, handlePreview) {
+  constructor(name, link, likes, templateSelector, handlePreview, id, handleDeleteOnClick) {
     this._name = name;
     this._link = link;
+    this.likes = likes;
+    this._id = id;
     this._templateItem = document.querySelector(templateSelector).content;
     this._handlePreview = handlePreview;
+    this._handleDeleteOnClick = handleDeleteOnClick;
 
     // клонируем уже элемент разметки
     this._myHtmlElement = this._templateItem.querySelector('.elements__card').cloneNode(true);
@@ -22,6 +25,7 @@ export class Card {
 
     //
     this._setListeners();
+    this.putLikes();
   };
 
   createCard () {
@@ -41,13 +45,19 @@ export class Card {
     this._handlePreview(this._name, this._link);
   };
 
+  // счетчик лайков
+  putLikes () {
+    const putLike = this._myHtmlElement.querySelector('.element__like-counter'); // нашли счетчик лайков
+    putLike.textContent = this.likes.length;
+  }
+
   // всем слушатели
   _setListeners() {
     this._buttonLike.addEventListener('click', () => {
       this._likeIt();
     });
     this._trashButton.addEventListener('click', () => {
-      this._deletePhoto();
+      this._handleDeleteOnClick(this._id); // was  this._deletePhoto();
     });
     this._fotoZoomOpen.addEventListener('click', () => {
       this._handlePreview(this._name, this._link);

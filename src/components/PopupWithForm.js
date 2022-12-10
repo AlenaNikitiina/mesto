@@ -5,14 +5,14 @@ export class PopupWithForm extends Popup {
     super(popupSelector); //  селектора попапа
     this._callbackSubmitForm = callBackSubmitForm; // колбэк сабмита формы
 
-    this._formInputs = Array.from(this._popup.querySelectorAll('.form__input'));
+    this._formInputs = Array.from(this._popup.querySelectorAll('.form__input')); // сделали руками массив из всех импутов
     this._popupForm = this._popup.querySelector('.popup__form');
   };
 
-  // метод, который собирает данные всех полей формы
+  // метод, который собирает данные из всех полей формы
   _getInputValues () {
     const inputValues = {}; // сделали пустой обьект
-    // в него добавляем значения всех полей
+    // в него добавляем значения всех полей и присваиваем значение
     this._formInputs.forEach((input) => {
       inputValues[input.id] = input.value;
     });
@@ -27,8 +27,8 @@ export class PopupWithForm extends Popup {
 
   _submit (evt) {
     evt.preventDefault();
-    this._callbackSubmitForm(this._getInputValues());
 
+    this._callbackSubmitForm(this._getInputValues());
     this.close();
   };
 

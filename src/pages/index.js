@@ -6,51 +6,39 @@ import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
-import { formEdit, formAdd, popupDeleteConfirm, trashButton, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, setting } from "../utils/constants.js";
+import { formEdit, formAdd, popupConfirmDelete, trashButton, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, setting } from "../utils/constants.js";
 
+
+let myId
 
 //// экзмпляр апи
 const api = new Api({
-  url:"https://mesto.nomoreparties.co/v1/cohort-54",
+  url:"https://mesto.nomoreparties.co/v1/cohort-54", // ссылка на бэкенд
   headers: {
     authorization: '6fda6390-e74a-4775-b246-a9640a3f8173', // токен
     "Content-type": 'application/json'
   }
 });
 
-//// экзм класса UserInfo
-const infoAboutUser = new UserInfo({
-  nameSelector: '.profile__name',
-  aboutInfoSelector: '.profile__job',
-  userAvatar : '.profile__avatar'
-});
-
-//// экзм класса Section (создания карточки)
-const cardsSection = new Section ({
-  renderer: (item) => {
-    cardsSection.addItem(createCard(item.name, item.link), true); //
-  }
-  }, '.elements__list'
-);
-
-// Получили чужие карточки загруженные с сервера
-api.getAllCards()
-  .then((result) => {
-    cardsSection.rendererAllItems(result);
-  })
-  .catch(err => {
-    console.log("getAllCards(): mistake", err);
-});
-
-
-// Это получение исходной информации о пользователе
+// 1 Это получение исходной информации о пользователе обо мне
 api.getUserInfo()
   .then((result) => {
-    infoAboutUser.setUserInfo(result.name, result.about);
-    infoAboutUser.setUserAvatar(result.avatar); // изменить аватар ???
+    infoAboutUser.setUserInfo(result.name, result.about); // установили имя которое пришло в ответе от сервера
+    infoAboutUser.setUserAvatar(result.avatar); // установили аватар пришел в ответе от сервера
+    myId = res._id
   })
   .catch(err => {
-    console.log("getUserInfo(): mistake", err);
+    console.log("mistake", err);
+});
+
+// 2 Получили чужие карточки загруженные с сервера
+api.getInitialCards()
+  .then((result) => {
+    cardsSection.rendererAllItems(result);
+    console.log(result);
+  })
+  .catch(err => {
+    console.log("mistake", err);
 });
 
 
@@ -73,19 +61,28 @@ buttonOpenAdd.addEventListener('click', () => {
   newCardValidation.removeValidationErrors() // чтобы форма всегда при открытии была чистой от ошибок поля
 });
 
-
+/*
 //// Создание карточки
-function createCard(name, link) {
-  const cardElement = new Card(name, link, templateSelector, handlerPreview).createCard()
+function createCard(name, link, likes) {
+  const cardElement = new Card(name, link, likes, templateSelector, handlerPreview).createCard()
+  return cardElement;
+}
+*/
+
+////
+function createCard(name, link, likes) {
+  const cardElement = new Card(name, link, likes, templateSelector, handlerPreview, (id) => {
+    popupDeleteConfirm.open()
+  }).createCard()
   return cardElement;
 }
 
-// Функция добавляет новую карточку в начало сайта от человека
-function addCard (name, link) {
-  api.uploadNewCard(name, link) // метод из апи - добавить нов карточку с именем и ссылкой
+//4  Функция добавляет новую карточку в начало сайта от человека
+function addCard (name, link, likes) {
+  api.uploadNewCard (name, link, likes) // метод из апи - добавить нов карточку с именем и ссылкой
     .then((result) => {
-      //console.log(result);
-      cardsSection.addItem(createCard(name, link), false); // всё прошло- добавим карточку на страницу
+      //cardsSection.addItem(createCard(name, link), false); // всё прошло- добавим карточку на страницу
+      cardsSection.addItem(createCard(name, link, likes), false); // всё прошло- добавим карточку на страницу
     })
     .catch(err => {
       console.log("mistake", err);
@@ -93,31 +90,30 @@ function addCard (name, link) {
 };
 
 
-//// экзм класса PopupWithImage
-const popupWithZoomPhoto = new PopupWithImage('.popup_zoom');
-popupWithZoomPhoto.setEventListeners();
-
 // функция открывает попап с фото
 function handlerPreview(name, link) {
   popupWithZoomPhoto.open(name, link);
 };
 
-//
+// 3 колбэк для попапа добавления нов карточки
 function handlerSubmitProfile(data) {
-  api.profileEditing (data.nickName, data.about) // редактирование профиля - изм имя, работу и сохранить
+  api.editingProfile (data.nickName, data.about) // м из апи - изм имя, работу и сохранить
     .then((result) => {
       infoAboutUser.setUserInfo(data.nickName, data.about); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
     })
     .catch(err => {
-      console.log("profileEditing(): mistake", err);
+      console.log("mistake", err);
     });
-
 }
 
 //
 function handlerSubmitForm(data) {
-  addCard(data.title, data.link);
+  addCard(data.title, data.link, data.likes);
 }
+
+
+
+////// ЭКЗЕМПЛЯРЫ КЛАССОВ //////
 
 //// экзм Kлассов валидации
 const profileValidation = new FormValidator(setting, formEdit); // экземпляр Класса
@@ -126,11 +122,50 @@ const newCardValidation = new FormValidator(setting, formAdd); // экземпл
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
 // enableValidation();
-//const popupConfirmDelete = new PopupWithSuиmmitDelete(popupDeleteConfirm); // попап а вы уверены удалить карточку
+
+//// экзм класса Section (создания карточки)
+const cardsSection = new Section ({
+  renderer: (item) => {
+    //cardsSection.addItem(createCard(item.name, item.link), true); //
+    cardsSection.addItem(createCard(item.name, item.link, item.likes, item.id), true); //
+  }
+  }, '.elements__list'
+);
+
+//// экзм класса UserInfo
+const infoAboutUser = new UserInfo({
+  nameSelector: '.profile__name',
+  aboutInfoSelector: '.profile__job',
+  userAvatar : '.profile__avatar'
+});
 
 //// экзм Классов попапов
-const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile);
-const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm);
-
+const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile); // редактирования имени работы
 editPopup.setEventListeners();
+
+const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm); // добавления нов карточки
 addFotoPopup.setEventListeners();
+
+//const popupDeleteConfirm = new PopupWithForm('.popup_delete-card', handleDeleteOnClick); // попап подтверждения удаления карточки
+//popupDeleteConfirm.setEventListeners();
+
+const popupDeleteConfirm = new PopupWithForm('.popup_delete-card', () => {
+  api.removeCard()}); // попап подтверждения удаления карточки
+
+popupDeleteConfirm.setEventListeners();
+
+function handleDeleteOnClick() {
+  popupDeleteConfirm.open();
+}
+
+handleDeleteOnClick()
+
+//// экзм класса PopupWithImage
+const popupWithZoomPhoto = new PopupWithImage('.popup_zoom');
+popupWithZoomPhoto.setEventListeners();
+
+
+
+//trashButton.addEventListener('click', () => {
+  //();
+//})
