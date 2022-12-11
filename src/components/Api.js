@@ -22,7 +22,7 @@ export class Api {
     .then(this._checkServerAnswer);
   }
 
-  //2 Загрузка списка карточек с сервера
+  // 2 Загрузка списка карточек с сервера
   getInitialCards () {
     return fetch(this._url + `/cards`, {
       method: "GET",
@@ -64,8 +64,6 @@ export class Api {
     .then(this._checkServerAnswer);
   };
 
-  // Поставить лайк
-
   // 6 Поменять аватар
   updateAvatar (avatarLink) { //ссылка на нов аватар
     return fetch(this._url + `/users/me/avatar`, {
@@ -76,8 +74,13 @@ export class Api {
       })})
       .then(this._checkServerAnswer);
   }
-}
 
+  // Поставить лайк
+
+  // Поставить лайк
+
+
+}
 
 
 

@@ -1,5 +1,5 @@
 export class Card {
-  constructor(name, link, likes, templateSelector, handlePreview, id, handleDeleteOnClick) {
+  constructor(name, link, likes, templateSelector, id, handlePreview, handleDeleteOnClick) {
     this._name = name;
     this._link = link;
     this._likes = likes;
@@ -58,7 +58,8 @@ export class Card {
       this._likeIt();
     });
     this._trashButton.addEventListener('click', () => {
-      this._handleDeleteOnClick(this._id); // was  this._deletePhoto();
+      this._handleDeleteOnClick(this._id);
+      // was  this._deletePhoto();
     });
     this._fotoZoomOpen.addEventListener('click', () => {
       this._handlePreview(this._name, this._link);

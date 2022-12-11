@@ -4,6 +4,7 @@
   font-weight: 900;
   margin: 0;
   padding: 34px 64px 47px 36px;
+  font-family: Inter, Helvetica Neue, Arial,sans-serif;
 }
 
 @media all and (max-width: 320px) {

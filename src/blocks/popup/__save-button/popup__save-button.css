@@ -10,6 +10,7 @@
   background-color: black;
   color: white;
   transition: opacity .3s ease;
+  font-family: Inter, Helvetica Neue, Arial,sans-serif;
 }
 
 .popup__save-button:hover {
