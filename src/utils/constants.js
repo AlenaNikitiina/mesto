@@ -3,6 +3,7 @@
 //const formElementAll = document.querySelectorAll('.popup__form'); // все попапы с формами
 export const formEdit = document.querySelector('.form__edit'); // форма редактирования профиля
 export const formAdd = document.querySelector('.form__add'); // форма добавления карточки
+export const formAvatar = document.querySelector('.form__avatar'); // форма добавления карточки
 // Про открытие и закрытие попапа
 export const popupEdit = document.querySelector('.popup_edit');// нашли попапы
 export const popupAdd = document.querySelector('.popup_add');
@@ -17,11 +18,12 @@ export const linkInput = document.querySelector('.linkInput');
 // Куда будут заноситься изменения имени и работы
 export const titleName = document.querySelector('.titleName');
 export const titleJob = document.querySelector('.titleJob');
-// Кнопки открытия и закрытия попапов (трех)
+// Кнопки открытия и закрытия попапов
 export const buttonOpenEdit = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля и открытия попапа
 export const buttonOpenAdd = document.querySelector('.profile__add-button'); //кнопка добавления нового места
 export const popupCloseButtons = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
 
+export const editAvatar = document.querySelector('.profile__avatar'); // редактирование аватара
 export const trashButton = document.querySelector('.element__trash-button') // кнопка мусорки
 //export const popupConfirmDelete = document.querySelector('.popup_delete-card') // попап подтверждения - удалить укарточку?
 

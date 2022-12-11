@@ -2,7 +2,7 @@ export class Card {
   constructor(name, link, likes, templateSelector, handlePreview, id, handleDeleteOnClick) {
     this._name = name;
     this._link = link;
-    this.likes = likes;
+    this._likes = likes;
     this._id = id;
     this._templateItem = document.querySelector(templateSelector).content;
     this._handlePreview = handlePreview;
@@ -25,6 +25,7 @@ export class Card {
 
     //
     this._setListeners();
+
     this.putLikes();
   };
 
@@ -47,8 +48,8 @@ export class Card {
 
   // счетчик лайков
   putLikes () {
-    const putLike = this._myHtmlElement.querySelector('.element__like-counter'); // нашли счетчик лайков
-    putLike.textContent = this.likes.length;
+    const likeCount = this._myHtmlElement.querySelector('.element__like-counter'); // нашли счетчик лайков
+    likeCount.textContent = this._likes.length;
   }
 
   // всем слушатели

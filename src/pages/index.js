@@ -6,7 +6,7 @@ import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
-import { formEdit, formAdd, popupConfirmDelete, trashButton, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, setting } from "../utils/constants.js";
+import { formEdit, formAdd,formAvatar, popupConfirmDelete, trashButton, editAvatar, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, setting } from "../utils/constants.js";
 
 
 let myId
@@ -20,7 +20,7 @@ const api = new Api({
   }
 });
 
-// 1 Это получение исходной информации о пользователе обо мне
+// 1 Получение исходной информации о пользователе (обо мне)
 api.getUserInfo()
   .then((result) => {
     infoAboutUser.setUserInfo(result.name, result.about); // установили имя которое пришло в ответе от сервера
@@ -44,6 +44,7 @@ api.getInitialCards()
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
 buttonOpenEdit.addEventListener('click', () => {
   editPopup.open(); // вызываю метод открытия из класса Popup
@@ -77,7 +78,7 @@ function createCard(name, link, likes) {
   return cardElement;
 }
 
-//4  Функция добавляет новую карточку в начало сайта от человека
+// 4  Функция добавляет новую карточку в начало сайта от человека
 function addCard (name, link, likes) {
   api.uploadNewCard (name, link, likes) // метод из апи - добавить нов карточку с именем и ссылкой
     .then((result) => {
@@ -85,7 +86,7 @@ function addCard (name, link, likes) {
       cardsSection.addItem(createCard(name, link, likes), false); // всё прошло- добавим карточку на страницу
     })
     .catch(err => {
-      console.log("mistake", err);
+      console.log("Не получилось добавить новую карточку", err);
     });
 };
 
@@ -95,14 +96,14 @@ function handlerPreview(name, link) {
   popupWithZoomPhoto.open(name, link);
 };
 
-// 3 колбэк для попапа добавления нов карточки
+// 3 колбэк для попапа добавления нов карточки ????
 function handlerSubmitProfile(data) {
   api.editingProfile (data.nickName, data.about) // м из апи - изм имя, работу и сохранить
     .then((result) => {
       infoAboutUser.setUserInfo(data.nickName, data.about); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
     })
     .catch(err => {
-      console.log("mistake", err);
+      console.log("Не получилось изменить данные", err);
     });
 }
 
@@ -116,12 +117,13 @@ function handlerSubmitForm(data) {
 ////// ЭКЗЕМПЛЯРЫ КЛАССОВ //////
 
 //// экзм Kлассов валидации
-const profileValidation = new FormValidator(setting, formEdit); // экземпляр Класса
-const newCardValidation = new FormValidator(setting, formAdd); // экземпляр Класса
+const profileValidation = new FormValidator(setting, formEdit);
+const newCardValidation = new FormValidator(setting, formAdd);
+const avatarValidation = new FormValidator(setting, formAvatar);
 
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
-// enableValidation();
+avatarValidation.enableValidation();
 
 //// экзм класса Section (создания карточки)
 const cardsSection = new Section ({
@@ -139,43 +141,50 @@ const infoAboutUser = new UserInfo({
   avatarSelector : '.profile__avatar'
 });
 
-//// экзм Классов попапов
-const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile); // редактирования имени работы
-editPopup.setEventListeners();
-
-const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm); // добавления нов карточки
-addFotoPopup.setEventListeners();
-
-//const popupDeleteConfirm = new PopupWithForm('.popup_delete-card', handleDeleteOnClick); // попап подтверждения удаления карточки
-//popupDeleteConfirm.setEventListeners();
-
-const popupDeleteConfirm = new PopupWithForm('.popup_delete-card', () => {
-  api.removeCard()}); // попап подтверждения удаления карточки
-
-popupDeleteConfirm.setEventListeners();
-
-function handleDeleteOnClick() {
-  popupDeleteConfirm.open();
-}
-
-handleDeleteOnClick();
-
-
-//avatar
-const changeAvatarPopup = new PopupWithForm('.popup__change-avatar', ); // поменять аватар
-changeAvatarPopup.setEventListeners();
-
-api.updateAvatar()
-  .then((result) => {
-    infoAboutUser.setUserInfo(result.name, result.about, result.avatar);
-    changeAvatarPopup.close;
-})
-  .catch(err => {
-    console.log("mistake", err);
-});
-
-
 //// экзм класса PopupWithImage
 const popupWithZoomPhoto = new PopupWithImage('.popup_zoom');
 popupWithZoomPhoto.setEventListeners();
+
+//// экзм Классов попапов
+const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile); // редактирования имени, работы
+const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm); // добавления нов карточки
+const popupDeleteConfirm = new PopupWithForm('.popup_delete-card', handleDeleteOnClick); // попап подтв удаления карточки
+const changeAvatarPopup = new PopupWithForm('.popup__change-avatar', handleChangeAvatar); // поменять аватар
+
+editPopup.setEventListeners();
+addFotoPopup.setEventListeners();
+popupDeleteConfirm.setEventListeners();
+changeAvatarPopup.setEventListeners();
+
+
+function handleDeleteOnClick() {
+  api.removeCard()
+  .then((result) => {
+    popupDeleteConfirm.close;
+  })
+}
+
+
+// 6 меняем аватар
+function handleChangeAvatar (data) {
+  console.log("handleChangeAvatar: " , data);
+  api.updateAvatar(data.avatarlink)
+    .then((result) => {
+      console.log("result: ", result)
+      infoAboutUser.setUserInfo(result.name, result.about, result.avatar);
+      changeAvatarPopup.close();
+  })
+  .catch(err => {
+    console.log("Не получилось обновить аватар", err);
+  });
+  //.finally(() => {changeAvatarPopup.renderLoading})
+}
+
+
+
+
+editAvatar.addEventListener('click', () => {
+  changeAvatarPopup.open();
+});
+
 

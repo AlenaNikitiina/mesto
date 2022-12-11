@@ -22,7 +22,6 @@ export class Api {
     .then(this._checkServerAnswer);
   }
 
-
   //2 Загрузка списка карточек с сервера
   getInitialCards () {
     return fetch(this._url + `/cards`, {
@@ -31,7 +30,6 @@ export class Api {
     })
     .then(this._checkServerAnswer);
   }
-
 
   // 3 Редактирование профиля
   editingProfile (newName, newAbout) {
@@ -47,7 +45,7 @@ export class Api {
 
   // 4 Добавить новую карточку
   uploadNewCard (name, link) {
-    return fetch(this._url + '/cards', {
+    return fetch(this._url + `/cards`, {
       method: 'POST', // добавить карточку (POST)
       headers: this._headers,
       body: JSON.stringify({
@@ -59,7 +57,7 @@ export class Api {
 
   // 5 Удалить карточку, ток свою
   removeCard (id) {
-    return fetch(this._url + '/cards', + id, {
+    return fetch(this._url + `/cards`, + id, {
       method: 'DELETE',
       headers: this._headers
     })
@@ -68,6 +66,16 @@ export class Api {
 
   // Поставить лайк
 
+  // 6 Поменять аватар
+  updateAvatar (avatarLink) { //ссылка на нов аватар
+    return fetch(this._url + `/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatarLink,
+      })})
+      .then(this._checkServerAnswer);
+  }
 }
 
 
@@ -76,12 +84,12 @@ export class Api {
 
 
 /*
-2получить список всех карточек в виде массива (GET)
-//4 добавить карточку (POST)
-удалить карточку (DELETE)
-//1получить данные пользователя (GET)
-//3заменить данные пользователя (PATCH)
- заменить аватар (PATCH)
+2 получить список всех карточек в виде массива (GET)
+4 добавить карточку (POST)
+5 удалить карточку (DELETE)
+1 получить данные пользователя (GET)
+3 заменить данные пользователя (PATCH)
 
+заменить аватар (PATCH)
 “залайкать” карточку (PUT)
 удалить лайк карточки (DELETE)*/
