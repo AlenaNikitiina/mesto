@@ -136,7 +136,7 @@ const cardsSection = new Section ({
 const infoAboutUser = new UserInfo({
   nameSelector: '.profile__name',
   aboutInfoSelector: '.profile__job',
-  userAvatar : '.profile__avatar'
+  avatarSelector : '.profile__avatar'
 });
 
 //// экзм Классов попапов
@@ -159,12 +159,23 @@ function handleDeleteOnClick() {
 }
 
 handleDeleteOnClick();
+
+
+//avatar
+const changeAvatarPopup = new PopupWithForm('.popup__change-avatar', ); // поменять аватар
+changeAvatarPopup.setEventListeners();
+
+api.updateAvatar()
+  .then((result) => {
+    infoAboutUser.setUserInfo(result.name, result.about, result.avatar);
+    changeAvatarPopup.close;
+})
+  .catch(err => {
+    console.log("mistake", err);
+});
+
+
 //// экзм класса PopupWithImage
 const popupWithZoomPhoto = new PopupWithImage('.popup_zoom');
 popupWithZoomPhoto.setEventListeners();
 
-
-
-//trashButton.addEventListener('click', () => {
-  //();
-//})
