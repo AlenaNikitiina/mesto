@@ -76,9 +76,22 @@ export class Api {
   }
 
   // Поставить лайк
+  addLike(id) {
+    const req = this._url + `/cards/` + id + `/likes`;
+    console.log(req);
 
-  // Поставить лайк
+    return fetch(this._url + `/cards/` + id + `/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._checkServerAnswer);
+  }
 
+  deleteLike(id) {
+    return fetch(this._url + `/cards/` + id + `/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._checkServerAnswer);
+  }
 
 }
 

@@ -1,5 +1,5 @@
 export class Card {
-  constructor(name, link, likes, templateSelector, id, handlePreview, handleDeleteOnClick) {
+  constructor(name, link, likes, templateSelector, id, handlePreview, handleDeleteOnClick, handlePutLike) {
     this._name = name;
     this._link = link;
     this._likes = likes;
@@ -7,7 +7,9 @@ export class Card {
     this._templateItem = document.querySelector(templateSelector).content;
     this._handlePreview = handlePreview;
     this._handleDeleteOnClick = handleDeleteOnClick;
+    this._handlePutLike = handlePutLike;
 
+    this._haveMyLike = false;
     // клонируем уже элемент разметки
     this._myHtmlElement = this._templateItem.querySelector('.elements__card').cloneNode(true);
     // наполняем содержимым
@@ -26,7 +28,7 @@ export class Card {
     //
     this._setListeners();
 
-    this.putLikes();
+    this._putLikes();
   };
 
   createCard () {
@@ -34,7 +36,11 @@ export class Card {
   };
 
   _likeIt () {
+    console.log("card id ", this._id, this._name);
     this._buttonLike.classList.toggle('element__like_active');
+    this._handlePutLike(!this._haveMyLike, this._id, this.updateLikesList.bind(this));
+    this._haveMyLike = !this._haveMyLike;
+    console.log("like switch");
   };
 
   _deletePhoto () {
@@ -46,10 +52,16 @@ export class Card {
     this._handlePreview(this._name, this._link);
   };
 
-  // счетчик лайков
-  putLikes () {
+  // подсчет числа лайков
+  _putLikes () {
     const likeCount = this._myHtmlElement.querySelector('.element__like-counter'); // нашли счетчик лайков
     likeCount.textContent = this._likes.length;
+  }
+
+  // обновление списка лайков
+  updateLikesList(likesList) {
+    this._likes = likesList;
+    this._putLikes();
   }
 
   // всем слушатели

@@ -35,7 +35,6 @@ api.getUserInfo()
 api.getInitialCards()
   .then((result) => {
     cardsSection.rendererAllItems(result);
-    console.log(result);
   })
   .catch(err => {
     console.log("Не получилось загрузить карточки", err);
@@ -52,12 +51,31 @@ function handlerSubmitProfile(data) {
     });
 }
 
+function handlePutLike(shouldLike, cardId, updateLikesList) {
+  if (shouldLike) {
+    api.addLike(cardId)
+      .then((result) => {
+        updateLikesList(result.likes);
+      })
+      .catch(err => {
+        console.log("Не получилось поставить like", err);
+      });
+  }
+  else {
+    api.deleteLike(cardId)
+      .then((result) => {
+        updateLikesList(result.likes);
+      })
+      .catch(err => {
+        console.log("Не получилось снять like", err);
+      });
+  }
+}
+
 // 6 меняем аватар
 function handleChangeAvatar (data) {
-  console.log("handleChangeAvatar: " , data);
   api.updateAvatar(data.avatarlink)
     .then((result) => {
-      console.log("result: ", result)
       infoAboutUser.setUserInfo(result.name, result.about, result.avatar);
       changeAvatarPopup.close();
   })
@@ -95,7 +113,7 @@ function createCard(name, link, likes) {
 
 //// Создание карточки
 function createCard(name, link, likes, id) {
-  const cardElement = new Card(name, link, likes, templateSelector, id, handlerPreview, openDeletePhotoPopup).createCard()
+  const cardElement = new Card(name, link, likes, templateSelector, id, handlerPreview, openDeletePhotoPopup, handlePutLike).createCard();
   return cardElement;
 }
 
@@ -149,7 +167,7 @@ avatarValidation.enableValidation();
 const cardsSection = new Section ({
   renderer: (item) => {
     //cardsSection.addItem(createCard(item.name, item.link), true); //
-    cardsSection.addItem(createCard(item.name, item.link, item.likes, item.id), true); //
+    cardsSection.addItem(createCard(item.name, item.link, item.likes, item._id), true); //
   }
   }, '.elements__list'
 );
