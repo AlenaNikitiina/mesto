@@ -13,19 +13,16 @@
   }
 }
 
-/*
 .profile__avatar:hover {
   background-image: url('../../../images/Vector.png');
-  height: 26px;
-  width: 26px;
   background-color: transparent;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  box-sizing: border-box;
+  cursor: pointer;
 }
-*/
 
+/*
 .profile__avatar::after {
   content: '';
   position: absolute;
@@ -42,3 +39,4 @@
   opacity: 0;
 }
 
+*/

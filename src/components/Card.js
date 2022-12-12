@@ -10,11 +10,11 @@ export class Card {
     this._handlePutLike = handlePutLike;
 
     this._haveMyLike = false;
+
     // клонируем уже элемент разметки
     this._myHtmlElement = this._templateItem.querySelector('.elements__card').cloneNode(true);
     // наполняем содержимым
     this._myHtmlElement.querySelector('.element__title').textContent = name; //добавляем подпись под фоткой
-
     this._fotoZoomOpen = this._myHtmlElement.querySelector('.element__foto'); // попап зум картинки
     this._fotoZoomOpen.src = link; // добавили атрибут
     this._fotoZoomOpen.alt = name;
@@ -43,7 +43,8 @@ export class Card {
     console.log("like switch");
   };
 
-  _deletePhoto () {
+  // _deletePhoto () {
+  deletePhoto () {
     this._myHtmlElement.remove();
     this._myHtmlElement = null;
   };
@@ -70,8 +71,8 @@ export class Card {
       this._likeIt();
     });
     this._trashButton.addEventListener('click', () => {
-      this._handleDeleteOnClick(this._id);
-      // was  this._deletePhoto();
+      this._handleDeleteOnClick(this._id, this);
+      //this._deletePhoto();
     });
     this._fotoZoomOpen.addEventListener('click', () => {
       this._handlePreview(this._name, this._link);

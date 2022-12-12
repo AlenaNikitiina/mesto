@@ -36,4 +36,13 @@ export class Popup {
     });
   };
 
+
+  _renderLoading(isLoading, statusText) {
+    if (isLoading) {
+      this._popup.querySelector('.popup__save-button').textContent = 'Сохранение...';
+    } else {
+      this._popup.querySelector('.popup__save-button').textContent = statusText;
+    }
+  }
+
 }

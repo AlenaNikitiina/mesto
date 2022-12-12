@@ -6,7 +6,15 @@ import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
+import { PopupWithSubmmitDelete } from "../components/PopupWithSubmmitDelete.js";
 import { formEdit, formAdd,formAvatar, popupConfirmDelete, trashButton, editAvatar, nameInput , jobInput, buttonOpenEdit, buttonOpenAdd, templateSelector, setting } from "../utils/constants.js";
+
+//// экзм Классов попапов
+const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile); // попап редактирования имени, работы
+const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm); // попап добавления нов карточки
+//const popupDeleteConfirm = new PopupWithForm('.popup_delete-card', handleDeleteOnClick); // попап подтв удаления карточки
+const popupDeleteConfirm = new PopupWithSubmmitDelete('.popup_delete-card'); // попап подтв удаления карточки
+const changeAvatarPopup = new PopupWithForm('.popup__change-avatar', handleChangeAvatar); // попап поменять аватар
 
 
 let myId
@@ -23,7 +31,7 @@ const api = new Api({
 // 1 Получение исходной информации о пользователе (обо мне)
 api.getUserInfo()
   .then((result) => {
-    infoAboutUser.setUserInfo(result.name, result.about, result.avatar); // установили имя которое пришло в ответе от сервера
+    infoAboutUser.setUserInfo(result.name, result.about, result.avatar); // установили имя кот пришло в ответе от сервера
     infoAboutUser.setUserAvatar(result.avatar); // установили аватар пришел в ответе от сервера
     myId = res._id
   })
@@ -35,6 +43,7 @@ api.getUserInfo()
 api.getInitialCards()
   .then((result) => {
     cardsSection.rendererAllItems(result);
+    console.log(result)
   })
   .catch(err => {
     console.log("Не получилось загрузить карточки", err);
@@ -49,8 +58,26 @@ function handlerSubmitProfile(data) {
     .catch(err => {
       console.log("Не получилось изменить данные", err);
     });
+    //.finally(() => {changeAvatarPopup.renderLoading})
 }
 
+// 6 меняем аватар
+function handleChangeAvatar (data) {
+  changeAvatarPopup._renderLoading(true);
+  api.updateAvatar(data.avatarlink)
+    .then((result) => {
+      infoAboutUser.setUserInfo(result.name, result.about, result.avatar);
+      changeAvatarPopup.close();
+  })
+  .catch(err => {
+    console.log("Не получилось обновить аватар", err);
+  })
+  .finally(() => {
+    changeAvatarPopup._renderLoading(false, 'Сохранение...');
+  })
+}
+
+// 7 Ф поставить и снять лайк
 function handlePutLike(shouldLike, cardId, updateLikesList) {
   if (shouldLike) {
     api.addLike(cardId)
@@ -60,8 +87,7 @@ function handlePutLike(shouldLike, cardId, updateLikesList) {
       .catch(err => {
         console.log("Не получилось поставить like", err);
       });
-  }
-  else {
+  } else {
     api.deleteLike(cardId)
       .then((result) => {
         updateLikesList(result.likes);
@@ -72,21 +98,9 @@ function handlePutLike(shouldLike, cardId, updateLikesList) {
   }
 }
 
-// 6 меняем аватар
-function handleChangeAvatar (data) {
-  api.updateAvatar(data.avatarlink)
-    .then((result) => {
-      infoAboutUser.setUserInfo(result.name, result.about, result.avatar);
-      changeAvatarPopup.close();
-  })
-  .catch(err => {
-    console.log("Не получилось обновить аватар", err);
-  });
-  //.finally(() => {changeAvatarPopup.renderLoading})
-}
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////
 
 // Функция Открыть форму попапа по нажатию на кнопку редактирования профиля
 buttonOpenEdit.addEventListener('click', () => {
@@ -105,28 +119,46 @@ buttonOpenAdd.addEventListener('click', () => {
   newCardValidation.removeValidationErrors() // чтобы форма всегда при открытии была чистой от ошибок поля
 });
 
-/* //// Создание карточки
-function createCard(name, link, likes) {
-  const cardElement = new Card(name, link, likes, templateSelector, handlerPreview).createCard()
-  return cardElement;}
-*/
 
-//// Создание карточки
+////// Создание карточки
 function createCard(name, link, likes, id) {
-  const cardElement = new Card(name, link, likes, templateSelector, id, handlerPreview, openDeletePhotoPopup, handlePutLike).createCard();
+
+  const handleDeleteCard = (id, currentCard) => {
+    const actionOnConfirm = () => {
+      console.log("actionOnConfirm ", id);
+      api.removeCard(id)
+        .then((result) => {
+          console.log(result);
+          currentCard.deletePhoto();
+        })
+        .catch((error) => {
+          console.log(`Ошибка при удалении карточки: ${error}`);
+        })
+        .finally(() => {
+          popupDeleteConfirm.close();
+        })
+    };
+    console.log("handleDeleteCard");
+    popupDeleteConfirm.open(actionOnConfirm);
+  };
+  const cardElement = new Card(name, link, likes, templateSelector, id, handlerPreview, handleDeleteCard, handlePutLike).createCard();
   return cardElement;
 }
 
 // 4  Функция добавляет новую карточку в начало сайта от человека
 function addCard (name, link) {
+  //addFotoPopup._renderLoading(true)
   api.uploadNewCard (name, link) // метод из апи - добавить нов карточку с именем и ссылкой
     .then((result) => {
-      //cardsSection.addItem(createCard(name, link), false); // всё прошло- добавим карточку на страницу
+      //cardsSection.addItem(createCard(name, link), false); // добавим карточку на страницу
       cardsSection.addItem(createCard(result.name, result.link, result.likes, result.id), false); // всё прошло- добавим карточку на страницу
     })
     .catch(err => {
       console.log("Не получилось добавить новую карточку", err);
-    });
+    })
+    .finally(() => {
+      addFotoPopup._renderLoading(false, 'Сохранение...');
+    })
 };
 
 
@@ -172,6 +204,7 @@ const cardsSection = new Section ({
   }, '.elements__list'
 );
 
+
 //// экзм класса UserInfo
 const infoAboutUser = new UserInfo({
   nameSelector: '.profile__name',
@@ -184,21 +217,18 @@ const popupWithZoomPhoto = new PopupWithImage('.popup_zoom');
 popupWithZoomPhoto.setEventListeners();
 
 
-//// экзм Классов попапов
-const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile); // попап редактирования имени, работы
-const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm); // попап добавления нов карточки
-const popupDeleteConfirm = new PopupWithForm('.popup_delete-card', handleDeleteOnClick); // попап подтв удаления карточки
-const changeAvatarPopup = new PopupWithForm('.popup__change-avatar', handleChangeAvatar); // попап поменять аватар
-
 editPopup.setEventListeners();
 addFotoPopup.setEventListeners();
 popupDeleteConfirm.setEventListeners();
 changeAvatarPopup.setEventListeners();
 
-//
-function handleDeleteOnClick() {
-  api.removeCard()
+// Ф удалить ток свою карточку
+function handleDeleteOnClick(id) {
+  console.log("handleDeleteOnClick ", id);
+  api.removeCard(id)
   .then((result) => {
+    console.log(result)
+    //.deletePhoto();
     popupDeleteConfirm.close();
   })
 }
