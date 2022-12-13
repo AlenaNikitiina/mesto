@@ -65,6 +65,10 @@ export class Card {
     this._putLikes();
   }
 
+
+  //   this._element.querySelector('.card__delete-button')
+  //.classList.add(this._userId === this._ownerId ? 'card__delete-button_visible' : 'card__delete-button_hidden');
+
   // всем слушатели
   _setListeners() {
     this._buttonLike.addEventListener('click', () => {

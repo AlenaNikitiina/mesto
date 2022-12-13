@@ -37,6 +37,8 @@ export class Popup {
   };
 
 
+
+  /*
   _renderLoading(isLoading, statusText) {
     if (isLoading) {
       this._popup.querySelector('.popup__save-button').textContent = 'Сохранение...';
@@ -44,5 +46,5 @@ export class Popup {
       this._popup.querySelector('.popup__save-button').textContent = statusText;
     }
   }
-
+*/
 }

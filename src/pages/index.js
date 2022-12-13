@@ -51,19 +51,21 @@ api.getInitialCards()
 
 // 3 колбэк для попапа редактирования профиля
 function handlerSubmitProfile(data) {
+  changeAvatarPopup.renderLoading ///////
   api.editingProfile (data.nickName, data.about) // м из апи - изм имя, работу и сохранить
     .then((result) => {
       infoAboutUser.setUserInfo(data.nickName, data.about, data.avatar); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
     })
     .catch(err => {
       console.log("Не получилось изменить данные", err);
-    });
-    //.finally(() => {changeAvatarPopup.renderLoading})
+    })
+    .finally(() => {
+      changeAvatarPopup.renderLoading(false) }) ////////
 }
 
 // 6 меняем аватар
 function handleChangeAvatar (data) {
-  changeAvatarPopup._renderLoading(true);
+  changeAvatarPopup.renderLoading(true);
   api.updateAvatar(data.avatarlink)
     .then((result) => {
       infoAboutUser.setUserInfo(result.name, result.about, result.avatar);
@@ -73,7 +75,7 @@ function handleChangeAvatar (data) {
     console.log("Не получилось обновить аватар", err);
   })
   .finally(() => {
-    changeAvatarPopup._renderLoading(false, 'Сохранение...');
+    changeAvatarPopup.renderLoading(false);
   })
 }
 
@@ -126,6 +128,8 @@ function createCard(name, link, likes, id) {
   const handleDeleteCard = (id, currentCard) => {
     const actionOnConfirm = () => {
       console.log("actionOnConfirm ", id);
+      addFotoPopup.renderLoading(true) /////////
+
       api.removeCard(id)
         .then((result) => {
           console.log(result);
@@ -136,6 +140,7 @@ function createCard(name, link, likes, id) {
         })
         .finally(() => {
           popupDeleteConfirm.close();
+          addFotoPopup.renderLoading(true) //////////
         })
     };
     console.log("handleDeleteCard");
@@ -157,7 +162,7 @@ function addCard (name, link) {
       console.log("Не получилось добавить новую карточку", err);
     })
     .finally(() => {
-      addFotoPopup._renderLoading(false, 'Сохранение...');
+      //addFotoPopup._renderLoading(false, 'Сохранение...');
     })
 };
 
@@ -232,3 +237,16 @@ function handleDeleteOnClick(id) {
     popupDeleteConfirm.close();
   })
 }
+
+
+
+/*
+function renderLoading(isLoading, statusText) {
+  if (isLoading === true) {
+    document.querySelector('.popup__save-button').textContent = 'Сохранение...';
+  } else {
+    document.querySelector('.popup__save-button').textContent = statusText;
+  }
+}
+*/
+

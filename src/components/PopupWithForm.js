@@ -7,6 +7,11 @@ export class PopupWithForm extends Popup {
 
     this._formInputs = Array.from(this._popup.querySelectorAll('.form__input')); // сделали руками массив из всех импутов
     this._popupForm = this._popup.querySelector('.popup__form');
+
+    //
+    this._button = this._popup.querySelector('button[type="submit"]');
+    this._buttonDefaultText = this._button.textContent;
+
   };
 
   // метод, который собирает данные из всех полей формы
@@ -39,4 +44,8 @@ export class PopupWithForm extends Popup {
     this._popupForm.reset(); // сбрасываем текст в инпутах формы
   };
 
+  //ч к
+  renderLoading(isSending) {
+    this._button.textContent = isSending ? 'Сохранение...' : this._buttonDefaultText;
+  }
 }
