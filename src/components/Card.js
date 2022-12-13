@@ -1,15 +1,23 @@
 export class Card {
-  constructor(name, link, likes, templateSelector, cardId, handlePreview, handleDeleteOnClick, handlePutLike) {
+  constructor(name, link, likes, templateSelector, cardId, myUserId, ownerId, handlePreview, handleDeleteOnClick, handlePutLike) {
     this._name = name;
     this._link = link;
     this._likes = likes;
     this._cardId = cardId;
+    this._myUserId = myUserId;
+    this._ownerId = ownerId;
     this._templateItem = document.querySelector(templateSelector).content;
     this._handlePreview = handlePreview;
     this._handleDeleteOnClick = handleDeleteOnClick;
     this._handlePutLike = handlePutLike;
 
     this._haveMyLike = false;
+    this._likes.forEach( (item) => {
+      if (item._id === this._myUserId) {
+        this._haveMyLike = true;
+      }
+    });
+    this._canDelete = this._myUserId === this._ownerId;
 
     // клонируем уже элемент разметки
     this._myHtmlElement = this._templateItem.querySelector('.elements__card').cloneNode(true);
@@ -29,9 +37,11 @@ export class Card {
     this._setListeners();
 
     this._putLikes();
+    if (this._haveMyLike)
+      this._buttonLike.classList.toggle('element__like_active');
   };
 
-  createCard () {
+  create () {
     return this._myHtmlElement;
   };
 

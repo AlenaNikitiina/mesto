@@ -46,32 +46,13 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     myId = userInfo._id
 
     cardsSection.rendererAllItems(cards);
+    console.log(cards);
+    console.log("myId: ", myId);
 
   })
   .catch(err => {
     console.log("Не получилось загрузить информацию о пользователе и карточки: ", err);
   });
-/*
-api.getUserInfo()
-  .then((result) => {
-    infoAboutUser.setUserInfo(result.name, result.about, result.avatar); // установили имя кот пришло в ответе от сервера
-    infoAboutUser.setUserAvatar(result.avatar); // установили аватар пришел в ответе от сервера
-    myId = res._id
-  })
-  .catch(err => {
-    console.log("mistake", err);
-});
-
-// 2 Получили чужие карточки загруженные с сервера
-api.getInitialCards()
-  .then((result) => {
-    cardsSection.rendererAllItems(result);
-    console.log(result)
-  })
-  .catch(err => {
-    console.log("Не получилось загрузить карточки", err);
-});
-*/
 
 
 // 3 колбэк для попапа редактирования профиля
@@ -148,12 +129,12 @@ buttonOpenAdd.addEventListener('click', () => {
 
 
 ////// Создание карточки
-function createCard(name, link, likes, id) {
+function createCard(name, link, likes, cardId, ownerId) {
 
-  const handleDeleteCard = (id, currentCard) => {
+  const handleDeleteCard = (cardId, currentCard) => {
     const actionOnConfirm = () => {
-      console.log("actionOnConfirm ", id);
-      api.removeCard(id) // удаление карточки
+      console.log("actionOnConfirm ", cardId);
+      api.removeCard(cardId) // удаление карточки
         .then((result) => {
           console.log(result);
           currentCard.deletePhoto();
@@ -168,7 +149,7 @@ function createCard(name, link, likes, id) {
     console.log("handleDeleteCard");
     popupDeleteConfirm.open(actionOnConfirm);
   };
-  const cardElement = new Card(name, link, likes, templateSelector, id, handlerPreview, handleDeleteCard, handlePutLike).createCard();
+  const cardElement = new Card(name, link, likes, templateSelector, cardId, myId, ownerId, handlerPreview, handleDeleteCard, handlePutLike).create();
   return cardElement;
 }
 
@@ -177,7 +158,7 @@ function addCard (name, link) {
   //cardsSection.renderLoading(true) //////////////////
   api.uploadNewCard (name, link) // метод из апи - добавить нов карточку с именем и ссылкой
     .then((result) => {
-      cardsSection.addItem(createCard(result.name, result.link, result.likes, result.id), false); // всё прошло- добавим карточку на страницу
+      cardsSection.addItem(createCard(result.name, result.link, result.likes, result.id, res.owner._id), false); // всё прошло- добавим карточку на страницу
     })
     .catch(err => {
       console.log("Не получилось добавить новую карточку", err);
@@ -218,7 +199,7 @@ avatarValidation.enableValidation();
 //// экзм класса Section (добавить карточку)
 const cardsSection = new Section ({
   renderer: (item) => {
-    cardsSection.addItem(createCard(item.name, item.link, item.likes, item._id), true); //
+    cardsSection.addItem(createCard(item.name, item.link, item.likes, item._id, item.owner._id), true); //
   }
   }, '.elements__list'
 );
