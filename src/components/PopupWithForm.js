@@ -11,7 +11,6 @@ export class PopupWithForm extends Popup {
     //
     this._button = this._popup.querySelector('button[type="submit"]');
     this._buttonDefaultText = this._button.textContent;
-    console.log(this._button)
 
   };
 
@@ -45,8 +44,15 @@ export class PopupWithForm extends Popup {
     this._popupForm.reset(); // сбрасываем текст в инпутах формы
   };
 
-  //ч к
+  // при загрузке
   renderLoading(isSending) {
-    this._button.textContent = isSending ? 'Сохранение...' : this._buttonDefaultText;
+    console.log("this._button.textContent: ", this._button.textContent);
+    if (isSending) {
+      this._button.textContent = 'Сохранение...';
+      console.log('Сохранение...');
+    }
+    else {
+      this._button.textContent = this._buttonDefaultText;
+    }
   }
 }

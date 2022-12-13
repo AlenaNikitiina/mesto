@@ -129,7 +129,6 @@ buttonOpenAdd.addEventListener('click', () => {
 function createCard(name, link, likes, cardId, ownerId) {
 
   const handleDeleteCard = (cardId, currentCard) => {
-
     const actionOnConfirm = () => {
       api.removeCard(cardId) // удаление карточки
         .then((result) => {
@@ -149,9 +148,18 @@ function createCard(name, link, likes, cardId, ownerId) {
   return cardElement;
 }
 
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
 // 4  Функция добавляет новую карточку в начало сайта от человека
 function addCard (name, link) {
-  //cardsSection.renderLoading(true) //////////////////
+  addFotoPopup.renderLoading(true);
+  sleep(2000);
   api.uploadNewCard (name, link) // метод из апи - добавить нов карточку с именем и ссылкой
     .then((result) => {
       cardsSection.addItem(createCard(result.name, result.link, result.likes, result.id, result.owner._id), false); // всё прошло- добавим карточку на страницу
@@ -160,7 +168,7 @@ function addCard (name, link) {
       console.log("Не получилось добавить новую карточку", err);
     })
     .finally(() => {
-      //cardsSection.renderLoading(false, 'Сохранение...'); ////////////////////
+      addFotoPopup.renderLoading(false);
     })
 };
 
@@ -203,18 +211,4 @@ const cardsSection = new Section ({
   }
   }, '.elements__list'
 );
-
-
-
-
-
-/*
-function renderLoading(isLoading, statusText) {
-  if (isLoading === true) {
-    document.querySelector('.popup__save-button').textContent = 'Сохранение...';
-  } else {
-    document.querySelector('.popup__save-button').textContent = statusText;
-  }
-}
-*/
 

@@ -37,7 +37,7 @@ export class Card {
 
     //
     this._setListeners();
-
+    //
     this._putLikes();
 
     if (this._haveMyLike)
@@ -53,12 +53,10 @@ export class Card {
   };
 
   _likeIt () {
-    //console.log("card cardId ", this._cardId, this._name);
     this._buttonLike.classList.toggle('element__like_active');
 
     this._handlePutLike(!this._haveMyLike, this._cardId, this.updateLikesList.bind(this));
     this._haveMyLike = !this._haveMyLike;
-    //console.log("like switch");
   };
 
   // _deletePhoto () {
@@ -82,10 +80,6 @@ export class Card {
     this._likes = likesList;
     this._putLikes();
   }
-
-
-  //   this._element.querySelector('.card__delete-button')
-  //.classList.add(this._userId === this._ownerId ? 'card__delete-button_visible' : 'card__delete-button_hcardIdden');
 
   // всем слушатели
   _setListeners() {

@@ -75,8 +75,6 @@ export class Api {
 
   // 7 Поставить лайк
   addLike(id) {
-    //const req = this._url + `/cards/` + id + `/likes`;
-    //console.log(req);
     return fetch(this._url + `/cards/` + id + `/likes`, {
       method: "PUT",
       headers: this._headers,
