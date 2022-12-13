@@ -12,12 +12,14 @@ export class Card {
     this._handlePutLike = handlePutLike;
 
     this._haveMyLike = false;
+
     this._likes.forEach( (item) => {
-      if (item._id === this._myUserId) {
+      if (item._id === this._myUserId) { // сравниваем со своим
         this._haveMyLike = true;
       }
     });
-    this._canDelete = this._myUserId === this._ownerId;
+
+    this._canDelete = this._myUserId === this._ownerId; // если да то оставить мусорку
 
     // клонируем уже элемент разметки
     this._myHtmlElement = this._templateItem.querySelector('.elements__card').cloneNode(true);
@@ -37,8 +39,13 @@ export class Card {
     this._setListeners();
 
     this._putLikes();
+
     if (this._haveMyLike)
       this._buttonLike.classList.toggle('element__like_active');
+
+    // активируем мусорку, если карточка наша
+    this._trashButton.classList.add(this._canDelete ? 'element__trash-button_visible' : 'element__trash-button_hidden')
+
   };
 
   create () {
@@ -85,10 +92,11 @@ export class Card {
     this._buttonLike.addEventListener('click', () => {
       this._likeIt();
     });
-    this._trashButton.addEventListener('click', () => {
-      this._handleDeleteOnClick(this._cardId, this);
-      //this._deletePhoto();
-    });
+    if (this._canDelete) {
+      this._trashButton.addEventListener('click', () => {
+        this._handleDeleteOnClick(this._cardId, this);
+      });
+    }
     this._fotoZoomOpen.addEventListener('click', () => {
       this._handlePreview(this._name, this._link);
     });
