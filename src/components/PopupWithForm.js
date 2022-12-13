@@ -11,6 +11,7 @@ export class PopupWithForm extends Popup {
     //
     this._button = this._popup.querySelector('button[type="submit"]');
     this._buttonDefaultText = this._button.textContent;
+    console.log(this._button)
 
   };
 

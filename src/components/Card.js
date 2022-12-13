@@ -1,9 +1,9 @@
 export class Card {
-  constructor(name, link, likes, templateSelector, id, handlePreview, handleDeleteOnClick, handlePutLike) {
+  constructor(name, link, likes, templateSelector, cardId, handlePreview, handleDeleteOnClick, handlePutLike) {
     this._name = name;
     this._link = link;
     this._likes = likes;
-    this._id = id;
+    this._cardId = cardId;
     this._templateItem = document.querySelector(templateSelector).content;
     this._handlePreview = handlePreview;
     this._handleDeleteOnClick = handleDeleteOnClick;
@@ -36,11 +36,12 @@ export class Card {
   };
 
   _likeIt () {
-    console.log("card id ", this._id, this._name);
+    //console.log("card cardId ", this._cardId, this._name);
     this._buttonLike.classList.toggle('element__like_active');
-    this._handlePutLike(!this._haveMyLike, this._id, this.updateLikesList.bind(this));
+
+    this._handlePutLike(!this._haveMyLike, this._cardId, this.updateLikesList.bind(this));
     this._haveMyLike = !this._haveMyLike;
-    console.log("like switch");
+    //console.log("like switch");
   };
 
   // _deletePhoto () {
@@ -67,7 +68,7 @@ export class Card {
 
 
   //   this._element.querySelector('.card__delete-button')
-  //.classList.add(this._userId === this._ownerId ? 'card__delete-button_visible' : 'card__delete-button_hidden');
+  //.classList.add(this._userId === this._ownerId ? 'card__delete-button_visible' : 'card__delete-button_hcardIdden');
 
   // всем слушатели
   _setListeners() {
@@ -75,7 +76,7 @@ export class Card {
       this._likeIt();
     });
     this._trashButton.addEventListener('click', () => {
-      this._handleDeleteOnClick(this._id, this);
+      this._handleDeleteOnClick(this._cardId, this);
       //this._deletePhoto();
     });
     this._fotoZoomOpen.addEventListener('click', () => {

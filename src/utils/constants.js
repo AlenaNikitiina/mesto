@@ -10,6 +10,7 @@ export const popupAdd = document.querySelector('.popup_add');
 export const popupZoom = document.querySelector('.popup_zoom');
 export const popupAll = document.querySelectorAll('.popup');
 export const popupSelector = '.popup'
+export const editAvatar = document.querySelector('.profile__avatar'); // img редактирование аватара
 // Находим поля формы в DOM, в которых можно изменения писать
 export const nameInput = document.querySelector('.nameInput');
 export const jobInput = document.querySelector('.jobInput');
@@ -22,11 +23,6 @@ export const titleJob = document.querySelector('.titleJob');
 export const buttonOpenEdit = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля и открытия попапа
 export const buttonOpenAdd = document.querySelector('.profile__add-button'); //кнопка добавления нового места
 export const popupCloseButtons = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
-
-export const editAvatar = document.querySelector('.profile__avatar'); // редактирование аватара
-export const trashButton = document.querySelector('.element__trash-button') // кнопка мусорки
-//export const popupConfirmDelete = document.querySelector('.popup_delete-card') // попап подтверждения - удалить укарточку?
-
 // Шесть карточек «из коробки»
 export const fotoCards = document.querySelector('.elements__list'); // получаем элемент. ul
 export const templateSelector = '.element-template'

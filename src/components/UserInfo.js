@@ -15,10 +15,14 @@ export class UserInfo {
   }
 
   // Метод который принимает новые данные пользователя и добавляет их на страницу
-  setUserInfo (newProfileName, newProfileAboutInfo, newProfileAvatar) {
+  setUserInfo (newProfileName, newProfileAboutInfo) {
     this._userName.textContent = newProfileName,
     this._userAboutInfo.textContent = newProfileAboutInfo;
-    this._userAvatar.src = newProfileAvatar
+    //this._userAvatar.src = newProfileAvatar;
+  }
+
+  setUserAvatar(newProfileAvatar) {
+    this._userAvatar.src = newProfileAvatar;
   }
 
 }
