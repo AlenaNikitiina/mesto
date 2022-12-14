@@ -42,7 +42,7 @@ let myId = undefined;
 // 1 Получение исходной информации о пользователе (обо мне)
 Promise.all( [api.getUserInfo(), api.getInitialCards()] )
   .then(([userInfo, cards]) => {
-    infoAboutUser.setUserInfo(userInfo.name, userInfo.about, userInfo.avatar); // установили имя кот пришло в ответе от сервера
+    infoAboutUser.setUserInfo(userInfo.name, userInfo.about, userInfo.avatar); // установили имя кот пришло в отв от сервера
     infoAboutUser.setUserAvatar(userInfo.avatar); // установили аватар пришел в ответе от сервера
     myId = userInfo._id
 
@@ -51,8 +51,7 @@ Promise.all( [api.getUserInfo(), api.getInitialCards()] )
   })
   .catch(err => {
     console.log("Не получилось загрузить информацию о пользователе и карточки: ", err);
-  });
-
+});
 
 // 3 колбэк для попапа редактирования профиля
 function handlerSubmitProfile(data) {
@@ -62,10 +61,11 @@ function handlerSubmitProfile(data) {
       infoAboutUser.setUserInfo(data.nickName, data.about, data.avatar); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
     })
     .catch(err => {
-      console.log("Не получилось изменить данные", err);
+      console.log("Не получилось изменить данные: ", err);
     })
     .finally(() => {
-      changeAvatarPopup.renderLoading(false) }) ////////
+      changeAvatarPopup.renderLoading(false)
+    }) ////////
 }
 
 // 6 меняем аватар
@@ -77,7 +77,7 @@ function handleChangeAvatar (data) {
       changeAvatarPopup.close();
   })
   .catch(err => {
-    console.log("Не получилось обновить аватар", err);
+    console.log("Не получилось обновить аватар: ", err);
   })
   .finally(() => {
     changeAvatarPopup.renderLoading(false); ///////////////
@@ -92,7 +92,7 @@ function handlePutLike(shouldLike, cardId, updateLikesList) {
         updateLikesList(result.likes);
       })
       .catch(err => {
-        console.log("Не получилось поставить like", err);
+        console.log("Не получилось поставить like: ", err);
       });
   } else {
     api.deleteLike(cardId)
@@ -100,7 +100,7 @@ function handlePutLike(shouldLike, cardId, updateLikesList) {
         updateLikesList(result.likes);
       })
       .catch(err => {
-        console.log("Не получилось снять like", err);
+        console.log("Не получилось снять like: ", err);
       });
   }
 }
@@ -135,8 +135,8 @@ function createCard(name, link, likes, cardId, ownerId) {
           console.log(result);
           currentCard.deletePhoto();
         })
-        .catch((error) => {
-          console.log(`Ошибка при удалении карточки: ${error}`);
+        .catch((err) => {
+          console.log("Ошибка при удалении карточки: ", err);
         })
         .finally(() => {
           popupDeleteConfirm.close();
@@ -144,28 +144,22 @@ function createCard(name, link, likes, cardId, ownerId) {
     };
     popupDeleteConfirm.open(actionOnConfirm);
   };
+
   const cardElement = new Card(name, link, likes, templateSelector, cardId, myId, ownerId, handlerPreview, handleDeleteCard, handlePutLike).create(); // в конце метод
+
   return cardElement;
 }
 
-function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-}
-
-// 4  Функция добавляет новую карточку в начало сайта от человека
+// 4 Функция добавляет новую карточку в начало сайта от человека
 function addCard (name, link) {
   addFotoPopup.renderLoading(true);
-  sleep(2000);
   api.uploadNewCard (name, link) // метод из апи - добавить нов карточку с именем и ссылкой
     .then((result) => {
-      cardsSection.addItem(createCard(result.name, result.link, result.likes, result.id, result.owner._id), false); // всё прошло- добавим карточку на страницу
+      cardsSection.addItem(createCard(result.name, result.link, result.likes, result.id, result.owner._id), false); // экзм Section, все прошло- добавим карточку на страницу
+      addFotoPopup.close();
     })
     .catch(err => {
-      console.log("Не получилось добавить новую карточку", err);
+      console.log("Не получилось добавить новую карточку: ", err);
     })
     .finally(() => {
       addFotoPopup.renderLoading(false);
@@ -211,4 +205,3 @@ const cardsSection = new Section ({
   }
   }, '.elements__list'
 );
-

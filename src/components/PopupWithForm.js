@@ -9,8 +9,8 @@ export class PopupWithForm extends Popup {
     this._popupForm = this._popup.querySelector('.popup__form');
 
     //
-    this._button = this._popup.querySelector('button[type="submit"]');
-    this._buttonDefaultText = this._button.textContent;
+    this._submitButton = this._popup.querySelector('button[type="submit"]'); // нашликнопку по типу
+    this._buttonDefaultText = this._submitButton.textContent;
 
   };
 
@@ -39,20 +39,22 @@ export class PopupWithForm extends Popup {
   };
 
   //
-  close () {
-    super.close(); // вызвали родительский + допишем свой
-    this._popupForm.reset(); // сбрасываем текст в инпутах формы
-  };
+  //close () {
+    //super.close(); // вызвали родительский + допишем свой
+    //this._popupForm.reset(); // сбрасываем текст в инпутах формы
+  //};
 
   // при загрузке
   renderLoading(isSending) {
-    console.log("this._button.textContent: ", this._button.textContent);
+    console.log("this._submitButton.textContent: ", this._submitButton.textContent);
+
     if (isSending) {
-      this._button.textContent = 'Сохранение...';
+      this._submitButton.textContent = 'Сохранение...';
+
       console.log('Сохранение...');
     }
     else {
-      this._button.textContent = this._buttonDefaultText;
+      this._submitButton.textContent = this._buttonDefaultText;
     }
   }
 }
