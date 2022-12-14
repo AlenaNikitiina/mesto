@@ -9,8 +9,8 @@ export class Card {
     this._templateItem = document.querySelector(templateSelector).content;
     this._handlePreview = handlePreview;
     this._handleDeleteOnClick = handleDeleteOnClick;
-    this._handlePutLike = handlePutLike;
 
+    this._handlePutLike = handlePutLike;
     this._haveMyLike = false;
 
     this._likes.forEach( (item) => {

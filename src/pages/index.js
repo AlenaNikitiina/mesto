@@ -55,7 +55,7 @@ Promise.all( [api.getUserInfo(), api.getInitialCards()] )
 
 // 3 колбэк для попапа редактирования профиля
 function handlerSubmitProfile(data) {
-  changeAvatarPopup.renderLoading ///////
+  changeAvatarPopup.renderLoading
   api.editingProfile (data.nickName, data.about) // м из апи - изм имя, работу и сохранить
     .then((result) => {
       infoAboutUser.setUserInfo(data.nickName, data.about, data.avatar); // вызвали М из UserInfo кот принимает новые данные чела и добавляет их на страницу
@@ -65,12 +65,12 @@ function handlerSubmitProfile(data) {
     })
     .finally(() => {
       changeAvatarPopup.renderLoading(false)
-    }) ////////
+    })
 }
 
 // 6 меняем аватар
 function handleChangeAvatar (data) {
-  changeAvatarPopup.renderLoading(true); ///////////////
+  changeAvatarPopup.renderLoading(true);
   api.updateAvatar(data.avatarlink)
     .then((result) => {
       infoAboutUser.setUserInfo(result.name, result.about, result.avatar);
@@ -80,7 +80,7 @@ function handleChangeAvatar (data) {
     console.log("Не получилось обновить аватар: ", err);
   })
   .finally(() => {
-    changeAvatarPopup.renderLoading(false); ///////////////
+    changeAvatarPopup.renderLoading(false);
   })
 }
 
@@ -172,7 +172,7 @@ function handlerPreview(name, link) {
   popupWithZoomPhoto.open(name, link);
 };
 
-// ф открыть попап изменить аватар
+// функция открыть попап изменить аватар
 editAvatar.addEventListener('click', () => {
   changeAvatarPopup.open();
 });

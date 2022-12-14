@@ -9,7 +9,7 @@ export class PopupWithForm extends Popup {
     this._popupForm = this._popup.querySelector('.popup__form');
 
     //
-    this._submitButton = this._popup.querySelector('button[type="submit"]'); // нашликнопку по типу
+    this._submitButton = this._popup.querySelector('button[type="submit"]'); // нашли кнопку по типу
     this._buttonDefaultText = this._submitButton.textContent;
 
   };

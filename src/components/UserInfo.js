@@ -18,7 +18,6 @@ export class UserInfo {
   setUserInfo (newProfileName, newProfileAboutInfo) {
     this._userName.textContent = newProfileName,
     this._userAboutInfo.textContent = newProfileAboutInfo;
-    //this._userAvatar.src = newProfileAvatar;
   }
 
   setUserAvatar(newProfileAvatar) {

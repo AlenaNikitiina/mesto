@@ -16,11 +16,12 @@
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 @import url(../blocks/profile/__description/profile__description.css);
 
-/*element*/
+/*elements*/
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/elements/__list/elements__list.css);
 @import url(../blocks/elements/__card/elements__card.css);
 
+/*element*/
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__title/element__title.css);
 @import url(../blocks/element/__foto/element__foto.css);
