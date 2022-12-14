@@ -12,7 +12,7 @@ import { formEdit, formAdd,formAvatar, editAvatar, nameInput , jobInput, buttonO
 //// экзм Классов попапов
 const editPopup = new PopupWithForm('.popup_edit', handlerSubmitProfile); // попап редактирования имени, работы
 const addFotoPopup = new PopupWithForm('.popup_add', handlerSubmitForm); // попап добавления нов карточки
-const changeAvatarPopup = new PopupWithForm('.popup__change-avatar', handleChangeAvatar); // попап поменять аватар
+const changeAvatarPopup = new PopupWithForm('.popup_change-avatar', handleChangeAvatar); // попап поменять аватар
 const popupDeleteConfirm = new PopupWithSubmmitDelete('.popup_delete-card'); // попап подтв удаления карточки
 
 editPopup.setEventListeners();
@@ -47,7 +47,7 @@ Promise.all( [api.getUserInfo(), api.getInitialCards()] )
     myId = userInfo._id
 
     cardsSection.rendererAllItems(cards); // отрисовали
-    console.log(cards);
+    //console.log(cards);
   })
   .catch(err => {
     console.log("Не получилось загрузить информацию о пользователе и карточки: ", err);
@@ -64,6 +64,7 @@ function handlerSubmitProfile(data) {
       console.log("Не получилось изменить данные: ", err);
     })
     .finally(() => {
+      changeAvatarPopup.close();
       changeAvatarPopup.renderLoading(false)
     })
 }
@@ -71,6 +72,7 @@ function handlerSubmitProfile(data) {
 // 6 меняем аватар
 function handleChangeAvatar (data) {
   changeAvatarPopup.renderLoading(true);
+
   api.updateAvatar(data.avatarlink)
     .then((result) => {
       infoAboutUser.setUserInfo(result.name, result.about, result.avatar);
@@ -80,6 +82,7 @@ function handleChangeAvatar (data) {
     console.log("Не получилось обновить аватар: ", err);
   })
   .finally(() => {
+    changeAvatarPopup.close();
     changeAvatarPopup.renderLoading(false);
   })
 }
@@ -145,7 +148,7 @@ function createCard(name, link, likes, cardId, ownerId) {
     popupDeleteConfirm.open(actionOnConfirm);
   };
 
-  const cardElement = new Card(name, link, likes, templateSelector, cardId, myId, ownerId, handlerPreview, handleDeleteCard, handlePutLike).create(); // в конце метод
+  const cardElement = new Card(name, link, likes, templateSelector, cardId, myId, ownerId, handlerPreview, handleDeleteCard, handlePutLike).create(); // в конце метод из Card
 
   return cardElement;
 }
@@ -153,6 +156,7 @@ function createCard(name, link, likes, cardId, ownerId) {
 // 4 Функция добавляет новую карточку в начало сайта от человека
 function addCard (name, link) {
   addFotoPopup.renderLoading(true);
+
   api.uploadNewCard (name, link) // метод из апи - добавить нов карточку с именем и ссылкой
     .then((result) => {
       cardsSection.addItem(createCard(result.name, result.link, result.likes, result.id, result.owner._id), false); // экзм Section, все прошло- добавим карточку на страницу
@@ -162,6 +166,7 @@ function addCard (name, link) {
       console.log("Не получилось добавить новую карточку: ", err);
     })
     .finally(() => {
+      addFotoPopup.close();
       addFotoPopup.renderLoading(false);
     })
 };
