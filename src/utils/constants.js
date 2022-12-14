@@ -3,12 +3,14 @@
 //const formElementAll = document.querySelectorAll('.popup__form'); // все попапы с формами
 export const formEdit = document.querySelector('.form__edit'); // форма редактирования профиля
 export const formAdd = document.querySelector('.form__add'); // форма добавления карточки
+export const formAvatar = document.querySelector('.form__avatar'); // форма добавления карточки
 // Про открытие и закрытие попапа
 export const popupEdit = document.querySelector('.popup_edit');// нашли попапы
 export const popupAdd = document.querySelector('.popup_add');
 export const popupZoom = document.querySelector('.popup_zoom');
 export const popupAll = document.querySelectorAll('.popup');
 export const popupSelector = '.popup'
+export const editAvatar = document.querySelector('.profile__avatar'); // img редактирование аватара
 // Находим поля формы в DOM, в которых можно изменения писать
 export const nameInput = document.querySelector('.nameInput');
 export const jobInput = document.querySelector('.jobInput');
@@ -17,7 +19,7 @@ export const linkInput = document.querySelector('.linkInput');
 // Куда будут заноситься изменения имени и работы
 export const titleName = document.querySelector('.titleName');
 export const titleJob = document.querySelector('.titleJob');
-// Кнопки открытия и закрытия попапов (трех)
+// Кнопки открытия и закрытия попапов
 export const buttonOpenEdit = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля и открытия попапа
 export const buttonOpenAdd = document.querySelector('.profile__add-button'); //кнопка добавления нового места
 export const popupCloseButtons = document.querySelectorAll('.popup__close-button'); // кнопка закрыть попап, крестик
@@ -40,31 +42,3 @@ export const setting = {
   submitButtonSelector: '.form__submit',
   buttonElementInactiv: 'form__submit_inactive',
 }
-
-// Массив с именами карточек и линками
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];

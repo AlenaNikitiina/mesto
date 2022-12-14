@@ -3,6 +3,7 @@
   margin: 0px 36px 35px 36px;
   border-bottom: 1px solid rgb(0%, 0%, 0%, 20%);
   padding: 0px 0px 8px 0px;
+  font-family: Inter, Helvetica Neue, Arial,sans-serif;
 }
 
 @media all and (max-width: 440px) {

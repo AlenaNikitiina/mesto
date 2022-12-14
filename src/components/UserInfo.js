@@ -1,7 +1,8 @@
 export class UserInfo {
-  constructor ({ nameSelector, aboutInfoSelector }) {
+  constructor ({ nameSelector, aboutInfoSelector, avatarSelector }) {
     this._userName = document.querySelector(nameSelector); // имя
     this._userAboutInfo = document.querySelector(aboutInfoSelector); // инфа о себе
+    this._userAvatar = document.querySelector(avatarSelector); // фото профиля
   }
 
   // Метод возвращает объект с данными пользователя.пригодится когда данные пользователя нужно будет подставить в форму при открытии
@@ -9,6 +10,7 @@ export class UserInfo {
     return {
       profileName: this._userName.textContent,
       profileAboutInfo: this._userAboutInfo.textContent,
+      profileAvatar: this._userAvatar,
     }
   }
 
@@ -16,6 +18,10 @@ export class UserInfo {
   setUserInfo (newProfileName, newProfileAboutInfo) {
     this._userName.textContent = newProfileName,
     this._userAboutInfo.textContent = newProfileAboutInfo;
+  }
+
+  setUserAvatar(newProfileAvatar) {
+    this._userAvatar.src = newProfileAvatar;
   }
 
 }

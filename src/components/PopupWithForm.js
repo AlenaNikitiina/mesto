@@ -5,14 +5,19 @@ export class PopupWithForm extends Popup {
     super(popupSelector); //  селектора попапа
     this._callbackSubmitForm = callBackSubmitForm; // колбэк сабмита формы
 
-    this._formInputs = Array.from(this._popup.querySelectorAll('.form__input'));
+    this._formInputs = Array.from(this._popup.querySelectorAll('.form__input')); // сделали руками массив из всех импутов
     this._popupForm = this._popup.querySelector('.popup__form');
+
+    //
+    this._submitButton = this._popup.querySelector('button[type="submit"]'); // нашли кнопку по типу
+    this._buttonDefaultText = this._submitButton.textContent;
+
   };
 
-  // метод, который собирает данные всех полей формы
+  // метод, который собирает данные из всех полей формы
   _getInputValues () {
     const inputValues = {}; // сделали пустой обьект
-    // в него добавляем значения всех полей
+    // в него добавляем значения всех полей и присваиваем значение
     this._formInputs.forEach((input) => {
       inputValues[input.id] = input.value;
     });
@@ -25,10 +30,11 @@ export class PopupWithForm extends Popup {
     this._popupForm.addEventListener('submit', this._submit.bind(this)); // добавляем обработчик сабмита формы
   };
 
+  //
   _submit (evt) {
     evt.preventDefault();
-    this._callbackSubmitForm(this._getInputValues());
 
+    this._callbackSubmitForm(this._getInputValues());
     this.close();
   };
 
@@ -38,4 +44,17 @@ export class PopupWithForm extends Popup {
     this._popupForm.reset(); // сбрасываем текст в инпутах формы
   };
 
+  // при загрузке
+  renderLoading(isSending) {
+    console.log("this._submitButton.textContent: ", this._submitButton.textContent);
+
+    if (isSending) {
+      this._submitButton.textContent = 'Сохранение...';
+
+      console.log('Сохранение...');
+    }
+    else {
+      this._submitButton.textContent = this._buttonDefaultText;
+    }
+  }
 }

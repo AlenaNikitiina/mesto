@@ -16,8 +16,8 @@
             <div class="profile__description">
               <img class="profile__avatar" src="<%=require('./images/profile__avatar.jpg')%>"alt="Ваш аватар">
               <div class="profile__info">
-                <h1 class="profile__name titleName">Жак-Ив Кусто</h1>
-                <p class="profile__job titleJob">Исследователь океана</p>
+                <h1 class="profile__name titleName"></h1>
+                <p class="profile__job titleJob"></p>
                 <button class="profile__edit-button" type="button"></button>
               </div>
             </div>
@@ -71,6 +71,28 @@
         </div>
     </div>
 
+        <div class="popup popup_delete-card">
+          <div class="popup__container form">
+            <form action="#" class="popup__form" id="delete-card">
+              <button class="popup__close-button" type="button"></button>
+              <h3 class="popup__title">Вы уверены?</h3>
+              <button class="popup__save-button popup__button form__submit" name="delete-card" type="submit">Да</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="popup popup__change-avatar">
+          <div class="popup__container form">
+            <button class="popup__close-button" type="button"></button>
+            <h3 class="popup__title">Обновить аватар</h3>
+            <form action="#" name="form_avatar" novalidate class="form__avatar popup__form">
+              <input class="form__input popup__input linkInput" type="url" id="avatarlink" required placeholder="Ссылка на картинку">
+              <span class="form__input-error avatarlink-error"></span>
+              <button class="popup__save-button popup__button form__submit" type="submit">Сохранить</button>
+            </form>
+          </div>
+        </div>
+
     <template class="element-template">
       <li class="elements__card">
         <article class="element">
@@ -78,6 +100,7 @@
           <img class="element__foto">
           <h2 class="element__title"></h2>
           <button class="element__like" type="button"></button>
+          <span class="element__like-counter"></span>
         </article>
       </li>
     </template>
