@@ -39,10 +39,10 @@ export class PopupWithForm extends Popup {
   };
 
   //
-  //close () {
-    //super.close(); // вызвали родительский + допишем свой
-    //this._popupForm.reset(); // сбрасываем текст в инпутах формы
-  //};
+  close () {
+    super.close(); // вызвали родительский + допишем свой
+    this._popupForm.reset(); // сбрасываем текст в инпутах формы
+  };
 
   // при загрузке
   renderLoading(isSending) {
