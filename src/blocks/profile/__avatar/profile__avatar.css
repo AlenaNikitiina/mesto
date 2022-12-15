@@ -21,6 +21,10 @@
   background-repeat: no-repeat;
   cursor: pointer;
 }
+/*
+width: 25px;
+height: 25px;
+*/
 
 /*
 .profile__avatar::after {

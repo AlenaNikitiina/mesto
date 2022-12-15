@@ -52,14 +52,11 @@ export class Card {
     return this._myHtmlElement;
   };
 
-  _likeIt () {
+  likeIt () {
     this._buttonLike.classList.toggle('element__like_active');
-
-    this._handlePutLike(!this._haveMyLike, this._cardId, this.updateLikesList.bind(this));
     this._haveMyLike = !this._haveMyLike;
   };
 
-  // _deletePhoto () {
   deletePhoto () {
     this._myHtmlElement.remove();
     this._myHtmlElement = null;
@@ -84,7 +81,7 @@ export class Card {
   // всем слушатели
   _setListeners() {
     this._buttonLike.addEventListener('click', () => {
-      this._likeIt();
+      this._handlePutLike(!this._haveMyLike, this._cardId, this.updateLikesList.bind(this), this.likeIt.bind(this));
     });
     if (this._canDelete) {
       this._trashButton.addEventListener('click', () => {

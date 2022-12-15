@@ -4,6 +4,8 @@ export class FormValidator {
     this.formToValid = formToValid;
     // setting = это теперь this._selectorsSetting
     // formElementAll = это теперь this.formToValid (и это любая форма которую передаем при созд нов класса экземпляра)
+    this._inputList = Array.from(this.formToValid.querySelectorAll(this._selectorsSetting.inputSelector)); // Находим все поля внутри формы, сделаем из них массив
+    this._buttonElement = this.formToValid.querySelector(this._selectorsSetting.submitButtonSelector);
   }
 
   // Метод, который вкл валидацию формы
@@ -59,8 +61,6 @@ export class FormValidator {
 
   // 4 Метод, который добавляет слушатель событий всем полям ввода внутри формы
   _setEventListeners() {
-    this._inputList = Array.from(this.formToValid.querySelectorAll(this._selectorsSetting.inputSelector)); // Находим все поля внутри формы, сделаем из них массив
-    this._buttonElement = this.formToValid.querySelector(this._selectorsSetting.submitButtonSelector);
     this._toggleButtonState(); // Вызовем ее, чтобы не ждать ввода данных в поля
 
     // Обойдём все элементы полученной коллекции
