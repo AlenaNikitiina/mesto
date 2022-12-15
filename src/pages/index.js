@@ -134,17 +134,20 @@ buttonOpenAdd.addEventListener('click', () => {
 function createCard(name, link, likes, cardId, ownerId) {
 
   const handleDeleteCard = (cardId, currentCard) => {
+    popupAddFoto.renderLoading(true);
     const actionOnConfirm = () => {
+
       api.removeCard(cardId) // удаление карточки
         .then((result) => {
           console.log(result);
           currentCard.deletePhoto();
+          popupDeleteConfirm.close()
         })
         .catch((err) => {
           console.log("Ошибка при удалении карточки: ", err);
         })
         .finally(() => {
-          //popupDeleteConfirm.close(); /////////////////////////////
+          popupAddFoto.renderLoading(false);
         })
     };
     popupDeleteConfirm.open(actionOnConfirm);

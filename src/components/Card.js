@@ -57,7 +57,6 @@ export class Card {
     this._haveMyLike = !this._haveMyLike;
   };
 
-  // _deletePhoto () {
   deletePhoto () {
     this._myHtmlElement.remove();
     this._myHtmlElement = null;
