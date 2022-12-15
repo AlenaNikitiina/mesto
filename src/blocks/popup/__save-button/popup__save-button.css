@@ -1,6 +1,6 @@
 .popup__save-button {
   max-width: 358px;
-  margin: 15px 36px;
+  margin: 10px 36px 35px;
   padding: 14px 18px;
   border-style: none;
   border-radius: 2px;
@@ -31,7 +31,7 @@
 @media all and (max-width: 320px) {
   .popup__save-button {
     max-width: 238px;
-    margin: 13px 25px;
+    margin: 10px 25px 10px;
     font-size: 14px;
   }
 }

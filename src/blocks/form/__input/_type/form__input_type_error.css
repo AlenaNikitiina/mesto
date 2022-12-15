@@ -5,6 +5,6 @@
 
 @media all and (max-width: 440px) {
   .form__input_type_error {
-    margin: 3px 22px 28px 22px;
+    margin: 3px 22px 0px;
   }
 }
