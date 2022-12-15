@@ -75,7 +75,6 @@ function handleChangeAvatar (data) {
 
   api.updateAvatar(data.avatarlink)
     .then((result) => {
-      //infoAboutUser.setUserInfo(result.name, result.about, result.avatar);
       infoAboutUser.setUserAvatar(result.avatar);
       popupChangeAvatar.close();
   })
