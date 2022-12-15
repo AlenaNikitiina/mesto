@@ -46,12 +46,8 @@ export class PopupWithForm extends Popup {
 
   // при загрузке
   renderLoading(isSending) {
-    console.log("this._submitButton.textContent: ", this._submitButton.textContent);
-
     if (isSending) {
       this._submitButton.textContent = 'Сохранение...';
-
-      console.log('Сохранение...');
     }
     else {
       this._submitButton.textContent = this._buttonDefaultText;
